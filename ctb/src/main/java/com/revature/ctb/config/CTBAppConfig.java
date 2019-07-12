@@ -45,7 +45,7 @@ public class CTBAppConfig implements WebMvcConfigurer {
 		}
 
 		// get connection properties from the system variables
-		String url = "jdbc:postgresql://" + System.getenv("CTB_URL") + ":5432/jose_1905java";
+		String url = "jdbc:postgresql://" + System.getenv("CTB_URL") + ":5432/tan-1905java";
 		String username = System.getenv("CTB_USERNAME");
 		String password = System.getenv("CTB_PASSWORD");
 
