@@ -62,6 +62,8 @@ public class CTBAppConfig implements WebMvcConfigurer {
 		myDataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
 		myDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
 		myDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
+		
+		LogUtilities.trace("Connected");
 
 		return myDataSource;
 	}
