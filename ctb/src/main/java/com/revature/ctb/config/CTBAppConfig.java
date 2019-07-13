@@ -71,7 +71,6 @@ public class CTBAppConfig implements WebMvcConfigurer {
 
 		props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-//		props.setProperty("hibernate.connection.provider_class", "org.hibernate.c3p0.internal.C3P0ConnectionProvider");
 
 		return props;
 	}
@@ -82,10 +81,8 @@ public class CTBAppConfig implements WebMvcConfigurer {
 
 		String propVal = env.getProperty(propName);
 
-		// now convert to int
-		int intPropVal = Integer.parseInt(propVal);
-
-		return intPropVal;
+		// now convert to integer
+		return Integer.parseInt(propVal);
 	}
 
 	@Bean

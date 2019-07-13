@@ -15,8 +15,12 @@ import com.revature.ctb.services.RoleService;
 public class RoleRestController {
 	
 	@Autowired
-	private RoleService roleServ;
+	private RoleService roleServ; // injecting roleService
 
+	/**
+	 * Getting roles from the rest controller.
+	 * @return All roles
+	 */
 	@GetMapping("/roles")
 	public List<Role> getAllRoles() {
 		return roleServ.getAllRoles();
