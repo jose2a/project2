@@ -12,22 +12,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.Employee;
+import com.revature.ctb.exceptions.BadRequestException;
 import com.revature.ctb.services.EmployeeService;
 import com.revature.ctb.utils.ValidationUtil;
 
 @RestController
 @RequestMapping("/api")
 public class EmployeeRestController {
-	
+
 	@Autowired
 	private EmployeeService employeeServ;
 
 	@PostMapping("employee")
 	@ResponseStatus(code = HttpStatus.OK)
-	public Employee postEmployee(@Valid @RequestBody Employee emp, BindingResult theBindingResult) {
-		
+	public Employee postEmployee(@Valid @RequestBody Employee emp, BindingResult theBindingResult)
+			throws BadRequestException {
+
 		ValidationUtil.checkModelForValidationErrors(theBindingResult);
-		
+
 		employeeServ.registerEmployee(emp);
 
 		return emp;

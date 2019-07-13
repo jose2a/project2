@@ -2,8 +2,6 @@ package com.revature.ctb.services;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +15,6 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDAO roleDao;
 
 	@Override
-	@Transactional
 	public List<Role> getAllRoles() {
 		return roleDao.getAllRoles();
 	}

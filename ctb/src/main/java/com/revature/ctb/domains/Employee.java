@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -46,16 +47,16 @@ public class Employee {
 	@NotNull(message = "Phone Number is required") // Validating
 	private String phoneNumber;
 	@Column(name = "driver_license")
-	@NotNull(message = "Driver License is required") // Validating
+	@NotEmpty( message = "Driver License is required") // Validating
 	private String driverLicense;
 	@Column(name = "num_flags")
 	private Integer numberOfFlags;
 	@Column(name = "active")
-	private Boolean active;
+	private boolean active;
 	@Column(name = "block")
-	private Boolean block;
+	private boolean block;
 	@Column(name = "driver")
-	private Boolean driver;
+	private boolean driver;
 
 	// Mapping a m to m relationship
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -68,8 +69,8 @@ public class Employee {
 	}
 
 	public Employee(Integer employeeId, String username, String password, String firstName, String lastName,
-			String email, String phoneNumber, String driverLicense, Integer numberOfFlags, Boolean active,
-			Boolean block, Boolean driver) {
+			String email, String phoneNumber, String driverLicense, Integer numberOfFlags, boolean active,
+			boolean block, boolean driver) {
 		super();
 		this.employeeId = employeeId;
 		this.username = username;
@@ -86,8 +87,8 @@ public class Employee {
 	}
 
 	public Employee(String username, String password, String firstName, String lastName, String email,
-			String phoneNumber, String driverLicense, Integer numberOfFlags, Boolean active, Boolean block,
-			Boolean driver) {
+			String phoneNumber, String driverLicense, Integer numberOfFlags, boolean active, boolean block,
+			boolean driver) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -174,27 +175,27 @@ public class Employee {
 		this.numberOfFlags = numberOfFlags;
 	}
 
-	public Boolean getActive() {
+	public boolean isActive() {
 		return active;
 	}
 
-	public void setActive(Boolean active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
-	public Boolean getBlock() {
+	public boolean isBlock() {
 		return block;
 	}
 
-	public void setBlock(Boolean block) {
+	public void setBlock(boolean block) {
 		this.block = block;
 	}
 
-	public Boolean getDriver() {
+	public boolean isDriver() {
 		return driver;
 	}
 
-	public void setDriver(Boolean driver) {
+	public void setDriver(boolean driver) {
 		this.driver = driver;
 	}
 
@@ -238,9 +239,9 @@ public class Employee {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((active == null) ? 0 : active.hashCode());
-		result = prime * result + ((block == null) ? 0 : block.hashCode());
-		result = prime * result + ((driver == null) ? 0 : driver.hashCode());
+		result = prime * result + (active ? 1231 : 1237);
+		result = prime * result + (block ? 1231 : 1237);
+		result = prime * result + (driver ? 1231 : 1237);
 		result = prime * result + ((driverLicense == null) ? 0 : driverLicense.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((employeeId == null) ? 0 : employeeId.hashCode());
@@ -249,6 +250,7 @@ public class Employee {
 		result = prime * result + ((numberOfFlags == null) ? 0 : numberOfFlags.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
+		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -262,20 +264,11 @@ public class Employee {
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		if (active == null) {
-			if (other.active != null)
-				return false;
-		} else if (!active.equals(other.active))
+		if (active != other.active)
 			return false;
-		if (block == null) {
-			if (other.block != null)
-				return false;
-		} else if (!block.equals(other.block))
+		if (block != other.block)
 			return false;
-		if (driver == null) {
-			if (other.driver != null)
-				return false;
-		} else if (!driver.equals(other.driver))
+		if (driver != other.driver)
 			return false;
 		if (driverLicense == null) {
 			if (other.driverLicense != null)
@@ -316,6 +309,11 @@ public class Employee {
 			if (other.phoneNumber != null)
 				return false;
 		} else if (!phoneNumber.equals(other.phoneNumber))
+			return false;
+		if (roles == null) {
+			if (other.roles != null)
+				return false;
+		} else if (!roles.equals(other.roles))
 			return false;
 		if (username == null) {
 			if (other.username != null)

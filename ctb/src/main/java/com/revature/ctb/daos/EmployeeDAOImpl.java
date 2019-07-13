@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.revature.ctb.domains.Employee;
+import com.revature.ctb.utils.LogUtil;
 
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
@@ -33,6 +34,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public Employee getEmployeeByUsername(String username) {
+		LogUtil.trace("Getting Employee by username");
+
 		// get current hibernate session
 		Session session = sessionFactory.getCurrentSession();
 
@@ -40,7 +43,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		Query query = session.createQuery("from Employee where username = :username");
 		query.setParameter("username", username);
 
-		Employee employee = (Employee) query.getSingleResult();
+		Employee employee = null;
+
+		if (!query.getResultList().isEmpty()) {
+
+			employee = (Employee) query.getSingleResult();
+		}
 
 		// close session
 		session.close();

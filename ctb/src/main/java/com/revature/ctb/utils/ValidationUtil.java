@@ -12,8 +12,9 @@ public class ValidationUtil {
 	 * them to the user afterwards
 	 * 
 	 * @param theBindingResult The Binding Result
+	 * @throws BadRequestException 
 	 */
-	public static void checkModelForValidationErrors(BindingResult theBindingResult) {
+	public static void checkModelForValidationErrors(BindingResult theBindingResult) throws BadRequestException {
 		if (theBindingResult.hasErrors()) {
 			BadRequestException badRequestException = new BadRequestException("Validation error");
 
