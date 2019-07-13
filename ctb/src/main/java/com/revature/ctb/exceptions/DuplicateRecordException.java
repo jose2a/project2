@@ -1,5 +1,10 @@
 package com.revature.ctb.exceptions;
 
+/**
+ * Custom exception to send message to the user that something was already
+ * inserted in the database following a certain business rule
+ *
+ */
 public class DuplicateRecordException extends RuntimeException {
 
 	/**

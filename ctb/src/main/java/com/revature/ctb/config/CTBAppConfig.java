@@ -79,7 +79,7 @@ public class CTBAppConfig implements WebMvcConfigurer {
 
 		String propVal = env.getProperty(propName);
 
-		// now convert to int
+		// now convert to integer
 		return Integer.parseInt(propVal);
 	}
 

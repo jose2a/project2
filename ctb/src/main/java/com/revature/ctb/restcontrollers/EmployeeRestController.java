@@ -21,15 +21,17 @@ import com.revature.ctb.utils.ValidationUtil;
 public class EmployeeRestController {
 
 	@Autowired
-	private EmployeeService employeeServ;
+	private EmployeeService employeeServ; // injecting employeeService
 
-	@PostMapping("employee")
+	@PostMapping("employee") // access this using: localhost:8080/api/employee <- GET method
 	@ResponseStatus(code = HttpStatus.OK)
 	public Employee postEmployee(@Valid @RequestBody Employee emp, BindingResult theBindingResult)
 			throws BadRequestException {
 
+		// This method validates the entity
 		ValidationUtil.checkModelForValidationErrors(theBindingResult);
 
+		// saving employee using the service
 		employeeServ.registerEmployee(emp);
 
 		return emp;

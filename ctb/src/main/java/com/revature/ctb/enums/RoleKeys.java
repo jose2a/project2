@@ -3,6 +3,11 @@ package com.revature.ctb.enums;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 
+ * Keeping keys for the roles, to query the database faster.
+ *
+ */
 public enum RoleKeys {
 
 	Driver(1), Passenger(2), Administrator(3);

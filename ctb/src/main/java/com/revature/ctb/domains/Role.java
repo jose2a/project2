@@ -3,6 +3,7 @@ package com.revature.ctb.domains;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,11 +25,13 @@ public class Role {
 	@Column(name = "role_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer roleId;
+	
+	
 	@Column(name = "name")
 	private String name;
 
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore  // This will ignore to include the employees again when JSON is serializing
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
 	private List<Employee> employees;
 

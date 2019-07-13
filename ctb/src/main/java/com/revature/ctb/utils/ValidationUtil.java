@@ -9,19 +9,17 @@ public class ValidationUtil {
 
 	/**
 	 * Check the model for validation errors. Errors can be stored in a list to show
-	 * them to the user afterwards
+	 * them to the user afterwards in Angular
 	 * 
 	 * @param theBindingResult The Binding Result
 	 * @throws BadRequestException 
 	 */
 	public static void checkModelForValidationErrors(BindingResult theBindingResult) throws BadRequestException {
 		if (theBindingResult.hasErrors()) {
-			BadRequestException badRequestException = new BadRequestException("Validation error");
-
-			System.out.println(theBindingResult);
+			BadRequestException badRequestException = new BadRequestException("Input validation errors");
 
 			for (FieldError error : theBindingResult.getFieldErrors()) {
-				badRequestException.addError(error.getDefaultMessage());
+				badRequestException.addError(error.getDefaultMessage()); // putting the error in the list
 			}
 
 			throw badRequestException;

@@ -1,20 +1,23 @@
 package com.revature.ctb.exceptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Error that will be send to the client, with all the required information
+ *
+ */
 public class ErrorResponse {
-	private int status;
-	private String title;
-	private List<String> errorMessages;
-	private long timeStamp;
+	
+	private int status; // status (400, 500, etc)
+	private String title; // Title of the error
+	private List<String> errorMessages; // Messages we want to show to the user 
+	private long timeStamp; // Time of the error
 
 	public ErrorResponse() {
-		errorMessages = new ArrayList<>();
 	}
 
 	public ErrorResponse(int status, String title, long timeStamp) {
-		this();
+		super();
 		this.status = status;
 		this.title = title;
 		this.timeStamp = timeStamp;

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.revature.ctb.domains.Role;
+import com.revature.ctb.utils.LogUtil;
 
 @Repository
 public class RoleDAOImpl implements RoleDAO {
@@ -19,8 +20,8 @@ public class RoleDAOImpl implements RoleDAO {
 
 	@Override
 	public List<Role> getAllRoles() {
-		// get the current hibernate session
-		Session session = sessionFactory.getCurrentSession();
+		// open hibernate session
+		Session session = sessionFactory.openSession();
 
 		// create a query
 		Query<Role> theQuery = session.createQuery("from Role", Role.class);
@@ -28,6 +29,7 @@ public class RoleDAOImpl implements RoleDAO {
 		// execute query and get result list
 		List<Role> roles = theQuery.getResultList();
 
+		// close session
 		session.close();
 
 		// return the results
@@ -36,12 +38,16 @@ public class RoleDAOImpl implements RoleDAO {
 
 	@Override
 	public Role getRoleById(Integer roleId) {
-		// get the current hibernate session
-		Session session = sessionFactory.getCurrentSession();
+		// open hibernate session
+		Session session = sessionFactory.openSession();
 
 		// execute query and get result list
 		Role role = session.get(Role.class, roleId);
+		role.getEmployees();
+		
+		LogUtil.debug(role.getEmployees().toString());
 
+		// close session
 		session.close();
 
 		// return the results

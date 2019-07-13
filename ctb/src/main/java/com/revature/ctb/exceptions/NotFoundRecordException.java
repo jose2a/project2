@@ -1,5 +1,9 @@
 package com.revature.ctb.exceptions;
 
+/**
+ * Custom exception to send message to the user that the record was not found in the database
+ *
+ */
 public class NotFoundRecordException extends RuntimeException {
 
 	/**

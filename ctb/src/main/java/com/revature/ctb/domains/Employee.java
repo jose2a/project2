@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -27,39 +26,49 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer employeeId;
 
+	
 	@Column(name = "username")
 	@NotNull(message = "Username is required") // Validating null values
 	private String username;
+	
 	@Column(name = "password")
 	@NotNull(message = "Password is required") // Validating password
 	private String password;
+	
 	@Column(name = "first_name")
 	@NotNull(message = "First Name is required") // Validating
 	private String firstName;
+	
 	@Column(name = "last_name")
 	@NotNull(message = "Last Name is required") // Validating
 	private String lastName;
+	
 	@Column(name = "email")
 	@NotNull(message = "Email is required") // Validating
 	@Email(message = "Incorrect email format")
 	private String email;
+	
 	@Column(name = "phone_number")
 	@NotNull(message = "Phone Number is required") // Validating
 	private String phoneNumber;
+	
 	@Column(name = "driver_license")
-	@NotEmpty( message = "Driver License is required") // Validating
 	private String driverLicense;
+	
 	@Column(name = "num_flags")
 	private Integer numberOfFlags;
+	
 	@Column(name = "active")
 	private boolean active;
+	
 	@Column(name = "block")
 	private boolean block;
+	
 	@Column(name = "driver")
 	private boolean driver;
 
 	// Mapping a m to m relationship
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;
 

@@ -3,6 +3,11 @@ package com.revature.ctb.exceptions;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Custom exception to send fields validations to the user.
+ * User input validations.
+ *
+ */
 public class BadRequestException extends RuntimeException {
 
 	/**
@@ -10,11 +15,8 @@ public class BadRequestException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = 2294655477120584783L;
 
+	// Stores the validation errors in a list that way we can loop them in Angular
 	private List<String> errors = new ArrayList<>();
-
-	public void addError(String error) {
-		errors.add(error);
-	}
 
 	public BadRequestException() {
 		// TODO Auto-generated constructor stub
@@ -40,12 +42,28 @@ public class BadRequestException extends RuntimeException {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Getting errors
+	 * @return the errors
+	 */
 	public List<String> getErrors() {
 		return errors;
 	}
 
+	/**
+	 * Setting errors
+	 * @param errors
+	 */
 	public void setErrors(List<String> errors) {
 		this.errors = errors;
+	}
+	
+	/**
+	 * Adding errors to the list
+	 * @param error Error
+	 */
+	public void addError(String error) {
+		errors.add(error);
 	}
 
 }

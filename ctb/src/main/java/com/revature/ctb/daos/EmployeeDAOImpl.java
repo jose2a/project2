@@ -19,8 +19,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public boolean addEmployee(Employee employee) {
-		// get current hibernate session
-		Session session = sessionFactory.getCurrentSession();
+		LogUtil.trace("EmployeeDAOImpl - Add Employee");
+		
+		// open hibernate session
+		Session session = sessionFactory.openSession();
 
 		// save employee
 		session.save(employee);
@@ -34,10 +36,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public Employee getEmployeeByUsername(String username) {
-		LogUtil.trace("Getting Employee by username");
+		LogUtil.trace("EmployeeDAOImpl - Get Employee by username");
 
-		// get current hibernate session
-		Session session = sessionFactory.getCurrentSession();
+		// open hibernate session
+		Session session = sessionFactory.openSession();
 
 		// get employee
 		Query query = session.createQuery("from Employee where username = :username");
@@ -46,7 +48,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		Employee employee = null;
 
 		if (!query.getResultList().isEmpty()) {
-
+			// the query return something, so it means an employee with same username was found
 			employee = (Employee) query.getSingleResult();
 		}
 
