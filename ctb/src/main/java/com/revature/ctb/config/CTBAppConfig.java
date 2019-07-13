@@ -19,7 +19,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.revature.ctb.utils.LogUtilities;
 
 @Configuration
 @EnableWebMvc
@@ -27,7 +26,7 @@ import com.revature.ctb.utils.LogUtilities;
 @ComponentScan("com.revature.ctb")
 @PropertySource({ "classpath:hibernate.properties" })
 public class CTBAppConfig implements WebMvcConfigurer {
-	
+
 	@Autowired
 	private Environment env;
 
@@ -45,12 +44,9 @@ public class CTBAppConfig implements WebMvcConfigurer {
 		}
 
 		// get connection properties from the system variables
-		String url = "jdbc:postgresql://" + System.getenv("CTB_URL") + ":5432/jose_1905java";
+		String url = "jdbc:postgresql://" + System.getenv("CTB_URL") + ":5412/tan_1905java";
 		String username = System.getenv("CTB_USERNAME");
 		String password = System.getenv("CTB_PASSWORD");
-
-		LogUtilities.info("url=" + url);
-		LogUtilities.info("username=" + username);
 
 		// set database connection props
 		myDataSource.setJdbcUrl(url);
@@ -73,6 +69,7 @@ public class CTBAppConfig implements WebMvcConfigurer {
 
 		props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+//		props.setProperty("hibernate.connection.provider_class", "org.hibernate.c3p0.internal.C3P0ConnectionProvider");
 
 		return props;
 	}
