@@ -25,11 +25,11 @@ public class RestExceptionHandler {
 	public ResponseEntity<ErrorResponse> handlerException(DuplicateRecordException exc) {
 
 		ErrorResponse error = new ErrorResponse();
-		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
 		error.setTitle(exc.getMessage());
 		error.setTimeStamp(System.currentTimeMillis());
 
-		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
 	// catching validation exceptions

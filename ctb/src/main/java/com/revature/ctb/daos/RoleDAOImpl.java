@@ -20,16 +20,32 @@ public class RoleDAOImpl implements RoleDAO {
 	@Override
 	public List<Role> getAllRoles() {
 		// get the current hibernate session
-		Session currentSession = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		// create a query
-		Query<Role> theQuery = currentSession.createQuery("from Role", Role.class);
+		Query<Role> theQuery = session.createQuery("from Role", Role.class);
 
 		// execute query and get result list
 		List<Role> roles = theQuery.getResultList();
 
+		session.close();
+
 		// return the results
 		return roles;
+	}
+
+	@Override
+	public Role getRoleById(Integer roleId) {
+		// get the current hibernate session
+		Session session = sessionFactory.getCurrentSession();
+
+		// execute query and get result list
+		Role role = session.get(Role.class, roleId);
+
+		session.close();
+
+		// return the results
+		return role;
 	}
 
 }
