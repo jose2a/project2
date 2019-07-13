@@ -1,7 +1,11 @@
 package com.revature.ctb.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.ctb.daos.EmployeeDAO;
@@ -21,7 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private RoleService roleServ; // injecting roleService
 
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean registerEmployee(Employee employee) {
 
 		boolean employeeExist = employeeDao.getEmployeeByUsername(employee.getUsername()) != null;
@@ -36,11 +40,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		// Validating if employee is a driver, the employee should also provide the
 		// driver license
+		
+		List<Role> empRoles = new ArrayList<>();
+		
 		if (employee.isDriver()
 				&& (employee.getDriverLicense() != null && !employee.getDriverLicense().trim().isEmpty())) {
 			LogUtil.trace("This employee is a driver. Assign driver role to it");
 
-			employee.addRole(roleServ.getRoleById(RoleKeys.Driver.getValue()));
+			empRoles.add(roleServ.getRoleById(RoleKeys.Driver.getValue()));
 		} else if (employee.isDriver()
 				&& (employee.getDriverLicense() == null || employee.getDriverLicense().trim().isEmpty())) {
 			LogUtil.trace("This employee is a driver, but didn't provide a driver license number");
@@ -49,11 +56,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 			brExc.addError("You need to provide a driver license as a driver.");
 			throw brExc;
 		}
+
+		empRoles.add(roleServ.getRoleById(RoleKeys.Passenger.getValue()));
+
+		for (Role role : empRoles) {
+			role.addEmployee(employee);
+		}
 		
-		employee.addRole(roleServ.getRoleById(RoleKeys.Passenger.getValue()));
+		employee.setRoles(empRoles);
 
 		// add employee
 		boolean added = employeeDao.addEmployee(employee);
+
 
 		return added;
 	}

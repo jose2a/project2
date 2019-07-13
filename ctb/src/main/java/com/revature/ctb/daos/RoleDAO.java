@@ -8,5 +8,7 @@ public interface RoleDAO {
 	public List<Role> getAllRoles();
 	
 	public Role getRoleById(Integer roleId);
+	
+	public boolean updateRole(Role role);
 
 }

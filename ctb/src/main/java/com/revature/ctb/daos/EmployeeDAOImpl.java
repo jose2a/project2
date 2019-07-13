@@ -23,10 +23,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		
 		// open hibernate session
 		Session session = sessionFactory.openSession();
+		
+		LogUtil.debug(employee.toString());
 
 		// save employee
 		session.save(employee);
-
+		
 		// close session
 		session.close();
 

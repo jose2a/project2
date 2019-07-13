@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.ctb.daos.RoleDAO;
@@ -22,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public List<Role> getAllRoles() {
 		LogUtil.trace("RoleServiceImpl - getAllRoles");
-		
+
 		return roleDao.getAllRoles();
 	}
 
@@ -30,11 +31,18 @@ public class RoleServiceImpl implements RoleService {
 	 * Getting a role by id
 	 */
 	@Override
-	@Transactional(readOnly = true)
 	public Role getRoleById(Integer roleId) {
 		LogUtil.trace("RoleServiceImpl - getRoleById");
-		
+
 		return roleDao.getRoleById(roleId);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public boolean updateRole(Role role) {
+		LogUtil.trace("RoleServiceImpl - updateRole");
+
+		return roleDao.updateRole(role);
 	}
 
 }

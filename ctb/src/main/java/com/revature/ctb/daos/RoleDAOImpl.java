@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Role;
 import com.revature.ctb.utils.LogUtil;
 
@@ -44,7 +45,7 @@ public class RoleDAOImpl implements RoleDAO {
 		// execute query and get result list
 		Role role = session.get(Role.class, roleId);
 		role.getEmployees();
-		
+
 		LogUtil.debug(role.getEmployees().toString());
 
 		// close session
@@ -52,6 +53,30 @@ public class RoleDAOImpl implements RoleDAO {
 
 		// return the results
 		return role;
+	}
+
+	@Override
+	public boolean updateRole(Role role) {
+		LogUtil.debug("RoleDAOImpl - updateRole");
+		
+		LogUtil.debug(role.toString());
+		// open hibernate session
+		Session session = sessionFactory.openSession();
+
+		// update a role
+		Role r = session.get(Role.class, role.getRoleId());
+		
+		for (Employee emp : role.getEmployees()) {
+			r.addEmployee(emp);
+			
+		}
+		session.saveOrUpdate(r);
+
+		// close session
+		session.close();
+
+		// return the results
+		return true;
 	}
 
 }

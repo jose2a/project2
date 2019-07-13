@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.revature.ctb.utils.LogUtil;
 
 @Configuration
 @EnableWebMvc
@@ -59,7 +60,7 @@ public class CTBAppConfig implements WebMvcConfigurer {
 		myDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
 		myDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
 		
-		LogUtilities.trace("Connected");
+		LogUtil.trace("Connected");
 
 		return myDataSource;
 	}
