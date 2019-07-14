@@ -3,8 +3,11 @@ package com.revature.ctb.restcontrollers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.Role;
@@ -22,7 +25,19 @@ public class RoleRestController {
 	 * @return All roles
 	 */
 	@GetMapping("/roles")
+	@ResponseStatus(code = HttpStatus.OK)
 	public List<Role> getAllRoles() {
 		return roleServ.getAllRoles();
+	}
+	
+	/**
+	 * Getting roles for this employee
+	 * @param employeeId The employee id
+	 * @return List of roles
+	 */
+	@GetMapping("/employee/{employeeId}/roles")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<Role> getRolesForEmployee(@PathVariable Integer employeeId) {
+		return roleServ.getRolesForEmployee(employeeId);
 	}
 }

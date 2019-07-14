@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.revature.ctb.utils.LogUtil;
 
 @Configuration
 @EnableWebMvc
@@ -47,6 +48,8 @@ public class CTBAppConfig implements WebMvcConfigurer {
 		String url = "jdbc:postgresql://" + System.getenv("CTB_URL") + ":5412/tan_1905java";
 		String username = System.getenv("CTB_USERNAME");
 		String password = System.getenv("CTB_PASSWORD");
+		
+		LogUtil.debug(">>>>>>>URL: " + url);
 
 		// set database connection props
 		myDataSource.setJdbcUrl(url);
@@ -59,7 +62,7 @@ public class CTBAppConfig implements WebMvcConfigurer {
 		myDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
 		myDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
 		
-		LogUtilities.trace("Connected");
+		LogUtil.trace("Connected");
 
 		return myDataSource;
 	}

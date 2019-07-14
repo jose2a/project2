@@ -5,7 +5,8 @@ import java.util.Map;
 
 /**
  * 
- * Keeping keys for the roles, to query the database faster.
+ * Enum to keep the primary keys for role table, this way we can query the role table.
+ * These are not change by the users
  *
  */
 public enum RoleKeys {
