@@ -24,8 +24,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		// open hibernate session
 		Session session = sessionFactory.openSession();
 		
-		LogUtil.debug(employee.toString());
-
+		LogUtil.debug(">>>>>>>>>>> Roles: " + employee.getRoles().toString());
+		
 		// save employee
 		session.save(employee);
 		

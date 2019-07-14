@@ -67,8 +67,10 @@ public class Employee {
 	private boolean driver;
 
 	// Mapping a m to m relationship
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,  cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
 	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+//	@ManyToMany(mappedBy = "employees")
 	private List<Role> roles = new ArrayList<>();
 
 	public Employee() {

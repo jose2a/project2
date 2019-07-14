@@ -48,6 +48,8 @@ public class CTBAppConfig implements WebMvcConfigurer {
 		String url = "jdbc:postgresql://" + System.getenv("CTB_URL") + ":5412/tan_1905java";
 		String username = System.getenv("CTB_USERNAME");
 		String password = System.getenv("CTB_PASSWORD");
+		
+		LogUtil.debug(">>>>>>>URL: " + url);
 
 		// set database connection props
 		myDataSource.setJdbcUrl(url);

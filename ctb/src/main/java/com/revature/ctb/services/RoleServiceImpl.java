@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.ctb.daos.RoleDAO;
+import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Role;
 import com.revature.ctb.utils.LogUtil;
 
@@ -38,11 +39,17 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional()
 	public boolean updateRole(Role role) {
 		LogUtil.trace("RoleServiceImpl - updateRole");
 
 		return roleDao.updateRole(role);
+	}
+	
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void addRolesToEmployee(Employee employee, List<Role> roles) {
+		roleDao.addRolesToEmployee(employee, roles);
 	}
 
 }

@@ -43,10 +43,7 @@ public class RoleDAOImpl implements RoleDAO {
 		Session session = sessionFactory.openSession();
 
 		// execute query and get result list
-		Role role = session.get(Role.class, roleId);
-		role.getEmployees();
-
-		LogUtil.debug(role.getEmployees().toString());
+		Role role = session.load(Role.class, roleId);
 
 		// close session
 		session.close();
@@ -63,20 +60,36 @@ public class RoleDAOImpl implements RoleDAO {
 		// open hibernate session
 		Session session = sessionFactory.openSession();
 
-		// update a role
-		Role r = session.get(Role.class, role.getRoleId());
-		
-		for (Employee emp : role.getEmployees()) {
-			r.addEmployee(emp);
-			
-		}
-		session.saveOrUpdate(r);
+		session.saveOrUpdate(role);
 
 		// close session
 		session.close();
 
 		// return the results
 		return true;
+	}
+	
+	@Override
+	public void addRolesToEmployee(Employee employee, List<Role> roles) {
+		LogUtil.debug("RoleDAOImpl - addRolesToEmployee");
+		
+		// open hibernate session
+		Session session = sessionFactory.openSession();
+
+		for (Role role : roles) {
+//			Role r = session.get(Role.class, role.getRoleId());
+//			Employee e = session.get(Employee.class, employee.getEmployeeId());
+			
+			employee.getRoles().add(role);
+//			r.getEmployees().add(e);
+			session.update(employee);
+//			session.update(e);
+			
+//			session.flush();
+		}
+
+		// close session
+		session.close();
 	}
 
 }

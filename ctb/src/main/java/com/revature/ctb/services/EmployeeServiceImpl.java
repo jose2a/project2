@@ -25,7 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private RoleService roleServ; // injecting roleService
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.NESTED)
 	public boolean registerEmployee(Employee employee) {
 
 		boolean employeeExist = employeeDao.getEmployeeByUsername(employee.getUsername()) != null;
@@ -37,17 +37,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		employee.setBlock(false); // Employee is not block
 		employee.setNumberOfFlags(0); // Number of flags is 0
+		
+		List<Role> roles = new ArrayList<>();
 
 		// Validating if employee is a driver, the employee should also provide the
 		// driver license
-		
-		List<Role> empRoles = new ArrayList<>();
-		
 		if (employee.isDriver()
 				&& (employee.getDriverLicense() != null && !employee.getDriverLicense().trim().isEmpty())) {
 			LogUtil.trace("This employee is a driver. Assign driver role to it");
-
-			empRoles.add(roleServ.getRoleById(RoleKeys.Driver.getValue()));
+			
+			Role driver = roleServ.getRoleById(RoleKeys.Driver.getValue());
+			roles.add(driver);
+//			employee.getRoles().add(driver);
+//			driver.getEmployees().add(employee);
 		} else if (employee.isDriver()
 				&& (employee.getDriverLicense() == null || employee.getDriverLicense().trim().isEmpty())) {
 			LogUtil.trace("This employee is a driver, but didn't provide a driver license number");
@@ -57,17 +59,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw brExc;
 		}
 
-		empRoles.add(roleServ.getRoleById(RoleKeys.Passenger.getValue()));
+		Role passenger = roleServ.getRoleById(RoleKeys.Passenger.getValue());
+		roles.add(passenger);
+//		employee.getRoles().add(passenger);
+//		passenger.getEmployees().add(employee);
 
-		for (Role role : empRoles) {
-			role.addEmployee(employee);
-		}
-		
-		employee.setRoles(empRoles);
-
-		// add employee
 		boolean added = employeeDao.addEmployee(employee);
-
+		
+//		roleServ.updateRole(driver);
+		roleServ.addRolesToEmployee(employee, roles);
 
 		return added;
 	}
