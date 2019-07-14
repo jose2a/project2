@@ -25,33 +25,36 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private RoleService roleServ; // injecting roleService
 
 	@Override
-	@Transactional(propagation = Propagation.NESTED)
+	@Transactional(propagation = Propagation.REQUIRED) // Setting propagation to nested to keep transaction alive in the
+														// whole method and in the other services used by this method
 	public boolean registerEmployee(Employee employee) {
 
 		boolean employeeExist = employeeDao.getEmployeeByUsername(employee.getUsername()) != null;
 
 		if (employeeExist) {
-			LogUtil.trace("Employee with the same user already exist");
+			LogUtil.debug(">>>>>>>>>> Employee with the same user already exist");
 			throw new DuplicateRecordException("Employee with the same username has already registered.");
 		}
 
 		employee.setBlock(false); // Employee is not block
 		employee.setNumberOfFlags(0); // Number of flags is 0
-		
+
 		List<Role> roles = new ArrayList<>();
 
 		// Validating if employee is a driver, the employee should also provide the
 		// driver license
 		if (employee.isDriver()
 				&& (employee.getDriverLicense() != null && !employee.getDriverLicense().trim().isEmpty())) {
+
 			LogUtil.trace("This employee is a driver. Assign driver role to it");
-			
+
 			Role driver = roleServ.getRoleById(RoleKeys.Driver.getValue());
 			roles.add(driver);
-//			employee.getRoles().add(driver);
-//			driver.getEmployees().add(employee);
+			employee.getRoles().add(driver);
+
 		} else if (employee.isDriver()
 				&& (employee.getDriverLicense() == null || employee.getDriverLicense().trim().isEmpty())) {
+
 			LogUtil.trace("This employee is a driver, but didn't provide a driver license number");
 
 			BadRequestException brExc = new BadRequestException("Validation exception");
@@ -61,13 +64,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		Role passenger = roleServ.getRoleById(RoleKeys.Passenger.getValue());
 		roles.add(passenger);
-//		employee.getRoles().add(passenger);
-//		passenger.getEmployees().add(employee);
+		employee.getRoles().add(passenger);
 
 		boolean added = employeeDao.addEmployee(employee);
-		
-//		roleServ.updateRole(driver);
-		roleServ.addRolesToEmployee(employee, roles);
+
+		// if the employee was successfully inserted in the database we can insert its
+		// roles
+		if (added) {
+			roleServ.addRolesToEmployee(employee, roles);
+		}
 
 		return added;
 	}

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.revature.ctb.domains.Employee;
+import com.revature.ctb.domains.EmployeeRole;
 import com.revature.ctb.domains.Role;
 import com.revature.ctb.utils.LogUtil;
 
@@ -21,7 +22,7 @@ public class RoleDAOImpl implements RoleDAO {
 
 	@Override
 	public List<Role> getAllRoles() {
-		// open hibernate session
+		// open hibernate session, spring closes when we use the @Transactional annotation in the service
 		Session session = sessionFactory.openSession();
 
 		// create a query
@@ -29,9 +30,6 @@ public class RoleDAOImpl implements RoleDAO {
 
 		// execute query and get result list
 		List<Role> roles = theQuery.getResultList();
-
-		// close session
-		session.close();
 
 		// return the results
 		return roles;
@@ -43,53 +41,42 @@ public class RoleDAOImpl implements RoleDAO {
 		Session session = sessionFactory.openSession();
 
 		// execute query and get result list
-		Role role = session.load(Role.class, roleId);
-
-		// close session
-		session.close();
+		Role role = session.get(Role.class, roleId);
 
 		// return the results
 		return role;
 	}
 
 	@Override
-	public boolean updateRole(Role role) {
-		LogUtil.debug("RoleDAOImpl - updateRole");
-		
-		LogUtil.debug(role.toString());
-		// open hibernate session
-		Session session = sessionFactory.openSession();
-
-		session.saveOrUpdate(role);
-
-		// close session
-		session.close();
-
-		// return the results
-		return true;
-	}
-	
-	@Override
 	public void addRolesToEmployee(Employee employee, List<Role> roles) {
 		LogUtil.debug("RoleDAOImpl - addRolesToEmployee");
-		
+
 		// open hibernate session
 		Session session = sessionFactory.openSession();
 
+		// I had to use and intermediate class (EmployeeRole), because ManyToMany
+		// relationship was not working
 		for (Role role : roles) {
-//			Role r = session.get(Role.class, role.getRoleId());
-//			Employee e = session.get(Employee.class, employee.getEmployeeId());
-			
-			employee.getRoles().add(role);
-//			r.getEmployees().add(e);
-			session.update(employee);
-//			session.update(e);
-			
-//			session.flush();
-		}
+			EmployeeRole employeeRole = new EmployeeRole();
+			employeeRole.setEmployee(employee); // Linking employee
+			employeeRole.setRole(role); // Linking role
 
-		// close session
-		session.close();
+			session.save(employeeRole); // Saving role for employee
+		}
+	}
+
+	@Override
+	public List<Role> getRolesForEmployee(Integer employeeId) {
+		LogUtil.debug("RoleDAOImpl - getRolesForEmployee");
+
+		// open hibernate session
+		Session session = sessionFactory.openSession();
+
+		Employee employee = session.get(Employee.class, employeeId); // Getting employee to get its roles
+		
+		List<Role> roles = employee.getRoles();
+		
+		return roles;
 	}
 
 }

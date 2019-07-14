@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.Employee;
-import com.revature.ctb.exceptions.BadRequestException;
 import com.revature.ctb.services.EmployeeService;
 import com.revature.ctb.utils.ValidationUtil;
 
@@ -23,16 +22,25 @@ public class EmployeeRestController {
 	@Autowired
 	private EmployeeService employeeServ; // injecting employeeService
 
+	/**
+	 * This method will register the employee in the system. This is going to be used by
+	 * Angular UI.
+	 * @param emp Employee to register, JSON format object, coming from Angular
+	 * @param theBindingResult Handle by spring and validation framework
+	 * @return the employee with id following rest API practices
+	 */
 	@PostMapping("employee") // access this using: localhost:8080/api/employee <- GET method
-	@ResponseStatus(code = HttpStatus.OK)
-	public Employee postEmployee(@Valid @RequestBody Employee emp, BindingResult theBindingResult)
-			throws BadRequestException {
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public Employee postEmployee(@Valid @RequestBody Employee emp, BindingResult theBindingResult) {
 
-		// This method validates the entity
+		// This method validates the entity (static method)
 		ValidationUtil.checkModelForValidationErrors(theBindingResult);
 
 		// saving employee using the service
 		employeeServ.registerEmployee(emp);
+		
+		// hidding employee password
+		emp.setPassword("************");
 
 		return emp;
 	}

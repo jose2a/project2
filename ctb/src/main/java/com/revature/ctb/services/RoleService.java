@@ -10,7 +10,7 @@ public interface RoleService {
 	
 	public Role getRoleById(Integer roleId);
 	
-	public boolean updateRole(Role role);
-	
 	public void addRolesToEmployee(Employee employee, List<Role> roles);
+
+	List<Role> getRolesForEmployee(Integer employeeId);
 }

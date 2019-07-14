@@ -18,7 +18,7 @@ public class EmployeeServiceImplTest {
 	
 	@Autowired
 	private EmployeeService empServ;
-	private int id = 4;
+	private int id = 5;
 
 	@Before
 	public void setUp() throws Exception {
@@ -28,7 +28,7 @@ public class EmployeeServiceImplTest {
 	public void testRegisterEmployee() {
 		Employee emp = new Employee("peter.p" + id, "secret", "Peter", "Parker", "peter@ctb.com", "2334343", "A12132A", 0, true, false, true);
 		
-		empServ.registerEmployee(emp);
+//		empServ.registerEmployee(emp);
 	}
 
 }

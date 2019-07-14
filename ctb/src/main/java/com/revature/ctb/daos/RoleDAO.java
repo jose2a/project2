@@ -10,8 +10,8 @@ public interface RoleDAO {
 	
 	public Role getRoleById(Integer roleId);
 	
-	public boolean updateRole(Role role);
-	
 	public void addRolesToEmployee(Employee employee, List<Role> roles);
+
+	public List<Role> getRolesForEmployee(Integer employeeId);
 
 }
