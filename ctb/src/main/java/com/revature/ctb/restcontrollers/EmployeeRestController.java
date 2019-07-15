@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.revature.ctb.domains.Employee;
 import com.revature.ctb.services.EmployeeService;
 import com.revature.ctb.utils.ValidationUtil;
 
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api")
 public class EmployeeRestController {
