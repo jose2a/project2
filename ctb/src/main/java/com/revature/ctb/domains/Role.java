@@ -20,6 +20,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "role")
 public class Role {
 
+	public static final Integer Driver = 1;
+	public static final Integer Passenger = 2;
+	public static final Integer Administrator = 3;
+
 	@Id
 	@Column(name = "role_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +33,7 @@ public class Role {
 	private String name;
 
 	@JsonIgnore // This will ignore to include the employees again when JSON is serializing
-	@OneToMany (fetch = FetchType.LAZY) // Same like in employee, I couldn't insert in the employee_role table
+	@OneToMany(fetch = FetchType.LAZY) // Same like in employee, I couldn't insert in the employee_role table
 	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
 	private List<Employee> employees = new ArrayList<>();
 
