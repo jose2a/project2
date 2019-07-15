@@ -33,7 +33,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		if (employeeExist) {
 			LogUtil.debug(">>>>>>>>>> Employee with the same user already exist");
-			throw new DuplicateRecordException("Employee with the same username has already registered.");
+			
+			DuplicateRecordException drExc = new DuplicateRecordException();
+			drExc.addError("Employee with the same username has already registered.");
+			
+			throw drExc;
 		}
 
 		employee.setBlock(false); // Employee is not block
