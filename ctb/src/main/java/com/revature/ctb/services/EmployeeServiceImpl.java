@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.ctb.daos.EmployeeDAO;
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Role;
-import com.revature.ctb.enums.RoleKeys;
 import com.revature.ctb.exceptions.BadRequestException;
 import com.revature.ctb.exceptions.DuplicateRecordException;
 import com.revature.ctb.utils.LogUtil;
@@ -52,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			LogUtil.trace("This employee is a driver. Assign driver role to it");
 
-			Role driver = roleServ.getRoleById(RoleKeys.Driver.getValue());
+			Role driver = roleServ.getRoleById(Role.Driver);
 			roles.add(driver);
 			employee.getRoles().add(driver);
 
@@ -66,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw brExc;
 		}
 
-		Role passenger = roleServ.getRoleById(RoleKeys.Passenger.getValue());
+		Role passenger = roleServ.getRoleById(Role.Passenger);
 		roles.add(passenger);
 		employee.getRoles().add(passenger);
 
