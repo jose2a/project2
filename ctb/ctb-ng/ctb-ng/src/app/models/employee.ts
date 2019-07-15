@@ -1,16 +1,16 @@
 import { Role } from './role';
 
 export class Employee {
-     employeeId = 0;
+     employeeId: number;
 
-     username = '';
-     password = '';
-     firstName = '';
-     lastName = '';
-     email = '';
-     phoneNumber = '';
-     driverLicense = '';
-     driver = false;
+     username: string;
+     password: string;
+     firstName: string;
+     lastName: string;
+     email: string;
+     phoneNumber: string;
+     driverLicense: string;
+     driver: boolean;
 
      numberOfFlags: number;
      active: boolean;
