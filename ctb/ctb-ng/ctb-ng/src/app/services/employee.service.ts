@@ -31,13 +31,17 @@ export class EmployeeService {
   registerEmployee(employee: Employee): Observable<Employee> {
     return this.http.post<Employee>(this.employeesUrl, employee, httpOptions)
       .pipe(
-        tap(
-          data => console.log(data),
-          error => console.error(error)
-        )
+        tap((newEmployee: Employee) => {
+          console.log(`Added employee w/ id= ${newEmployee.employeeId}`);
+      }));
+      // .pipe(
+        // tap(
+        //   data => console.log(data),
+        //   error => console.error(error)
+        // )
         // tap((newEmployee: Employee) => console.log(`added employee w/ id= ${newEmployee.employeeId}`)),
         // catchError(this.handleError<Employee>('addEmployee'))
-    );
+    // );
   }
 
   /**

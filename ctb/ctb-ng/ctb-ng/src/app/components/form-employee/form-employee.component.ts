@@ -24,8 +24,8 @@ export class FormEmployeeComponent implements OnInit {
   registerEmployee(): void {
 
     this.employeeService.registerEmployee(this.employee)
-    .subscribe(res => {
-      console.log(res);
+    .subscribe((newEmployee: Employee) => {
+      console.log(newEmployee);
 
       this.valErrors = [];
       this.employee = new Employee();
