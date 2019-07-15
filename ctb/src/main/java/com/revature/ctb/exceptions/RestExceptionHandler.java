@@ -39,7 +39,8 @@ public class RestExceptionHandler {
 
 		ErrorResponse error = new ErrorResponse();
 		error.setStatus(HttpStatus.BAD_REQUEST.value());
-		error.setTitle(exc.getMessage());
+		error.setTitle("Duplicate");
+		error.setErrorMessages(exc.getErrors());
 		error.setTimeStamp(System.currentTimeMillis());
 
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);

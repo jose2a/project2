@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "employee")
@@ -26,28 +26,28 @@ public class Employee {
 	private Integer employeeId;
 
 	@Column(name = "username")
-	@NotNull(message = "Username is required") // Validating null values
+	@NotEmpty(message = "Username is required") // Validating null values
 	private String username;
 
 	@Column(name = "password")
-	@NotNull(message = "Password is required") // Validating password
+	@NotEmpty(message = "Password is required") // Validating password
 	private String password;
 
 	@Column(name = "first_name")
-	@NotNull(message = "First Name is required") // Validating
+	@NotEmpty(message = "First Name is required") // Validating
 	private String firstName;
 
 	@Column(name = "last_name")
-	@NotNull(message = "Last Name is required") // Validating
+	@NotEmpty(message = "Last Name is required") // Validating
 	private String lastName;
 
 	@Column(name = "email")
-	@NotNull(message = "Email is required") // Validating
+	@NotEmpty(message = "Email is required") // Validating
 	@Email(message = "Incorrect email format")
 	private String email;
 
 	@Column(name = "phone_number")
-	@NotNull(message = "Phone Number is required") // Validating
+	@NotEmpty(message = "Phone Number is required") // Validating
 	private String phoneNumber;
 
 	@Column(name = "driver_license")
