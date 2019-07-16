@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -70,13 +71,23 @@ public class Employee {
 	// here
 	// and use a ManyToOne in EmployeeRole class that way I keep the link between
 	// Employee and Role
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles = new ArrayList<>();
 
 	// One to many relationship (One employee can have many cars)
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
 	private List<Car> cars = new ArrayList<>();
+
+	// One to many relationship (One employee can have many requests for
+	// information)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id")
+	private List<InfoReq> inforRequests = new ArrayList<>();
+
+	// One to many relationship (One employee can schedule many rides)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+	private List<Ride> rides = new ArrayList<>();
 
 	public Employee() {
 		super();
@@ -219,6 +230,30 @@ public class Employee {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public List<Car> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<Car> cars) {
+		this.cars = cars;
+	}
+
+	public List<InfoReq> getInforRequests() {
+		return inforRequests;
+	}
+
+	public void setInforRequests(List<InfoReq> inforRequests) {
+		this.inforRequests = inforRequests;
+	}
+
+	public List<Ride> getRides() {
+		return rides;
+	}
+
+	public void setRides(List<Ride> rides) {
+		this.rides = rides;
 	}
 
 	@Override

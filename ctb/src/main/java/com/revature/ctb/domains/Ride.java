@@ -52,7 +52,7 @@ public class Ride {
 	private Car car;
 
 	// Many to one (many rides can have one status at the time)
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "ridestatus_id")
 	private RideStatus rideStatus;

@@ -9,9 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,8 +27,8 @@ public class Role {
 	private String name;
 
 	@JsonIgnore // This will ignore to include the employees again when JSON is serializing
-	@OneToMany(fetch = FetchType.LAZY) // Same like in employee, I couldn't insert in the employee_role table
-	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles") // Same like in employee, I couldn't insert in the employee_role table
+//	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
 	private List<Employee> employees = new ArrayList<>();
 
 	public Role() {
