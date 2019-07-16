@@ -13,9 +13,12 @@ import com.revature.ctb.utils.LogUtil;
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
 
-	// need to inject the session factory
-	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	public EmployeeDAOImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@Override
 	public boolean addEmployee(Employee employee) {

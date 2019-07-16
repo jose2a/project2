@@ -14,8 +14,12 @@ import com.revature.ctb.utils.LogUtil;
 
 public class CarDAOImpl implements CarDAO {
 
-	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	public CarDAOImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@Override
 	public boolean addCar(Car car) {

@@ -17,8 +17,12 @@ import com.revature.ctb.utils.LogUtil;
 public class RoleDAOImpl implements RoleDAO {
 
 	// need to inject the session factory
-	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	public RoleDAOImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@Override
 	public List<Role> getAllRoles() {

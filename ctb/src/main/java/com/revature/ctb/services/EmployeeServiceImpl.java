@@ -11,17 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.ctb.daos.EmployeeDAO;
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Role;
-import com.revature.ctb.exceptions.InputValidationException;
 import com.revature.ctb.exceptions.DuplicateRecordException;
+import com.revature.ctb.exceptions.InputValidationException;
 import com.revature.ctb.utils.LogUtil;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-	@Autowired
 	private EmployeeDAO employeeDao; // injecting employeeDAO
-	@Autowired
 	private RoleService roleServ; // injecting roleService
+
+	@Autowired
+	public EmployeeServiceImpl(EmployeeDAO employeeDao, RoleService roleServ) {
+		this.employeeDao = employeeDao;
+		this.roleServ = roleServ;
+	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED) // Setting propagation to nested to keep transaction alive in the
@@ -32,10 +36,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		if (employeeExist) {
 			LogUtil.debug(">>>>>>>>>> Employee with the same user already exist");
-			
+
 			DuplicateRecordException drExc = new DuplicateRecordException();
 			drExc.addError("Employee with the same username has already registered.");
-			
+
 			throw drExc;
 		}
 

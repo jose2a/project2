@@ -8,14 +8,19 @@ import com.revature.ctb.domains.RideStatus;
 
 public class RideStatusDAOImpl implements RideStatusDAO {
 	
-	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Autowired
+	public RideStatusDAOImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}	
+	
 	@Override
 	public RideStatus getRideStatus(Integer rideStatusId) {
 		Session session = sessionFactory.openSession();
 		
 		return session.get(RideStatus.class, rideStatusId);
 	}
+
 
 }

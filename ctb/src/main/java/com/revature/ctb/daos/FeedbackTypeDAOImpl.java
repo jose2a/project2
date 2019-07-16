@@ -8,8 +8,12 @@ import com.revature.ctb.domains.FeedbackType;
 
 public class FeedbackTypeDAOImpl implements FeedbackTypeDAO {
 
-	@Autowired
 	private SessionFactory sessionFactory;
+
+	@Autowired
+	public FeedbackTypeDAOImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@Override
 	public FeedbackType geFeedbackType(Integer feedbackTypeId) {
