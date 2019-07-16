@@ -51,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			LogUtil.trace("This employee is a driver. Assign driver role to it");
 
-			Role driver = roleServ.getRoleById(Role.Driver);
+			Role driver = roleServ.getRoleById(Role.RoleIds.DRIVER);
 			roles.add(driver);
 			employee.getRoles().add(driver);
 
@@ -65,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw brExc;
 		}
 
-		Role passenger = roleServ.getRoleById(Role.Passenger);
+		Role passenger = roleServ.getRoleById(Role.RoleIds.PASSENGER);
 		roles.add(passenger);
 		employee.getRoles().add(passenger);
 
