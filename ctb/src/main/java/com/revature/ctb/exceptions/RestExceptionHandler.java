@@ -52,15 +52,15 @@ public class RestExceptionHandler {
 	}
 
 	/**
-	 * Catching BadRequestException (custom exception) to indicate that the user
+	 * Catching InputValidationException (custom exception) to indicate that the user
 	 * enter invalid inputs
 	 * 
 	 * @param exc The exception
 	 * @return Error with the messages
 	 */
 	@ExceptionHandler
-	public ResponseEntity<ErrorResponse> handlerException(BadRequestException exc) {
-		LogUtil.trace("RestExceptionHandler - handlerException(BadRequestException exc)");
+	public ResponseEntity<ErrorResponse> handlerException(InputValidationException exc) {
+		LogUtil.trace("RestExceptionHandler - handlerException(InputValidationException exc)");
 
 		ErrorResponse error = new ErrorResponse();
 		error.setStatus(HttpStatus.BAD_REQUEST.value());
