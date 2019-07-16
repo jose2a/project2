@@ -15,8 +15,12 @@ import com.revature.ctb.utils.LogUtil;
 @Service
 public class RoleServiceImpl implements RoleService {
 
+	private RoleDAO roleDao;
+
 	@Autowired
-	private RoleDAO roleDao; // injecting roleDAO dependency
+	public void setRoleDao(RoleDAO roleDao) {
+		this.roleDao = roleDao;
+	}
 
 	/**
 	 * Getting all the roles
@@ -48,14 +52,14 @@ public class RoleServiceImpl implements RoleService {
 	public void addRolesToEmployee(Employee employee, List<Role> roles) {
 		roleDao.addRolesToEmployee(employee, roles);
 	}
-	
+
 	@Override
-	@Transactional (propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public List<Role> getRolesForEmployee(Integer employeeId) {
 		LogUtil.trace("RoleServiceImpl - getRolesForEmployee");
-		
+
 		return roleDao.getRolesForEmployee(employeeId);
-		
+
 	}
 
 }

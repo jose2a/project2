@@ -19,8 +19,12 @@ import com.revature.ctb.services.EmployeeService;
 @RequestMapping("/api")
 public class EmployeeRestController {
 
+	private EmployeeService employeeServ;
+	
 	@Autowired
-	private EmployeeService employeeServ; // injecting employeeService
+	public void setEmployeeServ(EmployeeService employeeServ) {
+		this.employeeServ = employeeServ;
+	}
 
 	/**
 	 * This method will register the employee in the system. This is going to be
