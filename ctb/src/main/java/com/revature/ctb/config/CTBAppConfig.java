@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.revature.ctb.utils.LogUtilities;
+import com.revature.ctb.utils.LogUtil;
 
 @Configuration
 @EnableWebMvc
@@ -27,7 +27,7 @@ import com.revature.ctb.utils.LogUtilities;
 @ComponentScan("com.revature.ctb")
 @PropertySource({ "classpath:hibernate.properties" })
 public class CTBAppConfig implements WebMvcConfigurer {
-	
+
 	@Autowired
 	private Environment env;
 
@@ -48,9 +48,8 @@ public class CTBAppConfig implements WebMvcConfigurer {
 		String url = "jdbc:postgresql://" + System.getenv("CTB_URL") + ":5412/tan_1905java";
 		String username = System.getenv("CTB_USERNAME");
 		String password = System.getenv("CTB_PASSWORD");
-
-		LogUtilities.info("url=" + url);
-		LogUtilities.info("username=" + username);
+		
+		LogUtil.debug(">>>>>>>URL: " + url);
 
 		// set database connection props
 		myDataSource.setJdbcUrl(url);
@@ -63,7 +62,7 @@ public class CTBAppConfig implements WebMvcConfigurer {
 		myDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
 		myDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
 		
-		LogUtilities.trace("Connected");
+		LogUtil.trace("Connected");
 
 		return myDataSource;
 	}
@@ -85,10 +84,8 @@ public class CTBAppConfig implements WebMvcConfigurer {
 
 		String propVal = env.getProperty(propName);
 
-		// now convert to int
-		int intPropVal = Integer.parseInt(propVal);
-
-		return intPropVal;
+		// now convert to integer
+		return Integer.parseInt(propVal);
 	}
 
 	@Bean
