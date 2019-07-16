@@ -20,7 +20,6 @@ public class RideStatus {
 	private String name;
 
 	public RideStatus() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public RideStatus(Integer rideStatusId, String name) {
@@ -84,6 +83,12 @@ public class RideStatus {
 	@Override
 	public String toString() {
 		return "RideStatus [rideStatusId=" + rideStatusId + ", name=" + name + "]";
+	}
+	
+	public static class RideStatusIds {
+		public static final Integer ACTIVE = 1;
+		public static final Integer COMPLETED = 2;
+		public static final Integer CANCELED = 3;
 	}
 
 }
