@@ -14,6 +14,8 @@ export class FormEmployeeComponent implements OnInit {
   result: string;
   valErrors: string[];
 
+  someVariable = `Some variables`;
+
   constructor(private employeeService: EmployeeService) {
   }
 
