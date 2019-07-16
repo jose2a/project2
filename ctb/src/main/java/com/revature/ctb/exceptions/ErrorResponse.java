@@ -1,5 +1,6 @@
 package com.revature.ctb.exceptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,10 +8,10 @@ import java.util.List;
  *
  */
 public class ErrorResponse {
-	
+
 	private int status; // status (400, 500, etc)
 	private String title; // Title of the error
-	private List<String> errorMessages; // Messages we want to show to the user 
+	private List<String> errorMessages = new ArrayList<>(); // Messages we want to show to the user
 	private long timeStamp; // Time of the error
 
 	public ErrorResponse() {

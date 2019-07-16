@@ -1,20 +1,54 @@
 package com.revature.ctb.domains;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "car")
 public class Car {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "car_id")
 	private Integer carId;
 
+	@Column(name = "vin_number")
 	private String vinNumber;
+
+	@Column(name = "make")
 	private String make;
+
+	@Column(name = "model")
 	private String model;
+
+	@Column(name = "number_seats")
 	private int numberOfSeats;
+
+	@Column(name = "ac")
 	private boolean ac;
 
+	@Column(name = "active")
+	private boolean active;
+
+	// Many to one relationship
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
+	@JoinColumn(name = "employee_id")
+	private Employee employee;
+
 	public Car() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Car(Integer carId, String vinNumber, String make, String model, int numberOfSeats, boolean ac) {
+	public Car(Integer carId, String vinNumber, String make, String model, int numberOfSeats, boolean ac,
+			boolean active) {
 		super();
 		this.carId = carId;
 		this.vinNumber = vinNumber;
@@ -22,15 +56,17 @@ public class Car {
 		this.model = model;
 		this.numberOfSeats = numberOfSeats;
 		this.ac = ac;
+		this.active = active;
 	}
 
-	public Car(String vinNumber, String make, String model, int numberOfSeats, boolean ac) {
+	public Car(String vinNumber, String make, String model, int numberOfSeats, boolean ac, boolean active) {
 		super();
 		this.vinNumber = vinNumber;
 		this.make = make;
 		this.model = model;
 		this.numberOfSeats = numberOfSeats;
 		this.ac = ac;
+		this.active = active;
 	}
 
 	public Integer getCarId() {
@@ -81,11 +117,28 @@ public class Car {
 		this.ac = ac;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (ac ? 1231 : 1237);
+		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + ((carId == null) ? 0 : carId.hashCode());
 		result = prime * result + ((make == null) ? 0 : make.hashCode());
 		result = prime * result + ((model == null) ? 0 : model.hashCode());
@@ -104,6 +157,8 @@ public class Car {
 			return false;
 		Car other = (Car) obj;
 		if (ac != other.ac)
+			return false;
+		if (active != other.active)
 			return false;
 		if (carId == null) {
 			if (other.carId != null)
@@ -133,7 +188,8 @@ public class Car {
 	@Override
 	public String toString() {
 		return "Car [carId=" + carId + ", vinNumber=" + vinNumber + ", make=" + make + ", model=" + model
-				+ ", numberOfSeats=" + numberOfSeats + ", ac=" + ac + "]";
+				+ ", numberOfSeats=" + numberOfSeats + ", ac=" + ac + ", active=" + active + ", employee=" + employee
+				+ "]";
 	}
 
 }

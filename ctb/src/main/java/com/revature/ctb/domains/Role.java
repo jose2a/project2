@@ -20,10 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "role")
 public class Role {
 
-	public static final Integer Driver = 1;
-	public static final Integer Passenger = 2;
-	public static final Integer Administrator = 3;
-
 	@Id
 	@Column(name = "role_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -110,6 +106,12 @@ public class Role {
 	@Override
 	public String toString() {
 		return "Role [roleId=" + roleId + ", name=" + name + "]";
+	}
+
+	public static class RoleIds {
+		public static final Integer DRIVER = 1;
+		public static final Integer PASSENGER = 2;
+		public static final Integer ADMINISTRATOR = 3;
 	}
 
 }
