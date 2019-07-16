@@ -68,14 +68,7 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
-		<!-- Hibernate-C3P0 Integration -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-c3p0</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
-
-		<!-- c3p0 -->
+		<!-- C3PO -->
 		<dependency>
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
@@ -113,13 +106,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>4.3.2.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 

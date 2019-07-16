@@ -2,7 +2,7 @@ package com.revature.ctb.utils;
 
 import org.apache.log4j.Logger;
 
-public class LogUtil {
+public class LogUtilities {
 
 	private static Logger log = Logger.getRootLogger();
 

@@ -1,4 +1,4 @@
-package com.revature.ctb.restcontrollers;
+package com.revature.ctb.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
