@@ -1,42 +1,87 @@
 package com.revature.ctb.domains;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "ride")
 public class Ride {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ride_id")
 	private Integer rideId;
 
+	@Column(name = "departure_date")
+	@Temporal(TemporalType.DATE)
 	private Date departureDate;
-	private Time departureTime;
 
+	@Column(name = "departure_time")
+	@Temporal(TemporalType.TIME)
+	private Date departureTime;
+
+	@Column(name = "num_seats_available")
 	private int numberOfSeatsAvailable;
+
+	@Column(name = "amount_charge")
 	private double amountCharge;
 
+	// Many to one (many rides for one car)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
+	@JoinColumn(name = "employee_id")
+	private Employee employee;
+
+	// Many to one (many rides for one employee)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
+	@JoinColumn(name = "car_id")
+	private Car car;
+
+	// Many to one (many rides can have one status at the time)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+			CascadeType.REFRESH })
+	@JoinColumn(name = "ridestatus_id")
 	private RideStatus rideStatus;
 
 	public Ride() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Ride(Integer rideId, Date departureDate, Time departureTime, int numberOfSeatsAvailable, double amountCharge,
-			RideStatus rideStatus) {
+			Employee employee, Car car, RideStatus rideStatus) {
 		super();
 		this.rideId = rideId;
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
 		this.numberOfSeatsAvailable = numberOfSeatsAvailable;
 		this.amountCharge = amountCharge;
+		this.employee = employee;
+		this.car = car;
 		this.rideStatus = rideStatus;
 	}
 
 	public Ride(Date departureDate, Time departureTime, int numberOfSeatsAvailable, double amountCharge,
-			RideStatus rideStatus) {
+			Employee employee, Car car, RideStatus rideStatus) {
 		super();
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
 		this.numberOfSeatsAvailable = numberOfSeatsAvailable;
 		this.amountCharge = amountCharge;
+		this.employee = employee;
+		this.car = car;
 		this.rideStatus = rideStatus;
 	}
 
@@ -56,11 +101,11 @@ public class Ride {
 		this.departureDate = departureDate;
 	}
 
-	public Time getDepartureTime() {
+	public Date getDepartureTime() {
 		return departureTime;
 	}
 
-	public void setDepartureTime(Time departureTime) {
+	public void setDepartureTime(Date departureTime) {
 		this.departureTime = departureTime;
 	}
 

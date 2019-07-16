@@ -2,6 +2,8 @@ package com.revature.ctb.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -11,7 +13,9 @@ import com.revature.ctb.utils.LogUtil;
 public class RestExceptionHandler {
 
 	/**
-	 * Catching NoFoundRecordException (custom exception) to indicate that the record was not found
+	 * Catching NoFoundRecordException (custom exception) to indicate that the
+	 * record was not found
+	 * 
 	 * @param exc The exception
 	 * @return Error with the messages
 	 */
@@ -28,8 +32,9 @@ public class RestExceptionHandler {
 	}
 
 	/**
-	 * Catching DuplicateRecordException (custom exception) to indicate that the record is duplicated
-	 * based on what business rule we follow
+	 * Catching DuplicateRecordException (custom exception) to indicate that the
+	 * record is duplicated based on what business rule we follow
+	 * 
 	 * @param exc The exception
 	 * @return Error with the messages
 	 */
@@ -46,10 +51,10 @@ public class RestExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
-
 	/**
-	 * Catching BadRequestException (custom exception) to indicate that the user enter
-	 * invalid inputs
+	 * Catching BadRequestException (custom exception) to indicate that the user
+	 * enter invalid inputs
+	 * 
 	 * @param exc The exception
 	 * @return Error with the messages
 	 */
@@ -66,22 +71,47 @@ public class RestExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
-	// add another exception handler ... to catch any exception (catch all)
 	/**
-	 * Catching any Exception (catch all) like a global error handler
+	 * Catching MethodArgumentNotValidException to indicate that the user enter
+	 * invalid inputs
+	 * 
 	 * @param exc The exception
 	 * @return Error with the messages
 	 */
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException ex) {
+		LogUtil.debug("handleException(MethodArgumentNotValidException ex)");
+
+		ErrorResponse errorResponse = new ErrorResponse();
+
+		errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+		errorResponse.setTitle("Input validation errors");
+		errorResponse.setTimeStamp(System.currentTimeMillis());
+
+		for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+			errorResponse.getErrorMessages().add(error.getDefaultMessage()); // putting the error in the list
+		}
+
+		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	 * Catching any Exception (catch all) like a global error handler
+	 * 
+	 * @param ex The exception
+	 * @return Error with the messages
+	 */
 	@ExceptionHandler
-	public ResponseEntity<ErrorResponse> handleException(Exception exc) {
-		LogUtil.trace("RestExceptionHandler - handlerException(Exception exc)");
-		
-		LogUtil.error(exc.getMessage()); // Saving error to the logs
+	public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+		LogUtil.debug("RestExceptionHandler - handlerException(Exception exc)");
+
+		LogUtil.error(ex.getMessage()); // Saving error to the logs
 
 		// create a ErrorResponse
 		ErrorResponse error = new ErrorResponse();
+
 		error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-		error.setTitle(exc.getMessage());
+		error.setTitle(ex.getMessage());
 		error.setTimeStamp(System.currentTimeMillis());
 
 		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
