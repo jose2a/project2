@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.ctb.daos.EmployeeDAO;
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Role;
-import com.revature.ctb.exceptions.BadRequestException;
+import com.revature.ctb.exceptions.InputValidationException;
 import com.revature.ctb.exceptions.DuplicateRecordException;
 import com.revature.ctb.utils.LogUtil;
 
@@ -60,7 +60,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			LogUtil.trace("This employee is a driver, but didn't provide a driver license number");
 
-			BadRequestException brExc = new BadRequestException("Validation exception");
+			InputValidationException brExc = new InputValidationException("Validation exception");
 			brExc.addError("You need to provide a driver license as a driver.");
 			throw brExc;
 		}

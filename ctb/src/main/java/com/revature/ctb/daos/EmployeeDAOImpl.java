@@ -54,4 +54,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return employee;
 	}
 
+	@Override
+	public boolean updateEmployee(Employee employee) {
+		LogUtil.trace("EmployeeDAOImpl - updateEmployee");
+
+		// open hibernate session
+		Session session = sessionFactory.openSession();
+
+		// save employee
+		session.saveOrUpdate(employee);
+
+		// if employeeId is greater than 0, it means the employee was inserted
+		return true;
+	}
+
 }
