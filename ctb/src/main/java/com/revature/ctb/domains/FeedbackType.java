@@ -74,5 +74,11 @@ public class FeedbackType {
 	public String toString() {
 		return "FeedbackType [feedbackTypeId=" + feedbackTypeId + ", name=" + name + "]";
 	}
+	
+	public static class FeedbackTypeId {
+		public static final Integer GOOD = 1;
+		public static final Integer AVERAGE = 2;
+		public static final Integer BAD = 3;
+	}
 
 }
