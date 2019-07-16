@@ -22,8 +22,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private RoleService roleServ; // injecting roleService
 
 	@Autowired
-	public EmployeeServiceImpl(EmployeeDAO employeeDao, RoleService roleServ) {
+	public void setEmployeeDao(EmployeeDAO employeeDao) {
 		this.employeeDao = employeeDao;
+	}
+
+	@Autowired
+	public void setRoleServ(RoleService roleServ) {
 		this.roleServ = roleServ;
 	}
 

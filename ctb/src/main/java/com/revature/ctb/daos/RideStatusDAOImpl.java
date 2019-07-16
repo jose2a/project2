@@ -11,9 +11,9 @@ public class RideStatusDAOImpl implements RideStatusDAO {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	public RideStatusDAOImpl(SessionFactory sessionFactory) {
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	}	
+	}
 	
 	@Override
 	public RideStatus getRideStatus(Integer rideStatusId) {

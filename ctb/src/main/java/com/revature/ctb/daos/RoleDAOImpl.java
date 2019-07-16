@@ -20,7 +20,7 @@ public class RoleDAOImpl implements RoleDAO {
 	private SessionFactory sessionFactory;
 	
 	@Autowired
-	public RoleDAOImpl(SessionFactory sessionFactory) {
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 

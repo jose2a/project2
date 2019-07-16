@@ -11,7 +11,7 @@ public class FeedbackTypeDAOImpl implements FeedbackTypeDAO {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	public FeedbackTypeDAOImpl(SessionFactory sessionFactory) {
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 

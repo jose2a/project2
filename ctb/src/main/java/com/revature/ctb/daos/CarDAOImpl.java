@@ -17,9 +17,9 @@ public class CarDAOImpl implements CarDAO {
 	private SessionFactory sessionFactory;
 	
 	@Autowired
-	public CarDAOImpl(SessionFactory sessionFactory) {
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	}
+	}	
 
 	@Override
 	public boolean addCar(Car car) {
@@ -31,6 +31,7 @@ public class CarDAOImpl implements CarDAO {
 
 		return car.getCarId() > 0;
 	}
+
 
 	@Override
 	public boolean updateCar(Car car) {
@@ -68,6 +69,7 @@ public class CarDAOImpl implements CarDAO {
 	@Override
 	public List<Car> getCarsByEmployeeId(Integer employeeId) {
 		LogUtil.trace("CarDAOImpl - addCar");
+		
 		Session session = sessionFactory.openSession();
 
 		Employee employee = session.get(Employee.class, employeeId);

@@ -18,8 +18,7 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDAO roleDao;
 
 	@Autowired
-	public RoleServiceImpl(RoleDAO roleDao) {
-		super();
+	public void setRoleDao(RoleDAO roleDao) {
 		this.roleDao = roleDao;
 	}
 
