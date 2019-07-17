@@ -89,6 +89,10 @@ public class Employee {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
 	private List<Ride> rides = new ArrayList<>();
 
+	// One to many relationship (One employee can book many rides)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+	private List<Booking> bookings = new ArrayList<>();
+
 	public Employee() {
 		super();
 	}
