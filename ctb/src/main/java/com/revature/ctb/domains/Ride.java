@@ -165,6 +165,16 @@ public class Ride {
 	public void setRoutes(List<Route> routes) {
 		this.routes = routes;
 	}
+	
+	
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
 
 	@Override
 	public int hashCode() {
