@@ -62,6 +62,9 @@ public class Ride {
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ride")
 	private List<Route> routes = new ArrayList<>();
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ride")
+	private List<Booking> bookings = new ArrayList<>();
 
 	public Ride() {
 	}
