@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "car")
@@ -25,15 +26,19 @@ public class Car {
 	private Integer carId;
 
 	@Column(name = "vin_number")
+	@NotEmpty(message = "Vin Number is required") // Validating null values
 	private String vinNumber;
 
 	@Column(name = "make")
+	@NotEmpty(message = "Make is required") // Validating null values
 	private String make;
 
 	@Column(name = "model")
+	@NotEmpty(message = "Model is required") // Validating null values
 	private String model;
 
 	@Column(name = "number_seats")
+	@NotEmpty(message = "Number of seats is required") // Validating null values
 	private int numberOfSeats;
 
 	@Column(name = "ac")

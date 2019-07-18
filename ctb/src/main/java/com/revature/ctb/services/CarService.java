@@ -1,11 +1,11 @@
-package com.revature.ctb.daos;
+package com.revature.ctb.services;
 
 import java.util.List;
 
 import com.revature.ctb.domains.Car;
 
-public interface CarDAO {
-
+public interface CarService {
+	
 	public boolean addCar(Car car);
 
 	public boolean updateCar(Car car);
@@ -13,8 +13,6 @@ public interface CarDAO {
 	public boolean deleteCar(Integer carId);
 
 	public Car getCarById(Integer carId);
-	
-	public Car getCarByVinNumber(String vinNumber);
 
 	public List<Car> getCarsByEmployeeId(Integer employeeId);
 

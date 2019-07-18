@@ -62,7 +62,7 @@ public class Employee {
 	private boolean active;
 
 	@Column(name = "block")
-	private boolean block;
+	private boolean blocked;
 
 	@Column(name = "driver")
 	private boolean driver;
@@ -71,7 +71,7 @@ public class Employee {
 	// here
 	// and use a ManyToOne in EmployeeRole class that way I keep the link between
 	// Employee and Role
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public class Employee {
 	// information)
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "employee_id")
-	private List<InfoReq> inforRequests = new ArrayList<>();
+	private List<InfoReq> infoRequests = new ArrayList<>();
 
 	// One to many relationship (One employee can schedule many rides)
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
@@ -99,7 +99,7 @@ public class Employee {
 
 	public Employee(Integer employeeId, String username, String password, String firstName, String lastName,
 			String email, String phoneNumber, String driverLicense, Integer numberOfFlags, boolean active,
-			boolean block, boolean driver) {
+			boolean blocked, boolean driver) {
 		super();
 		this.employeeId = employeeId;
 		this.username = username;
@@ -111,12 +111,12 @@ public class Employee {
 		this.driverLicense = driverLicense;
 		this.numberOfFlags = numberOfFlags;
 		this.active = active;
-		this.block = block;
+		this.blocked = blocked;
 		this.driver = driver;
 	}
 
 	public Employee(String username, String password, String firstName, String lastName, String email,
-			String phoneNumber, String driverLicense, Integer numberOfFlags, boolean active, boolean block,
+			String phoneNumber, String driverLicense, Integer numberOfFlags, boolean active, boolean blocked,
 			boolean driver) {
 		super();
 		this.username = username;
@@ -128,7 +128,7 @@ public class Employee {
 		this.driverLicense = driverLicense;
 		this.numberOfFlags = numberOfFlags;
 		this.active = active;
-		this.block = block;
+		this.blocked = blocked;
 		this.driver = driver;
 	}
 
@@ -212,12 +212,12 @@ public class Employee {
 		this.active = active;
 	}
 
-	public boolean isBlock() {
-		return block;
+	public boolean isBlocked() {
+		return blocked;
 	}
 
-	public void setBlock(boolean block) {
-		this.block = block;
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
 	}
 
 	public boolean isDriver() {
@@ -244,12 +244,12 @@ public class Employee {
 		this.cars = cars;
 	}
 
-	public List<InfoReq> getInforRequests() {
-		return inforRequests;
+	public List<InfoReq> getInfoRequests() {
+		return infoRequests;
 	}
 
-	public void setInforRequests(List<InfoReq> inforRequests) {
-		this.inforRequests = inforRequests;
+	public void setInfoRequests(List<InfoReq> infoRequests) {
+		this.infoRequests = infoRequests;
 	}
 
 	public List<Ride> getRides() {
@@ -331,7 +331,7 @@ public class Employee {
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", username=" + username + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", driverLicense="
-				+ driverLicense + ", numberOfFlags=" + numberOfFlags + ", active=" + active + ", block=" + block
+				+ driverLicense + ", numberOfFlags=" + numberOfFlags + ", active=" + active + ", blocked=" + blocked
 				+ ", driver=" + driver + "]";
 	}
 

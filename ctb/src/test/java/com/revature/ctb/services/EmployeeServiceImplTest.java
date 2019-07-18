@@ -28,7 +28,7 @@ public class EmployeeServiceImplTest {
 	public void testRegisterEmployee() {
 		Employee emp = new Employee("peter.p" + id, "secret", "Peter", "Parker", "peter@ctb.com", "2334343", "A12132A", 0, true, false, true);
 		
-//		empServ.registerEmployee(emp);
+		empServ.registerEmployee(emp);
 	}
 
 }

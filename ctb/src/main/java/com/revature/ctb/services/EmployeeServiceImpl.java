@@ -47,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw drExc;
 		}
 
-		employee.setBlock(false); // Employee is not block
+		employee.setBlocked(false); // Employee is not block
 		employee.setNumberOfFlags(0); // Number of flags is 0
 
 		List<Role> roles = new ArrayList<>();
@@ -86,6 +86,44 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 
 		return added;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public boolean updateEmployee(Employee employee) {
+		return employeeDao.updateEmployee(employee);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Employee getEmployeeById(Integer employeeId) {
+		Employee employee = employeeDao.getEmployeeById(employeeId);
+		employee.getRoles(); // Loading the roles for the employee
+
+		return employee;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Employee getEmployeeByUsername(String username) {
+		Employee employee = employeeDao.getEmployeeByUsername(username);
+		employee.getRoles(); // Loading the roles for the employee
+
+		return employee;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Employee getEmployeeByUsernameAndPassword(String username, String password) {
+		Employee employee = employeeDao.getEmployeeByUsername(username);
+
+		if (employee.getPassword().equals(password)) {
+			employee.getRoles(); // Loading the roles for the employee
+
+			return employee;
+		}
+
+		return null;
 	}
 
 }
