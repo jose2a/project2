@@ -1,6 +1,5 @@
 package com.revature.ctb.domains;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "ride")
@@ -30,17 +31,24 @@ public class Ride {
 
 	@Column(name = "departure_date")
 	@Temporal(TemporalType.DATE)
+	@NotEmpty(message = "Departure date is required") // Validating
 	private Date departureDate;
 
 	@Column(name = "departure_time")
 	@Temporal(TemporalType.TIME)
+	@NotEmpty(message = "Departure time is required") // Validating
 	private Date departureTime;
 
 	@Column(name = "num_seats_available")
+	@NotEmpty(message = "Number of seats are required") // Validating
+	@Min(value = 1, message = "Number of seats must be greater than zero")
 	private int numberOfSeatsAvailable;
 
 	@Column(name = "amount_charge")
 	private double amountCharge;
+
+	@Column(name = "num_bookings")
+	private int numberOfBookings;
 
 	// Many to one (many rides for one car)
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
@@ -60,35 +68,37 @@ public class Ride {
 	@JoinColumn(name = "ridestatus_id")
 	private RideStatus rideStatus;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ride")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ride")
 	private List<Route> routes = new ArrayList<>();
-	
+
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ride")
 	private List<Booking> bookings = new ArrayList<>();
 
 	public Ride() {
 	}
 
-	public Ride(Integer rideId, Date departureDate, Time departureTime, int numberOfSeatsAvailable, double amountCharge,
-			Employee employee, Car car, RideStatus rideStatus) {
+	public Ride(Date departureDate, Date departureTime, int numberOfSeatsAvailable, double amountCharge,
+			int numberOfBookings, Employee employee, Car car, RideStatus rideStatus) {
+		super();
+		this.departureDate = departureDate;
+		this.departureTime = departureTime;
+		this.numberOfSeatsAvailable = numberOfSeatsAvailable;
+		this.amountCharge = amountCharge;
+		this.numberOfBookings = numberOfBookings;
+		this.employee = employee;
+		this.car = car;
+		this.rideStatus = rideStatus;
+	}
+
+	public Ride(Integer rideId, Date departureDate, Date departureTime, int numberOfSeatsAvailable, double amountCharge,
+			int numberOfBookings, Employee employee, Car car, RideStatus rideStatus) {
 		super();
 		this.rideId = rideId;
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
 		this.numberOfSeatsAvailable = numberOfSeatsAvailable;
 		this.amountCharge = amountCharge;
-		this.employee = employee;
-		this.car = car;
-		this.rideStatus = rideStatus;
-	}
-
-	public Ride(Date departureDate, Time departureTime, int numberOfSeatsAvailable, double amountCharge,
-			Employee employee, Car car, RideStatus rideStatus) {
-		super();
-		this.departureDate = departureDate;
-		this.departureTime = departureTime;
-		this.numberOfSeatsAvailable = numberOfSeatsAvailable;
-		this.amountCharge = amountCharge;
+		this.numberOfBookings = numberOfBookings;
 		this.employee = employee;
 		this.car = car;
 		this.rideStatus = rideStatus;
@@ -134,6 +144,14 @@ public class Ride {
 		this.amountCharge = amountCharge;
 	}
 
+	public int getNumberOfBookings() {
+		return numberOfBookings;
+	}
+
+	public void setNumberOfBookings(int numberOfBookings) {
+		this.numberOfBookings = numberOfBookings;
+	}
+
 	public RideStatus getRideStatus() {
 		return rideStatus;
 	}
@@ -165,8 +183,6 @@ public class Ride {
 	public void setRoutes(List<Route> routes) {
 		this.routes = routes;
 	}
-	
-	
 
 	public List<Booking> getBookings() {
 		return bookings;
@@ -225,7 +241,8 @@ public class Ride {
 	public String toString() {
 		return "Ride [rideId=" + rideId + ", departureDate=" + departureDate + ", departureTime=" + departureTime
 				+ ", numberOfSeatsAvailable=" + numberOfSeatsAvailable + ", amountCharge=" + amountCharge
-				+ ", rideStatus=" + rideStatus + "]";
+				+ ", numberOfBookings=" + numberOfBookings + ", employee=" + employee + ", car=" + car + ", rideStatus="
+				+ rideStatus + "]";
 	}
 
 }

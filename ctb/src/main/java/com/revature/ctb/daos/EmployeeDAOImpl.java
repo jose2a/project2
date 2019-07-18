@@ -71,4 +71,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return true;
 	}
 
+	@Override
+	public Employee getEmployeeById(Integer employeeId) {
+		LogUtil.trace("EmployeeDAOImpl - getEmployeeById");
+
+		// open hibernate session
+		Session session = sessionFactory.openSession();
+
+		// get employee
+		return session.get(Employee.class, employeeId);
+	}
+
 }
