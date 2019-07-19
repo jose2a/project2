@@ -70,7 +70,7 @@ public class RideDAOImpl implements RideDAO {
 		Query<Ride> query = session.createQuery("from Ride where rideId = :rideId", Ride.class);
 
 		Ride ride = (Ride) query.getSingleResult();
-
+		
 		return ride;
 	}
 
