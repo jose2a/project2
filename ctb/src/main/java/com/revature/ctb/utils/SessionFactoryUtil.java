@@ -41,7 +41,7 @@ public class SessionFactoryUtil {
 		LogUtil.debug("Created session factory");
 	}
 
-	public static SessionFactory getSessionFactory() {
+	public static synchronized SessionFactory getSessionFactory() {
 		return sf;
 	}
 

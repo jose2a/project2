@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.ctb.domains.Car;
 import com.revature.ctb.domains.Employee;
-import com.revature.ctb.utils.LogUtil;
 
 public class CarDAOImpl implements CarDAO {
 
@@ -22,9 +21,7 @@ public class CarDAOImpl implements CarDAO {
 
 	@Override
 	public boolean addCar(Car car) {
-		LogUtil.trace("CarDAOImpl - addCar");
-
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		session.save(car);
 
@@ -33,9 +30,7 @@ public class CarDAOImpl implements CarDAO {
 
 	@Override
 	public boolean updateCar(Car car) {
-		LogUtil.trace("CarDAOImpl - updateCar");
-		
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		session.saveOrUpdate(car);
 
@@ -44,9 +39,7 @@ public class CarDAOImpl implements CarDAO {
 
 	@Override
 	public boolean deleteCar(Integer carId) {
-		LogUtil.trace("CarDAOImpl - deleteCar");
-		
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		Query<Car> query = session.createQuery("delete from Car where carId = :carId", Car.class);
 		query.setParameter("carId", carId);
@@ -56,25 +49,17 @@ public class CarDAOImpl implements CarDAO {
 
 	@Override
 	public Car getCarById(Integer carId) {
-		LogUtil.trace("CarDAOImpl - getCarById");
-		
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
-		Car car = null;
-
-		car = session.get(Car.class, carId);
-
-		return car;
+		return session.get(Car.class, carId);
 	}
 
 	@Override
 	public List<Car> getCarsByEmployeeId(Integer employeeId) {
-		LogUtil.trace("CarDAOImpl - getCarsByEmployeeId");
-
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		Employee employee = session.get(Employee.class, employeeId);
-		
+
 		// Getting cars by employeeId and are active
 		Query<Car> query = session.createQuery("from Car c where c.Employee = :employee and active = true", Car.class);
 
@@ -85,9 +70,7 @@ public class CarDAOImpl implements CarDAO {
 
 	@Override
 	public Car getCarByVinNumber(String vinNumber) {
-		LogUtil.trace("CarDAOImpl - getCarByVinNumber");
-
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		Query<Car> query = session.createQuery("from Car c where c.vinNumber = :vinNumber", Car.class);
 

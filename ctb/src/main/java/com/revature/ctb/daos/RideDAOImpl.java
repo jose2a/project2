@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
-import com.revature.ctb.utils.LogUtil;
 
 public class RideDAOImpl implements RideDAO {
 
@@ -26,13 +25,10 @@ public class RideDAOImpl implements RideDAO {
 
 	@Override
 	public boolean addRide(Ride ride) {
-		LogUtil.trace("RideDAOImpl - add ride");
-
-		// open session
-		Session sess = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		// save ride
-		sess.save(ride);
+		session.save(ride);
 
 		// if ride id > 0 , ride was created
 		return ride.getRideId() > 0;
@@ -40,11 +36,9 @@ public class RideDAOImpl implements RideDAO {
 
 	@Override
 	public boolean updateRide(Ride ride) {
-		LogUtil.trace("RideDAOImpl - update ride");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		sess.saveOrUpdate(ride);
+		session.saveOrUpdate(ride);
 
 		// if true returned, no exception occurred, and save or update must be true
 		return true;
@@ -52,11 +46,9 @@ public class RideDAOImpl implements RideDAO {
 
 	@Override
 	public boolean deleteRide(Integer rideId) {
-		LogUtil.trace("RideDAOImpl - delete ride");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		Query<Ride> query = sess.createQuery("delete from Ride where rideId :rideId", Ride.class);
+		Query<Ride> query = session.createQuery("delete from Ride where rideId :rideId", Ride.class);
 		query.setParameter("rideId", rideId);
 
 		return query.executeUpdate() > 0;
@@ -64,37 +56,31 @@ public class RideDAOImpl implements RideDAO {
 
 	@Override
 	public List<Ride> getRidesByEmpId(Integer employeeId) {
-		LogUtil.trace("RideDAOImpl - get ride by Id");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		Employee employee = sess.get(Employee.class, employeeId);
+		Employee employee = session.get(Employee.class, employeeId);
 
 		return employee.getRides();
 	}
-	
+
 	@Override
 	public Ride getRidebyId(Integer rideId) {
-		LogUtil.trace("RideDAOImpl - get ride by ID");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		Query query = sess.createQuery("from Ride where rideId = :rideId", Ride.class);
+		Query<Ride> query = session.createQuery("from Ride where rideId = :rideId", Ride.class);
 
 		Ride ride = (Ride) query.getSingleResult();
 		
-		return ride; 
+		return ride;
 	}
 
 	@Override
 	public List<Ride> getEmployeeActiveRides(Integer employeeId) {
-		LogUtil.trace("RideDAOImpl - getEmployeeActiveRides");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
+		Employee employee = session.get(Employee.class, employeeId);
 
-		Employee employee = sess.get(Employee.class, employeeId);
-
-		Query<Ride> query = sess.createQuery(
+		Query<Ride> query = session.createQuery(
 				"from Ride where departureDate >= :now and departureTime >= :currenttime and employee = :employee",
 				Ride.class);
 
@@ -109,12 +95,10 @@ public class RideDAOImpl implements RideDAO {
 
 	@Override
 	public List<Ride> getAllActiveRides() {
-		LogUtil.trace("RideDAOImpl - getAllActiveRides");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		Query<Ride> query = sess.createQuery("from Ride where departureDate >= :now and departureTime >= :currenttime",
-				Ride.class);
+		Query<Ride> query = session
+				.createQuery("from Ride where departureDate >= :now and departureTime >= :currenttime", Ride.class);
 
 		String currentTimePlusTwoHrs = LocalTime.now().plusHours(2).toString();
 
@@ -126,11 +110,9 @@ public class RideDAOImpl implements RideDAO {
 
 	@Override
 	public List<Ride> getAllRides() {
-		LogUtil.trace("RideDAOImpl - get all rides");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		Query<Ride> query = sess.createQuery("from Ride", Ride.class);
+		Query<Ride> query = session.createQuery("from Ride", Ride.class);
 
 		return query.getResultList();
 	}
