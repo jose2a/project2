@@ -83,7 +83,7 @@ public class RideDAOImpl implements RideDAO {
 
 		Ride ride = (Ride) query.getSingleResult();
 		
-		return ride; ride.
+		return ride; 
 	}
 
 	@Override
