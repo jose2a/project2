@@ -11,6 +11,6 @@ public class TestRestController {
 	@GetMapping("/ctb/")
 	@ResponseStatus(code = HttpStatus.OK)
 	public String get() {
-		return "index.html";
+		return "hello";
 	}
 }
