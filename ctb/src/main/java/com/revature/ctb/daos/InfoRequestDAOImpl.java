@@ -8,7 +8,6 @@ import org.hibernate.query.Query;
 
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.InfoReq;
-import com.revature.ctb.utils.LogUtil;
 
 public class InfoRequestDAOImpl implements InfoRequestDAO {
 
@@ -16,55 +15,45 @@ public class InfoRequestDAOImpl implements InfoRequestDAO {
 
 	@Override
 	public boolean addRequest(InfoReq infoReq) {
-		LogUtil.trace("InfoRequestDAOImpl - addRequest");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		sess.save(infoReq);
+		session.save(infoReq);
 
 		return infoReq.getInforeqId() > 0;
 	}
 
 	@Override
 	public boolean updateRequest(InfoReq infoReq) {
-		LogUtil.trace("InfoRequestDAOImpl - updateRequest");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		sess.update(infoReq);
+		session.update(infoReq);
 
 		return true;
 	}
 
 	@Override
 	public List<InfoReq> getReqByEmpId(Integer employeeId) {
-		LogUtil.trace("InfoRequestDAOImpl - getReqById");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		Employee employee = sess.get(Employee.class, employeeId);
+		Employee employee = session.get(Employee.class, employeeId);
 
 		return employee.getInfoRequests();
 	}
 
 	@Override
 	public List<InfoReq> getInfoRequests() {
-		LogUtil.trace("InfoRequestDAOImpl - getInfoRequests");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		Query<InfoReq> query = sess.createQuery("from InfoReq where provided = false", InfoReq.class);
+		Query<InfoReq> query = session.createQuery("from InfoReq where provided = false", InfoReq.class);
 
 		return query.getResultList();
 	}
 
 	@Override
 	public InfoReq getInfoReqById(Integer infoReqId) {
-		LogUtil.trace("InfoRequestDAOImpl - getInfoReqById");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session sess = sessionFactory.openSession();
-
-		return sess.get(InfoReq.class, infoReqId);
+		return session.get(InfoReq.class, infoReqId);
 	}
 
 }

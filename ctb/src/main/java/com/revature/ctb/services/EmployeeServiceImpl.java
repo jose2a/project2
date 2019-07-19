@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.ctb.daos.EmployeeDAO;
 import com.revature.ctb.domains.Employee;
@@ -32,8 +30,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED) // Setting propagation to nested to keep transaction alive in the
-														// whole method and in the other services used by this method
 	public boolean registerEmployee(Employee employee) {
 
 		boolean employeeExist = employeeDao.getEmployeeByUsername(employee.getUsername()) != null;
@@ -72,12 +68,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 			brExc.addError("You need to provide a driver license as a driver.");
 			throw brExc;
 		}
+		
+		boolean added = employeeDao.addEmployee(employee);
 
 		Role passenger = roleServ.getRoleById(Role.RoleIds.PASSENGER);
 		roles.add(passenger);
 		employee.getRoles().add(passenger);
 
-		boolean added = employeeDao.addEmployee(employee);
 
 		// if the employee was successfully inserted in the database we can insert its
 		// roles
@@ -89,13 +86,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean updateEmployee(Employee employee) {
 		return employeeDao.updateEmployee(employee);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public Employee getEmployeeById(Integer employeeId) {
 		Employee employee = employeeDao.getEmployeeById(employeeId);
 		employee.getRoles(); // Loading the roles for the employee
@@ -104,7 +99,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public Employee getEmployeeByUsername(String username) {
 		Employee employee = employeeDao.getEmployeeByUsername(username);
 		employee.getRoles(); // Loading the roles for the employee
@@ -113,7 +107,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public Employee getEmployeeByUsernameAndPassword(String username, String password) {
 		Employee employee = employeeDao.getEmployeeByUsername(username);
 

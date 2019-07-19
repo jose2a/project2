@@ -17,7 +17,7 @@ public class RideStatusDAOImpl implements RideStatusDAO {
 	
 	@Override
 	public RideStatus getRideStatus(Integer rideStatusId) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		
 		return session.get(RideStatus.class, rideStatusId);
 	}

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.ctb.domains.Booking;
 import com.revature.ctb.domains.Ride;
-import com.revature.ctb.utils.LogUtil;
 
 public class BookingDAOImpl implements BookingDAO {
 
@@ -22,9 +21,7 @@ public class BookingDAOImpl implements BookingDAO {
 
 	@Override
 	public boolean addBooking(Booking booking) {
-		LogUtil.trace("BookingDAOImpl - addBooking");
-
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		session.save(booking);
 
@@ -33,9 +30,7 @@ public class BookingDAOImpl implements BookingDAO {
 
 	@Override
 	public boolean updateBooking(Booking booking) {
-		LogUtil.trace("BookingDaoImpl - updateBooking");
-
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		session.saveOrUpdate(booking);
 
@@ -44,9 +39,7 @@ public class BookingDAOImpl implements BookingDAO {
 
 	@Override
 	public boolean deleteBooking(Booking bookingId) {
-		LogUtil.trace("BookingDAOImpl - deleteBooking");
-
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		Query<Booking> query = session.createQuery("delete from Booking where bookingId = :bookingId", Booking.class);
 		query.setParameter("bookingId", bookingId);
@@ -56,9 +49,7 @@ public class BookingDAOImpl implements BookingDAO {
 
 	@Override
 	public List<Booking> getBookingsByRideId(Integer rideId) {
-		LogUtil.trace("BookingDAOImpl - Get Booking by rideId");
-
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		Ride ride = session.get(Ride.class, rideId);
 

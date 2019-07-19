@@ -3,8 +3,6 @@ package com.revature.ctb.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.ctb.daos.CarDAO;
 import com.revature.ctb.domains.Car;
@@ -22,7 +20,6 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean addCar(Car car) {
 
 		boolean carExist = carDao.getCarByVinNumber(car.getVinNumber()) != null;
@@ -42,13 +39,11 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean updateCar(Car car) {
 		return carDao.updateCar(car);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean deleteCar(Integer carId) {
 		Car car = carDao.getCarById(carId);
 
@@ -62,13 +57,11 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public Car getCarById(Integer carId) {
 		return carDao.getCarById(carId);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
 	public List<Car> getCarsByEmployeeId(Integer employeeId) {
 		return carDao.getCarsByEmployeeId(employeeId);
 	}
