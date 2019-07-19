@@ -9,6 +9,7 @@ import com.revature.ctb.daos.BookingDAO;
 import com.revature.ctb.daos.EmployeeDAO;
 import com.revature.ctb.daos.RideDAO;
 import com.revature.ctb.domains.Booking;
+import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.exceptions.InputValidationException;
 
@@ -45,11 +46,13 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<Booking> getAllBookingByRideId(Integer rideId) {
+		
 		return bookingDao.getBookingsByRideId(rideId);
 	}
 
 	@Override
 	public List<Booking> getAllBooking() {
+		
 		List<Booking> allBooking = bookingDao.getAllBooking();
 		
 		return allBooking;
@@ -59,14 +62,15 @@ public class BookingServiceImpl implements BookingService {
 	public void deleteOneBooking(Integer employeeId) {
 		
 		List<Booking> booking = bookingDao.getBookingsByRideId(employeeId);
-		for(Booking ride : booking) {
-			
+		for(Booking employee : booking) {
 		}
+		bookingDao.deleteBooking(null);
 	}
 
 	@Override
 	public void deleteAllBooking(Integer rideId) {
-		// TODO Auto-generated method stub
+		
+		List<Booking> booking = bookingDao.getBookingsByRideId(rideId); 
 		
 	}
 
