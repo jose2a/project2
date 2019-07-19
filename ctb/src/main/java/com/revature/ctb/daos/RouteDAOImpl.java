@@ -8,7 +8,6 @@ import org.hibernate.query.Query;
 
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.domains.Route;
-import com.revature.ctb.utils.LogUtil;
 
 public class RouteDAOImpl implements RouteDAO {
 
@@ -16,22 +15,14 @@ public class RouteDAOImpl implements RouteDAO {
 
 	@Override
 	public Route getRouteById(Integer routeId) {
-		LogUtil.trace("RouteDAOImpl - getRoute");
+		Session session = sessionFactory.getCurrentSession();
 
-		Session session = sessionFactory.openSession();
-
-		Route route = null;
-
-		route = session.get(Route.class, routeId);
-
-		return route;
+		return session.get(Route.class, routeId);
 	}
 
 	@Override
 	public boolean addRoute(Route route) {
-		LogUtil.trace("RouteDAOImpl - addRoute");
-		
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		session.save(route);
 
@@ -40,25 +31,19 @@ public class RouteDAOImpl implements RouteDAO {
 
 	@Override
 	public boolean deleteRoute(Integer routeId) {
-		LogUtil.trace("RouteDAOImpl - deleteRoute");
-		
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		String hql = "delete from route where routeid = :routeid";
-		
+
 		Query<Route> query = session.createQuery(hql, Route.class);
 		query.setParameter("routeid", routeId);
-		
-		Integer result = query.executeUpdate();
 
-		return result > 0;
+		return query.executeUpdate() > 0;
 	}
 
 	@Override
 	public List<Route> getAllRoutesByRideId(Integer rideId) {
-		LogUtil.trace("RouteDAOImpl - getAllRoutes");
-		
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		Ride ride = session.get(Ride.class, rideId);
 

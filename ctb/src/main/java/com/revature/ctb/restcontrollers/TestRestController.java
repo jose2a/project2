@@ -1,18 +1,16 @@
 package com.revature.ctb.restcontrollers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api")
+@Controller
 public class TestRestController {
 
-	@GetMapping("/test")
+	@GetMapping("/ctb/")
 	@ResponseStatus(code = HttpStatus.OK)
 	public String get() {
-		return "hello";
+		return "index.html";
 	}
 }

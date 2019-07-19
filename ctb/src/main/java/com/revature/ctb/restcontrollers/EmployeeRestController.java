@@ -42,7 +42,7 @@ public class EmployeeRestController {
 		// saving employee using the service
 		employeeServ.registerEmployee(emp);
 
-		// hidding employee password
+		// hiding employee password
 		emp.setPassword("************");
 
 		return emp;
