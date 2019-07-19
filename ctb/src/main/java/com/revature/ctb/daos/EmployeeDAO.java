@@ -8,6 +8,8 @@ public interface EmployeeDAO {
 	
 	public boolean updateEmployee(Employee employee);
 	
+	public Employee getEmployeeById(Integer employeeId);
+	
 	public Employee getEmployeeByUsername(String username);
 
 }

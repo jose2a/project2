@@ -22,10 +22,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public boolean addEmployee(Employee employee) {
-		LogUtil.trace("EmployeeDAOImpl - Add Employee");
-
-		// open hibernate session, spring closes when we use the @Transactional annotation in the service
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		LogUtil.debug(">>>>>>>>>>> Roles: " + employee.getRoles().toString());
 
@@ -38,10 +35,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public Employee getEmployeeByUsername(String username) {
-		LogUtil.trace("EmployeeDAOImpl - Get Employee by username");
-
-		// open hibernate session
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		// get employee
 		Query query = session.createQuery("from Employee where username = :username");
@@ -59,16 +53,21 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public boolean updateEmployee(Employee employee) {
-		LogUtil.trace("EmployeeDAOImpl - updateEmployee");
-
-		// open hibernate session
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 
 		// save employee
 		session.saveOrUpdate(employee);
 
 		// if employeeId is greater than 0, it means the employee was inserted
 		return true;
+	}
+
+	@Override
+	public Employee getEmployeeById(Integer employeeId) {
+		Session session = sessionFactory.getCurrentSession();
+
+		// get employee
+		return session.get(Employee.class, employeeId);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.revature.ctb.daos;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,17 @@ public class FeedbackTypeDAOImpl implements FeedbackTypeDAO {
 	}
 
 	@Override
-	public FeedbackType geFeedbackType(Integer feedbackTypeId) {
-		Session session = sessionFactory.openSession();
+	public FeedbackType getFeedbackType(Integer feedbackTypeId) {
+		Session session = sessionFactory.getCurrentSession();
 
 		return session.get(FeedbackType.class, feedbackTypeId);
+	}
+
+	@Override
+	public List<FeedbackType> getAllFeedbackTypes() {
+		Session session = sessionFactory.getCurrentSession();
+
+		return session.createQuery("from FeedbackType", FeedbackType.class).getResultList();
 	}
 
 }
