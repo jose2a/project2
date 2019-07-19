@@ -56,4 +56,15 @@ public class BookingDAOImpl implements BookingDAO {
 		return ride.getBookings();
 	}
 
+	@Override
+	public List<Booking> getAllBooking() {
+		Session session = sessionFactory.getCurrentSession();
+
+		Query<Booking> query = session.createQuery("from Booking", Booking.class);
+
+		return query.getResultList();
+	}
+	
+	
+
 }

@@ -50,16 +50,18 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<Booking> getAllBooking() {
-		return bookingDao.getBookingsByRideId(null);
+		List<Booking> allBooking = bookingDao.getAllBooking();
+		
+		return allBooking;
 	}
 
 	@Override
 	public void deleteOneBooking(Integer employeeId) {
 		
 		List<Booking> booking = bookingDao.getBookingsByRideId(employeeId);
-		
-	
-		
+		for(Booking ride : booking) {
+			
+		}
 	}
 
 	@Override
