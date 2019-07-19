@@ -72,6 +72,19 @@ public class RideDAOImpl implements RideDAO {
 
 		return employee.getRides();
 	}
+	
+	@Override
+	public Ride getRidebyId(Integer rideId) {
+		LogUtil.trace("RideDAOImpl - get ride by ID");
+
+		Session sess = sessionFactory.openSession();
+
+		Query query = sess.createQuery("from Ride where rideId = :rideId", Ride.class);
+
+		Ride ride = (Ride) query.getSingleResult();
+		
+		return ride; ride.
+	}
 
 	@Override
 	public List<Ride> getEmployeeActiveRides(Integer employeeId) {
