@@ -12,13 +12,15 @@ public interface RideDAO {
 	
 	public boolean deleteRide(Integer rideId);
 	
-	public List<Ride> getRidesByEmpId(Integer rideId);
+	public List<Ride> getRidesByEmpId(Integer employeeId);
 	
 	public List<Ride> getEmployeeActiveRides(Integer employeeId);
 	
 	public List<Ride> getAllActiveRides();
 	
 	public List<Ride> getAllRides();
+	
+	public Ride getRidebyId(Integer rideId);
 	
 	
 }
