@@ -32,8 +32,7 @@ public class RideRestController {
 		this.rideServ =rideServ;
 	}
 	
-	@PostMapping(path = "ride", consumes = "application/json")
-	
+	@PostMapping(value = "ride", consumes = "application/json")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Ride postRide(@Valid @RequestBody Ride ride) {
 		
