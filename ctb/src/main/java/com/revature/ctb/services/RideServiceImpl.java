@@ -5,8 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.revature.ctb.daos.BookingDAO;
-import com.revature.ctb.daos.CarDAO;
+
 import com.revature.ctb.daos.RideDAO;
 import com.revature.ctb.domains.Booking;
 import com.revature.ctb.domains.Employee;
@@ -26,7 +25,6 @@ public class RideServiceImpl implements RideService {
 
 	private EmployeeService employeeService;
 	private RideDAO rideDao;
-	private RouteService routeService;
 	private BookingService bookingService;
 	private MessageService messageService;
 	private RideStatusService rideStatusService;
@@ -153,7 +151,8 @@ public class RideServiceImpl implements RideService {
 	}
 	
 	//sending message to passengers from system
-	private void sendMessageToPassengers(List<Booking> bookings, String message) {
+	@Override
+	public void sendMessageToPassengers(List<Booking> bookings, String message) {
 		for (Booking booking : bookings) {
 			// access employee. get phone number. send message
 			Employee emp = booking.getEmployee();
@@ -164,6 +163,7 @@ public class RideServiceImpl implements RideService {
 	
 	
 	//driver sends message to passengers
+	@Override
 	public void driverMessageToPassengers(Integer rideId, String message) {
 		
 		Ride thisRide = rideDao.getRidebyId(rideId);
@@ -172,23 +172,6 @@ public class RideServiceImpl implements RideService {
 		
 	}
 	
-	
-	//system sends method to driver if passenger makes changes to booking
-	private void sendMessageToDriver (Ride ride, String message) {
-	
-			Employee driver = ride.getEmployee();
-			
-			messageService.sendMessage(driver.getPhoneNumber(), message);
-	}
-	
-	//passenger sends message to driver
-	public void passengerMessageToDriver(Integer rideId, String message) {
-		
-		Ride thisRide = rideDao.getRidebyId(rideId);
-		
-		sendMessageToDriver(thisRide, message);
-
-	}
 
 	@Override
 	public void updateRide(Ride ride) {
