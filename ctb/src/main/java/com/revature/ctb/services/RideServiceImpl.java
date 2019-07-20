@@ -147,7 +147,7 @@ public class RideServiceImpl implements RideService {
 		
 		for (Booking booking : rideBookings) {
 			//access employee. get phone number. send message 
-			bookingDao.getBookingsByRideId(rideId)
+			bookingDao.getBookingsByRideId(rideId).
 		}
 		//rideDao.deleteRide(rideId);		
 //		ride.setRideStatus(rideStatus); // set status to cancel
@@ -163,7 +163,7 @@ public class RideServiceImpl implements RideService {
 		MessageServiceImpl msi = new MessageServiceImpl();
 		List<Booking> rideBookings = bookingDao.getBookingsByRideId(ride.getRideId());
 		for (Booking b: rideBookings) {
-			bookingDao.//bk attached to emp number
+			b.getBookingId().r
 		}
 		
 		
