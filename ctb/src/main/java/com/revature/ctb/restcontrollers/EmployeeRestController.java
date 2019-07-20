@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.dtos.LoginDTO;
 import com.revature.ctb.services.EmployeeService;
 
+@RestController
 public class EmployeeRestController extends BasedRestController {
 
 	private EmployeeService employeeServ;
@@ -45,9 +47,13 @@ public class EmployeeRestController extends BasedRestController {
 		employeeServ.registerEmployee(employee);
 
 		// hiding employee password
-		employee.setPassword(PASSWORD_MASK);
+		hidePassword(employee);
 
 		return employee;
+	}
+
+	private void hidePassword(Employee employee) {
+		employee.setPassword(PASSWORD_MASK);
 	}
 
 	@PutMapping(value = "employee/{employeeId}", consumes = "application/json")
@@ -56,33 +62,38 @@ public class EmployeeRestController extends BasedRestController {
 		// update employee
 		employeeServ.updateEmployee(employee);
 
-		// hiding employee password
-		employee.setPassword(PASSWORD_MASK);
+		hidePassword(employee);
 
 		return employee;
 	}
-	
-	
+
 	@GetMapping(value = "employee/{employeeId}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Employee getEmployeeById(@PathVariable Integer employeeId) {
-		
-		return employeeServ.getEmployeeById(employeeId);
+
+		Employee employee = employeeServ.getEmployeeById(employeeId);
+
+		hidePassword(employee);
+
+		return employee;
 	}
-	
-	@GetMapping(value = "employee/{username}")
+
+	@GetMapping(value = "employee/username/{username}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Employee getEmployeeByUsername(@PathVariable String username) {
 		return employeeServ.getEmployeeByUsername(username);
 	}
 
-	@GetMapping(value = "employee/{username}")
+	@PostMapping(value = "employee/")
 	@ResponseStatus(code = HttpStatus.OK)
-	public Employee login(LoginDTO dto) {
-		return employeeServ.getEmployeeByUsernameAndPassword(dto.getUsername(), dto.getPassword());
+	public Employee login(@RequestBody LoginDTO dto) {
+		Employee employee = employeeServ.getEmployeeByUsernameAndPassword(dto.getUsername(), dto.getPassword());
+
+		hidePassword(employee);
+
+		return employee;
 	}
-	
-	
+
 	/**
 	 * Get all the employees
 	 * 
@@ -91,6 +102,10 @@ public class EmployeeRestController extends BasedRestController {
 	@GetMapping(value = "employee")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<Employee> getAllEmployees() {
-		return employeeServ.getAllEmployees();
+		List<Employee> employees = employeeServ.getAllEmployees();
+
+		employees.forEach(emp -> hidePassword(emp));
+
+		return employees;
 	}
 }

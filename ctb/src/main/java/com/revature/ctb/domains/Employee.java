@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -71,24 +73,28 @@ public class Employee {
 	// here
 	// and use a ManyToOne in EmployeeRole class that way I keep the link between
 	// Employee and Role
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles = new ArrayList<>();
 
 	// One to many relationship (One employee can have many cars)
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
 	private List<Car> cars = new ArrayList<>();
 
 	// One to many relationship (One employee can have many requests for
 	// information)
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "employee_id")
 	private List<InfoReq> infoRequests = new ArrayList<>();
 
 	// One to many relationship (One employee can schedule many rides)
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
 	private List<Ride> rides = new ArrayList<>();
 
+	@JsonIgnore
 	// One to many relationship (One employee can book many rides)
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
 	private List<Booking> bookings = new ArrayList<>();

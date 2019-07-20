@@ -3,6 +3,7 @@ package com.revature.ctb.services;
 import java.util.List;
 
 import com.revature.ctb.domains.Booking;
+import com.revature.ctb.domains.Ride;
 
 public interface BookingService {
 	
@@ -17,4 +18,7 @@ public interface BookingService {
 	public List<Booking> getAllBookingByRideId(Integer rideId);
 	
 	public List<Booking> getAllBooking();
+	
+	public void sendMessageToDriver (Ride ride, String message);
+	
 }
