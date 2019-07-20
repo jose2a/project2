@@ -8,7 +8,9 @@ public interface BookingService {
 	
 	public void addBooking(Booking booking);
 	
-	public void deleteBooking(Integer bookingId);
+	public void deleteOneBooking(Integer employeeId);
+	
+	public void deleteAllBooking(Integer rideId);
 	
 //	public void updateBooking(Booking booking);
 	

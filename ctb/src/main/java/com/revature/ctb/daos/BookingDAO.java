@@ -14,4 +14,6 @@ public interface BookingDAO {
 
 	public List<Booking> getBookingsByRideId(Integer rideId);
 
+	public List<Booking> getAllBooking();
+
 }
