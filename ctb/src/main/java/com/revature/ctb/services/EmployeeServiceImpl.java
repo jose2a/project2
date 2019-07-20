@@ -68,13 +68,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 			brExc.addError("You need to provide a driver license as a driver.");
 			throw brExc;
 		}
-		
+
 		boolean added = employeeDao.addEmployee(employee);
 
 		Role passenger = roleServ.getRoleById(Role.RoleIds.PASSENGER);
 		roles.add(passenger);
 		employee.getRoles().add(passenger);
-
 
 		// if the employee was successfully inserted in the database we can insert its
 		// roles
@@ -87,6 +86,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public boolean updateEmployee(Employee employee) {
+		Employee oldEmployee = getEmployeeById(employee.getEmployeeId());
+
+		employee.setPassword(oldEmployee.getPassword());
+		employee.setRoles(oldEmployee.getRoles());
+
 		return employeeDao.updateEmployee(employee);
 	}
 
@@ -117,6 +121,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 
 		return null;
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		return employeeDao.getAllEmployees();
 	}
 
 }
