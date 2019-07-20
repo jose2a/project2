@@ -71,6 +71,54 @@ public class Booking {
 		this.bookingId = bookingId;
 	}
 
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Ride getRide() {
+		return ride;
+	}
+
+	public void setRide(Ride ride) {
+		this.ride = ride;
+	}
+
+	public Route getPickupLocation() {
+		return pickupLocation;
+	}
+
+	public void setPickupLocation(Route pickupLocation) {
+		this.pickupLocation = pickupLocation;
+	}
+
+	public Route getDestinationLocation() {
+		return destinationLocation;
+	}
+
+	public void setDestinationLocation(Route destinationLocation) {
+		this.destinationLocation = destinationLocation;
+	}
+
+	public FeedbackType getPassengerFeedback() {
+		return passengerFeedback;
+	}
+
+	public void setPassengerFeedback(FeedbackType passengerFeedback) {
+		this.passengerFeedback = passengerFeedback;
+	}
+
+	public FeedbackType getDriverFeedback() {
+		return driverFeedback;
+	}
+
+	public void setDriverFeedback(FeedbackType driverFeedback) {
+		this.driverFeedback = driverFeedback;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

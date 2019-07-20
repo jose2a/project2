@@ -1,5 +1,7 @@
 package com.revature.ctb.daos;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.hibernate.Session;
@@ -68,6 +70,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 		// get employee
 		return session.get(Employee.class, employeeId);
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		Session session = sessionFactory.getCurrentSession();
+		
+		return session.createQuery("from Employee", Employee.class).getResultList();
 	}
 
 }
