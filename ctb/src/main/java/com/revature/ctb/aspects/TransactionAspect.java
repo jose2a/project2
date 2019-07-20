@@ -95,6 +95,8 @@ public class TransactionAspect {
 			LogUtil.debug("TransactionAspect - rolling back transaction");
 
 			transaction.rollback();
+			transaction = null;
+			session = null;
 		}
 	}
 

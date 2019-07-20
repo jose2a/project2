@@ -38,7 +38,7 @@ public class EmployeeRestController extends BasedRestController {
 	 * 
 	 * @return the employee with id following rest API practices
 	 */
-	@PostMapping(value = "employee", consumes = "application/json") // access this using: localhost:8080/api/employee <-
+	@PostMapping(value = "/employee", consumes = "application/json") // access this using: localhost:8080/api/employee <-
 																	// GET method
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Employee postEmployee(@Valid @RequestBody Employee employee) {
