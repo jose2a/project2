@@ -14,6 +14,8 @@ import com.revature.ctb.domains.Route;
 import com.revature.ctb.exceptions.InputValidationException;
 import com.revature.ctb.exceptions.NotFoundRecordException;
 import com.revature.ctb.utils.LogUtil;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 public class RideServiceImpl implements RideService {
 
@@ -56,6 +58,16 @@ public class RideServiceImpl implements RideService {
 	
 	@Override
 	public void scheduleRide(Ride ride) {
+		validateRide(ride);
+	
+		//if no exception thrown, methods will run to increase booking number & add ride
+		ride.setNumberOfBookings(0);
+		boolean rideAdded = rideDao.addRide(ride);
+		
+
+	}
+
+	private void validateRide(Ride ride) {
 		Date today = new Date();
 		InputValidationException scheduleExcep = new InputValidationException("Validation exception");
 		
@@ -99,26 +111,27 @@ public class RideServiceImpl implements RideService {
 			
 		
 		
+		// check pickup location against destination location to ensure they are different
+		Route pickupLocation = null;
+		Route destinationLocation = null;
+		
+		for (Route r: ride.getRoutes()) {
+			if (r.isPickupLocation()) {
+				pickupLocation = r;
+			} 
+			if (r.isDestinationLocation()) {
+				destinationLocation = r;
+			}
+			if (pickupLocation == destinationLocation) {
+				scheduleExcep.addError("Pickup location and destination location must be different");
+			}
+	 	}
+		
+		
 		//if errors exist, throw exception
 		if (scheduleExcep.getErrors().size() > 0) {
 			throw scheduleExcep;
 		}
-		
-		
-		// check latitude versus longitude in route to ensure they are different INCOMPLETE
-//		List<Route> rideRoute = ride.getRoutes();
-//		for (int i =0; i <rideRoute.size(); i ++) {
-//			if (rideRoute.get(i).getLatitude().equals(rideRoute.get(i).getLongitude())) {
-//				LogUtil.trace("depart");
-//			}
-//		}
-	
-		
-		//if all clear until this point, methods will run to increase booking number, add ride
-		ride.setNumberOfBookings(0);
-		boolean rideAdded = rideDao.addRide(ride);
-		
-
 	}
 
 	@Override
@@ -134,6 +147,7 @@ public class RideServiceImpl implements RideService {
 		
 		for (Booking booking : rideBookings) {
 			//access employee. get phone number. send message 
+			bookingDao.getBookingsByRideId(rideId)
 		}
 		//rideDao.deleteRide(rideId);		
 //		ride.setRideStatus(rideStatus); // set status to cancel
@@ -143,8 +157,23 @@ public class RideServiceImpl implements RideService {
 
 	@Override
 	public void updateRide(Ride ride) {
+		validateRide(ride);
+		//check for all exceptions that could occur when initially scheduling ride
 		
-			
+		MessageServiceImpl msi = new MessageServiceImpl();
+		List<Booking> rideBookings = bookingDao.getBookingsByRideId(ride.getRideId());
+		for (Booking b: rideBookings) {
+			bookingDao.//bk attached to emp number
+		}
+		
+		
+		msi.sendMessage();
+    	Message message = Message.creator(
+                new PhoneNumber(bookingDao.),//passenger's phone numbers
+                new PhoneNumber(TWILIO_NUMBER),
+                "")
+                .create();
+		rideDao.updateRide(ride);
 	}
 
 	
