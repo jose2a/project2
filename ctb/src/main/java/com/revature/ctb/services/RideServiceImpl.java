@@ -27,6 +27,7 @@ public class RideServiceImpl implements RideService {
 	private RideDAO rideDao;	
 	private RouteService routeService;
 	private BookingDAO bookingDao;
+	private MessageService messageService;
 	
 	@Autowired
 	public void setCarService(CarService carService) {
@@ -52,6 +53,8 @@ public class RideServiceImpl implements RideService {
 	public void setRideDao(BookingDAO bookingDao) {
 		this.bookingDao = bookingDao;
 	}
+	
+	
 	
 	Date today = new Date();
 
