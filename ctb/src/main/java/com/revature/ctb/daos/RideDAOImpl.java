@@ -9,10 +9,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
 
+@Repository
 public class RideDAOImpl implements RideDAO {
 
 	// instantiate SF to make connection available

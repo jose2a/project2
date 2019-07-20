@@ -21,7 +21,7 @@ public class BookingRestController {
 	
 	private BookingService bookingServ;
 	
-	@Autowired
+//	@Autowired
 	public void setBookingServ(BookingService bookingServ) {
 		this.bookingServ = bookingServ;
 	}

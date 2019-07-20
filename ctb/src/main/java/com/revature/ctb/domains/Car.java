@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "car")
 public class Car {
@@ -53,6 +55,7 @@ public class Car {
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 
+	@JsonIgnore
 	// One to many relationship (One employee can schedule many rides)
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "car")
 	private List<Ride> rides = new ArrayList<>();
