@@ -19,6 +19,4 @@ public class BookingRestController {
 		this.bookingServ = bookingServ;
 	}
 	
-	//testing
-	
 }

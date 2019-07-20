@@ -12,7 +12,9 @@
 	<url>http://maven.apache.org</url>
 
 	<dependencyManagement>
+		
 		<dependencies>
+
 			<!-- https://mvnrepository.com/artifact/org.springframework/spring-framework-bom -->
 			<dependency>
 				<groupId>io.spring.platform</groupId>
@@ -143,7 +145,16 @@
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.twilio.sdk/twilio -->
+			<dependency>
+			    <groupId>com.twilio.sdk</groupId>
+			    <artifactId>twilio</artifactId>
+			    <version>7.40.1</version>
+			</dependency>		
 	</dependencies>
+	
+
 
 	<build>
 		<plugins>
