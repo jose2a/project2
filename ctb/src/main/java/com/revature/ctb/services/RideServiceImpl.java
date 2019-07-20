@@ -151,7 +151,8 @@ public class RideServiceImpl implements RideService {
 		ride.setRideStatus(rideStatusService.getRideStatus(RideStatus.RideStatusIds.CANCELED));
 		rideDao.updateRide(ride);
 	}
-
+	
+	//sending message to passengers from system
 	private void sendMessageToPassengers(List<Booking> bookings, String message) {
 		for (Booking booking : bookings) {
 			// access employee. get phone number. send message
@@ -159,6 +160,34 @@ public class RideServiceImpl implements RideService {
 
 			messageService.sendMessage(emp.getPhoneNumber(), message);
 		}
+	}
+	
+	
+	//driver sends message to passengers
+	public void driverMessageToPassengers(Integer rideId, String message) {
+		
+		Ride thisRide = rideDao.getRidebyId(rideId);
+		
+		sendMessageToPassengers(thisRide.getBookings(), message);
+		
+	}
+	
+	
+	//system sends method to driver if passenger makes changes to booking
+	private void sendMessageToDriver (Ride ride, String message) {
+	
+			Employee driver = ride.getEmployee();
+			
+			messageService.sendMessage(driver.getPhoneNumber(), message);
+	}
+	
+	//passenger sends message to driver
+	public void passengerMessageToDriver(Integer rideId, String message) {
+		
+		Ride thisRide = rideDao.getRidebyId(rideId);
+		
+		sendMessageToDriver(thisRide, message);
+
 	}
 
 	@Override
