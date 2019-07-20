@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.ctb.daos.BookingDAO;
 import com.revature.ctb.daos.EmployeeDAO;
@@ -13,6 +14,7 @@ import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.exceptions.InputValidationException;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
 	private RideDAO rideDao;

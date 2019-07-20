@@ -6,6 +6,7 @@ public class LoginDTO {
 
 	@NotEmpty(message = "Username is required") // Validating null values
 	private String username;
+	@NotEmpty(message = "Password is required") // Validating null values
 	private String password;
 
 	public String getUsername() {
