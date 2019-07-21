@@ -1,5 +1,6 @@
 package com.revature.ctb.daos;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.revature.ctb.domains.Booking;
+import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
 
 @Repository
@@ -66,7 +68,26 @@ public class BookingDAOImpl implements BookingDAO {
 
 		return query.getResultList();
 	}
-	
-	
+
+	@Override
+	public List<Booking> getBookingsByEmployeeId(Integer employeeId) {
+		Session session = sessionFactory.getCurrentSession();
+
+		Employee emp = session.get(Employee.class, employeeId);
+
+		return emp.getBookings();
+	}
+
+	@Override
+	public List<Booking> getFutureBookingsByEmployeeId(Integer employeeId) {
+		Session session = sessionFactory.getCurrentSession();
+
+		String hql = "from Booking b where b.ride.departureDate >= :now and b.employee.employeeId = :employee";
+
+		Query<Booking> query = session.createQuery(hql, Booking.class);
+		query.setParameter("now", new Date());
+
+		return query.getResultList();
+	}
 
 }
