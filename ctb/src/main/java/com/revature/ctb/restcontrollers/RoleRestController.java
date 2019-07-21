@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.Role;
+import com.revature.ctb.services.BookingService;
 import com.revature.ctb.services.RoleService;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
-public class RoleRestController {
+public class RoleRestController extends BasedRestController{
 
 	private RoleService roleServ;
 
