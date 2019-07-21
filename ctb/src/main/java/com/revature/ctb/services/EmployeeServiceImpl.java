@@ -158,4 +158,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.updateEmployee(employee);
 	}
 
+	@Override
+	public boolean deleteEmployee(Integer employeeId) {
+		Employee employee = employeeDao.getEmployeeById(employeeId);
+
+		if (employee == null) {
+			throw new NotFoundRecordException("Employee not found");
+		}
+		
+		employee.setActive(false);
+
+		return employeeDao.updateEmployee(employee);
+	}
+
 }

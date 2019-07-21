@@ -21,4 +21,6 @@ public interface EmployeeService {
 	public List<Employee> getBlockedEmployees();
 	
 	public boolean unBlockedEmployee(Integer employeeId);
+	
+	public boolean deleteEmployee(Integer employeeId);
 }
