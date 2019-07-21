@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.revature.ctb.domains.Ride;
@@ -14,6 +15,11 @@ import com.revature.ctb.domains.Route;
 public class RouteDAOImpl implements RouteDAO {
 
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	public void SessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	@Override
 	public Route getRouteById(Integer routeId) {
