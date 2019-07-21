@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.ctb.daos.InfoRequestDAO;
 import com.revature.ctb.domains.InfoReq;
+import com.revature.ctb.exceptions.InputValidationException;
 import com.revature.ctb.exceptions.NotFoundRecordException;
 
 @Service
@@ -28,6 +29,13 @@ public class InfoReqServiceImpl implements InfoReqService {
 
 	@Override
 	public boolean updateInfoRequested(InfoReq infoReq) {
+		if (infoReq.getAnswer() == null || infoReq.getAnswer().isEmpty()) {
+			InputValidationException validationException = new InputValidationException("InputValidation");
+			validationException.addError("You must provide the answer.");
+			
+			throw validationException;
+		}
+		
 		return infoReqDao.updateRequest(infoReq);
 	}
 

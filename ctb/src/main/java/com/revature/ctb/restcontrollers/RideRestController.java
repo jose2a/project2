@@ -5,25 +5,19 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.ctb.domains.Booking;
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.dtos.MessageDTO;
-import com.revature.ctb.services.BookingService;
 import com.revature.ctb.services.RideService;
 
-@CrossOrigin(origins = "*")
 @RestController //marks this as RC. means you can have methods in class which map to url requests
-@RequestMapping("/api") 
 public class RideRestController extends BasedRestController {
 
 	
