@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.ctb.daos.RideDAO;
 import com.revature.ctb.domains.Booking;
+import com.revature.ctb.domains.Car;
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.domains.RideStatus;
@@ -65,7 +66,7 @@ public class RideServiceImpl implements RideService {
 		// if no exception thrown, methods will run to increase booking number & add
 		// ride
 		ride.setNumberOfBookings(0);
-		
+
 		rideDao.addRide(ride);
 	}
 
@@ -83,29 +84,29 @@ public class RideServiceImpl implements RideService {
 		}
 
 		// check that 2+ routes for ride exist
-		if (ride.getRoutes().size() >= 2) {
-			LogUtil.trace("Two+ routes attached to ride");
-
-		} else { // if not, add error
+		if (ride.getRoutes().size() < 2) {
+			// if not, add error
 			LogUtil.trace("Can't schedule ride. Less than two routes attached to ride");
 			scheduleExcep.addError("Ride must contain two or more routes");
 		}
 
 		// check cost for ride has been input
-		if (ride.getAmountCharge() > 0) {
-			LogUtil.trace("Driver has set cost for ride");
-		} else {
+		if (ride.getAmountCharge() < 0) {
 			LogUtil.trace("Cost for ride needs to be updated");
 			scheduleExcep.addError("Price for ride must be updated to greater than zero");
-
 		}
 
 		// check # of seats >1
-		if (ride.getNumberOfSeatsAvailable() > 0) {
-			LogUtil.trace("Adequate number of seats available");
-		} else {
+		if (ride.getNumberOfSeatsAvailable() < 0) {
 			LogUtil.trace("Insufficient number of seats available for ride");
 			scheduleExcep.addError("Ride must have at least one available seat");
+		}
+		
+		Car car = carService.getCarById(ride.getRideId());
+		
+		if (ride.getNumberOfSeatsAvailable() > (car.getNumberOfSeats() - 1)) {
+			LogUtil.trace("Assigning more seats available for ride thant the ones the car have minus the driver seat");
+			scheduleExcep.addError("You don't have more available seats");
 		}
 
 		// check pickup location against destination location to ensure they are

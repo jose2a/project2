@@ -139,4 +139,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.getAllEmployees();
 	}
 
+	@Override
+	public List<Employee> getBlockedEmployees() {
+		return employeeDao.getBlockedEmployees();
+	}
+
+	@Override
+	public boolean unBlockedEmployee(Integer employeeId) {
+		Employee employee = employeeDao.getEmployeeById(employeeId);
+
+		if (employee == null) {
+			throw new NotFoundRecordException("Employee not found");
+		}
+		
+		employee.setBlocked(false);
+		employee.setNumberOfFlags(0);
+
+		return employeeDao.updateEmployee(employee);
+	}
+
 }
