@@ -1,19 +1,14 @@
 package com.revature.ctb.services;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.ctb.daos.BookingDAO;
-import com.revature.ctb.daos.EmployeeDAO;
-import com.revature.ctb.daos.RideDAO;
 import com.revature.ctb.domains.Booking;
-import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.exceptions.InputValidationException;
-import com.revature.ctb.utils.LogUtil;
 
 import javassist.NotFoundException;
 
@@ -51,21 +46,12 @@ public class BookingServiceImpl implements BookingService {
 		if (booking.getDestinationLocation() == null) {
 			inputValException.addError("Destination location is required.");
 		}
-
-		Employee employee = employee.getEmployeeId();
-
-		Ride ride = rideDao.getRidebyId(rideId);
-
-		// check if they didn't book the same day
-		if (booking.getBookingId().compareTo(today)) {
-			LogUtil.trace("Previous booking time = current booking");
-
-		} else {
-			LogUtil.trace("Can't schedule booking.  Conflicting time with other booking.");
-			inputValException.addError("Change booking to different time");
+		
+		if (booking.getPickupLocation() == booking.getDestinationLocation()) {
+			inputValException.addError("Pick up and destination should not be the same");
 		}
 
-		boolean addBooking = bookingDao.addBooking(booking);
+		return bookingDao.addBooking(booking);
 
 	}
 

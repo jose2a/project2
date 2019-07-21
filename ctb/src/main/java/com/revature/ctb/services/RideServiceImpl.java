@@ -15,8 +15,6 @@ import com.revature.ctb.domains.Route;
 import com.revature.ctb.exceptions.InputValidationException;
 import com.revature.ctb.exceptions.NotFoundRecordException;
 import com.revature.ctb.utils.LogUtil;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
 
 @Service
 public class RideServiceImpl implements RideService {
@@ -150,8 +148,8 @@ public class RideServiceImpl implements RideService {
 		ride.setRideStatus(rideStatusService.getRideStatus(RideStatus.RideStatusIds.CANCELED));
 		rideDao.updateRide(ride);
 	}
-	
-	//sending message to passengers from system
+
+	// sending message to passengers from system
 	@Override
 	public void sendMessageToPassengers(List<Booking> bookings, String message) {
 		for (Booking booking : bookings) {
@@ -161,18 +159,16 @@ public class RideServiceImpl implements RideService {
 			messageService.sendMessage(emp.getPhoneNumber(), message);
 		}
 	}
-	
-	
-	//driver sends message to passengers
+
+	// driver sends message to passengers
 	@Override
 	public void driverMessageToPassengers(Integer rideId, String message) {
-		
+
 		Ride thisRide = rideDao.getRidebyId(rideId);
-		
+
 		sendMessageToPassengers(thisRide.getBookings(), message);
-		
+
 	}
-	
 
 	@Override
 	public void updateRide(Ride ride) {

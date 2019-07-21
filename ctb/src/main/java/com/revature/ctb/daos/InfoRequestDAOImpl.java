@@ -5,10 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.InfoReq;
 
+@Repository
 public class InfoRequestDAOImpl implements InfoRequestDAO {
 
 	private SessionFactory sessionFactory;
