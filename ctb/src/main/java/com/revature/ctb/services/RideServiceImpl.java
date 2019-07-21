@@ -65,8 +65,8 @@ public class RideServiceImpl implements RideService {
 		// if no exception thrown, methods will run to increase booking number & add
 		// ride
 		ride.setNumberOfBookings(0);
-		boolean rideAdded = rideDao.addRide(ride);
-
+		
+		rideDao.addRide(ride);
 	}
 
 	private void validateRide(Ride ride) {

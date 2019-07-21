@@ -14,12 +14,14 @@ public interface BookingService {
 
 	public boolean deleteAllBookingByRideId(Integer rideId);
 
-//	public void updateBooking(Booking booking);
+	public boolean updateBooking(Booking booking);
 
 	public List<Booking> getAllBookingsByRideId(Integer rideId);
 
 	public List<Booking> getAllBooking();
 
 	public void sendMessageToDriver(Integer rideId, String message) throws NotFoundException;
+	
+	public List<Booking> getBookingsByEmployeeId(Integer employeeId);
 
 }

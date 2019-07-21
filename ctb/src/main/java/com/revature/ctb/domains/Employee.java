@@ -266,6 +266,14 @@ public class Employee {
 		this.rides = rides;
 	}
 
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
