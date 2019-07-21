@@ -73,4 +73,17 @@ public class InfoReqServiceImpl implements InfoReqService {
 		return infoReqDao.updateRequest(infoReq);
 	}
 
+	@Override
+	public boolean answerQuestion(Integer infoReqId, String answer) {
+		InfoReq infoReq = getInfoRequestedById(infoReqId);
+		
+		if (infoReq == null) {
+			throw new NotFoundRecordException("Information required not found.");
+		}
+		
+		infoReq.setAnswer(answer);
+		
+		return updateInfoRequested(infoReq);
+	}
+
 }

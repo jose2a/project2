@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.InfoReq;
+import com.revature.ctb.dtos.InfoReqAnswerDto;
 import com.revature.ctb.services.InfoReqService;
 
 @RestController
@@ -29,15 +30,15 @@ public class InfoReqRestController extends BasedRestController {
 
 	@PostMapping(value = "information", consumes = "application/json")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public boolean addInfoRequested(@Valid @RequestBody InfoReq infoReq) {
-		return infoReqServ.addInfoRequested(infoReq);
+	public void addInfoRequested(@Valid @RequestBody InfoReq infoReq) {
+		infoReqServ.addInfoRequested(infoReq);
 
 	}
 
 	@PutMapping(value = "information/{infoReqId}", consumes = "application/json")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void updateInfoRequested(@PathVariable Integer infoReqId, @RequestBody InfoReq infoReq) {
-		infoReqServ.updateInfoRequested(infoReq);
+	public void updateInfoRequested(@PathVariable Integer infoReqId, @Valid @RequestBody InfoReqAnswerDto infoReqAnswerDto) {
+		infoReqServ.answerQuestion(infoReqAnswerDto.getInforeqId(), infoReqAnswerDto.getAnswer());
 	}
 
 	@GetMapping(value = "information/{infoReqId}")
@@ -50,8 +51,8 @@ public class InfoReqRestController extends BasedRestController {
 
 	@PutMapping(value = "information/{infoReqId}/confirmed", consumes = "application/json")
 	@ResponseStatus(code = HttpStatus.OK)
-	public boolean confirmInfoRequestedWasReceived(@PathVariable Integer infoReqId) {
-		return infoReqServ.confirmInfoRequestedWasReceived(infoReqId);
+	public void confirmInfoRequestedWasReceived(@PathVariable Integer infoReqId) {
+		infoReqServ.confirmInfoRequestedWasReceived(infoReqId);
 	}
 
 	@GetMapping(value = "information/employee/{employeeId}")
