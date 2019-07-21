@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.ctb.domains.Booking;
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.dtos.MessageDTO;
+import com.revature.ctb.services.BookingService;
 import com.revature.ctb.services.RideService;
 
 @CrossOrigin(origins = "*")
 @RestController //marks this as RC. means you can have methods in class which map to url requests
 @RequestMapping("/api") 
-public class RideRestController {
+public class RideRestController extends BasedRestController {
 
 	
 	private RideService rideServ;

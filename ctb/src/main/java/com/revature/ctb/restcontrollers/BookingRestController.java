@@ -17,7 +17,7 @@ import com.revature.ctb.services.BookingService;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
-public class BookingRestController {
+public class BookingRestController extends BasedRestController{
 	
 	private BookingService bookingServ;
 	
