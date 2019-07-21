@@ -2,9 +2,12 @@ package com.revature.ctb.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.revature.ctb.daos.RouteDAO;
 import com.revature.ctb.domains.Route;
 
+@Service
 public class RouteServiceImpl implements RouteService {
 
 	private RouteDAO routeDao;

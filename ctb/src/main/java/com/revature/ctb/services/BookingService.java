@@ -3,22 +3,23 @@ package com.revature.ctb.services;
 import java.util.List;
 
 import com.revature.ctb.domains.Booking;
-import com.revature.ctb.domains.Ride;
+
+import javassist.NotFoundException;
 
 public interface BookingService {
-	
-	public void addBooking(Booking booking);
-	
-	public void deleteOneBooking(Integer employeeId);
-	
-	public void deleteAllBooking(Integer rideId);
-	
+
+	public boolean addBooking(Booking booking);
+
+	public boolean deleteBooking(Integer bookingId);
+
+	public boolean deleteAllBookingByRideId(Integer rideId);
+
 //	public void updateBooking(Booking booking);
-	
-	public List<Booking> getAllBookingByRideId(Integer rideId);
-	
+
+	public List<Booking> getAllBookingsByRideId(Integer rideId);
+
 	public List<Booking> getAllBooking();
-	
-	public void sendMessageToDriver (Ride ride, String message);
-	
+
+	public void sendMessageToDriver(Integer rideId, String message) throws NotFoundException;
+
 }

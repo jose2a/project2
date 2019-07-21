@@ -3,11 +3,13 @@ package com.revature.ctb.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.ctb.daos.InfoRequestDAO;
 import com.revature.ctb.domains.InfoReq;
 import com.revature.ctb.exceptions.NotFoundRecordException;
 
+@Service
 public class InfoReqServiceImpl implements InfoReqService {
 
 	private InfoRequestDAO infoReqDao;

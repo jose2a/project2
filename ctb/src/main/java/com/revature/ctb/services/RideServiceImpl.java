@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import com.revature.ctb.daos.RideDAO;
 import com.revature.ctb.domains.Booking;
@@ -18,6 +18,7 @@ import com.revature.ctb.utils.LogUtil;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
+@Service
 public class RideServiceImpl implements RideService {
 
 	// injecting
@@ -143,7 +144,7 @@ public class RideServiceImpl implements RideService {
 
 		sendMessageToPassengers(ride.getBookings(), message);
 
-		bookingService.deleteAllBooking(rideId);
+		bookingService.deleteAllBookingByRideId(rideId);
 
 		// cancelled ride
 		ride.setRideStatus(rideStatusService.getRideStatus(RideStatus.RideStatusIds.CANCELED));

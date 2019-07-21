@@ -3,6 +3,7 @@ package com.revature.ctb.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.ctb.daos.CarDAO;
 import com.revature.ctb.domains.Car;
@@ -10,6 +11,7 @@ import com.revature.ctb.exceptions.DuplicateRecordException;
 import com.revature.ctb.exceptions.NotFoundRecordException;
 import com.revature.ctb.utils.LogUtil;
 
+@Service
 public class CarServiceImpl implements CarService {
 
 	private CarDAO carDao;

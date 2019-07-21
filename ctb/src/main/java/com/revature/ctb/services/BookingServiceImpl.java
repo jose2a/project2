@@ -15,97 +15,94 @@ import com.revature.ctb.domains.Ride;
 import com.revature.ctb.exceptions.InputValidationException;
 import com.revature.ctb.utils.LogUtil;
 
+import javassist.NotFoundException;
+
 @Service
 public class BookingServiceImpl implements BookingService {
 
-	private RideDAO rideDao;
 	private BookingDAO bookingDao;
-	private EmployeeService employeeService;
-	private Employee employee;
+	private RideService rideService;
 	private MessageService messageService;
 
 	@Autowired
-	public void setRideDao(RideDAO sideDao) {
-		this.rideDao = rideDao;
-	}
-
-	@Autowired
-	public void setBookingDAO(BookingDAO bookingDao) {
+	public void setBookingDao(BookingDAO bookingDao) {
 		this.bookingDao = bookingDao;
 	}
-	
+
 	@Autowired
-	public void setEmployeeService(EmployeeService employeeService) {
-		this.employeeService = employeeService;
-	}
-	
-	@Autowired
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setRideService(RideService rideService) {
+		this.rideService = rideService;
 	}
 
-	Date today = new Date();
+	@Autowired
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
 
 	@Override
-	public void addBooking(Booking booking) {
+	public boolean addBooking(Booking booking) {
 
-		Date today = new Date();
-		InputValidationException addExcep = new InputValidationException("Validation exception");
+		InputValidationException inputValException = new InputValidationException("Validation exception");
 		
-		 Employee employee = employee.getEmployeeId();
-		 
-		 Ride ride = rideDao.getRidebyId(rideId);
-		 
-		//check if they didn't book the same day
-		if(booking.getBookingId().compareTo(today)) {
-			LogUtil.trace("Previous booking time = current booking");
-			
-		} else {
-			LogUtil.trace("Can't schedule booking.  Conflicting time with other booking.");
-			addExcep.addError("Change booking to different time");
+		if (booking.getPickupLocation() == null) {
+			inputValException.addError("Pickup location is required.");
 		}
 		
+		if (booking.getDestinationLocation() == null) {
+			inputValException.addError("Destination location is required.");
+		}
+
+		Employee employee = employee.getEmployeeId();
+
+		Ride ride = rideDao.getRidebyId(rideId);
+
+		// check if they didn't book the same day
+		if (booking.getBookingId().compareTo(today)) {
+			LogUtil.trace("Previous booking time = current booking");
+
+		} else {
+			LogUtil.trace("Can't schedule booking.  Conflicting time with other booking.");
+			inputValException.addError("Change booking to different time");
+		}
+
 		boolean addBooking = bookingDao.addBooking(booking);
-		
+
 	}
 
 	@Override
-	public List<Booking> getAllBookingByRideId(Integer rideId) {
-		
-		return bookingDao.getBookingsByRideId(rideId);	
+	public List<Booking> getAllBookingsByRideId(Integer rideId) {
+		return bookingDao.getBookingsByRideId(rideId);
 	}
 
 	@Override
 	public List<Booking> getAllBooking() {
-		
-		List<Booking> allBooking = bookingDao.getAllBooking();
-		
-		return allBooking;
+		return bookingDao.getAllBooking();
 	}
 
 	@Override
-	public void deleteOneBooking(Integer employeeId) {
-		
-		List<Booking> booking = bookingDao.getBookingsByRideId(employeeId);
-		for(Booking employee : booking) {
+	public boolean deleteBooking(Integer bookingId) {
+		return bookingDao.deleteBooking(bookingId);
+	}
+
+	@Override
+	public boolean deleteAllBookingByRideId(Integer rideId) {
+
+		for (Booking booking : bookingDao.getBookingsByRideId(rideId)) {
+			bookingDao.deleteBooking(booking.getBookingId());
 		}
-		bookingDao.deleteBooking(null);
+
+		return true;
 	}
 
 	@Override
-	public void deleteAllBooking(Integer rideId) {
-		
-		List<Booking> booking = bookingDao.getBookingsByRideId(rideId); 
-		
-	}
+	public void sendMessageToDriver(Integer rideId, String message) throws NotFoundException {
+		Ride ride = rideService.showRide(rideId);
 
-	@Override
-	public void sendMessageToDriver(Ride ride, String message) {
-		
-		Employee driver = ride.getEmployee();
-		
-		messageService.sendMessage(driver.getPhoneNumber(), message);
-		
+		if (ride == null) {
+			throw new NotFoundException("Ride not found");
+		}
+
+		messageService.sendMessage(ride.getEmployee().getPhoneNumber(), message);
 	}
 
 }

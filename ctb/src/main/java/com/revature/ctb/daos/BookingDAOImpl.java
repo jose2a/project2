@@ -40,7 +40,7 @@ public class BookingDAOImpl implements BookingDAO {
 	}
 
 	@Override
-	public boolean deleteBooking(Booking bookingId) {
+	public boolean deleteBooking(Integer bookingId) {
 		Session session = sessionFactory.getCurrentSession();
 
 		Query<Booking> query = session.createQuery("delete from Booking where bookingId = :bookingId", Booking.class);
