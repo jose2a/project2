@@ -61,7 +61,7 @@ public class RideRestController extends BasedRestController {
 		return "ride status changed to 'Cancelled'.";
 	}
 	
-	@GetMapping(value = "ride")
+	@GetMapping(value = "ride/available")
 	@ResponseStatus(code = HttpStatus.OK)
 	public  List<Ride> showAvailableRides(){
 		return rideServ.getAllRides();
