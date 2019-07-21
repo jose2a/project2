@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "info_req")
 public class InfoReq {
@@ -31,7 +33,8 @@ public class InfoReq {
 	@Column(name = "provided")
 	private boolean provided;
 
-	// Employee has many req for information
+	// Employee has many requests for information
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "employee_id")

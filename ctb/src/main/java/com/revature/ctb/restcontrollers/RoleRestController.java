@@ -27,7 +27,7 @@ public class RoleRestController extends BasedRestController {
 	 * 
 	 * @return All roles
 	 */
-	@GetMapping("/roles")
+	@GetMapping("roles")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<Role> getAllRoles() {
 		return roleServ.getAllRoles();
@@ -39,7 +39,7 @@ public class RoleRestController extends BasedRestController {
 	 * @param employeeId The employee id
 	 * @return List of roles
 	 */
-	@GetMapping("/employee/{employeeId}/roles")
+	@GetMapping("employee/{employeeId}/roles")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<Role> getRolesForEmployee(@PathVariable Integer employeeId) {
 		return roleServ.getRolesForEmployee(employeeId);
