@@ -23,5 +23,9 @@ public interface BookingService {
 	public void sendMessageToDriver(Integer rideId, String message) throws NotFoundException;
 	
 	public List<Booking> getBookingsByEmployeeId(Integer employeeId);
+	
+	public boolean giveDriverFeedback(Integer rideId, Integer feedbackTypeId);
+	
+	public boolean givePassengerFeedback(Integer bookingId, Integer feedbackTypeId);
 
 }

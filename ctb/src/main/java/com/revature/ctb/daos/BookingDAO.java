@@ -20,4 +20,5 @@ public interface BookingDAO {
 	
 	public List<Booking> getFutureBookingsByEmployeeId(Integer employeeId);
 
+	public Booking getBookingById(Integer bookingId);
 }

@@ -90,4 +90,11 @@ public class BookingDAOImpl implements BookingDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	public Booking getBookingById(Integer bookingId) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		return session.get(Booking.class, bookingId);
+	}
+
 }
