@@ -1,5 +1,6 @@
 package com.revature.ctb.config;
 
+import org.dozer.DozerBeanMapper;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,5 +20,12 @@ public class CTBAppConfig implements WebMvcConfigurer {
 	@Bean
 	public SessionFactory sessionFactory() {
 		return SessionFactoryUtil.getSessionFactory();
+	}
+
+	@Bean(name = "org.dozer.Mapper")
+	public DozerBeanMapper dozerBean() {
+		DozerBeanMapper dozerBean = new DozerBeanMapper();
+
+		return dozerBean;
 	}
 }

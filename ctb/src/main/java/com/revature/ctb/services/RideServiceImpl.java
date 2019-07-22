@@ -1,5 +1,6 @@
 package com.revature.ctb.services;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -22,21 +23,15 @@ public class RideServiceImpl implements RideService {
 
 	// injecting
 	private CarService carService;
-
-	private EmployeeService employeeService;
 	private RideDAO rideDao;
 	private BookingService bookingService;
 	private MessageService messageService;
 	private RideStatusService rideStatusService;
+	private RouteService routeService;
 
 	@Autowired
 	public void setCarService(CarService carService) {
 		this.carService = carService;
-	}
-
-	@Autowired
-	public void setEmployeeService(EmployeeService employeeService) {
-		this.employeeService = employeeService;
 	}
 
 	@Autowired
@@ -59,6 +54,11 @@ public class RideServiceImpl implements RideService {
 		this.rideStatusService = rideStatusService;
 	}
 
+	@Autowired
+	public void setRouteService(RouteService routeService) {
+		this.routeService = routeService;
+	}
+
 	@Override
 	public void scheduleRide(Ride ride) {
 		validateRide(ride);
@@ -66,8 +66,17 @@ public class RideServiceImpl implements RideService {
 		// if no exception thrown, methods will run to increase booking number & add
 		// ride
 		ride.setNumberOfBookings(0);
+		ride.setRideStatus(rideStatusService.getRideStatus(RideStatus.RideStatusIds.ACTIVE));
 
-		rideDao.addRide(ride);
+		List<Route> routes = ride.getRoutes();
+		ride.setRoutes(null);
+
+		boolean added = rideDao.addRide(ride);
+
+		if (added) {
+			routes.stream().forEach(r -> r.setRide(ride));
+			routeService.addRoutes(routes);
+		}
 	}
 
 	private void validateRide(Ride ride) {
@@ -101,9 +110,9 @@ public class RideServiceImpl implements RideService {
 			LogUtil.trace("Insufficient number of seats available for ride");
 			scheduleExcep.addError("Ride must have at least one available seat");
 		}
-		
-		Car car = carService.getCarById(ride.getRideId());
-		
+
+		Car car = carService.getCarById(ride.getCar().getCarId());
+
 		if (ride.getNumberOfSeatsAvailable() > (car.getNumberOfSeats() - 1)) {
 			LogUtil.trace("Assigning more seats available for ride thant the ones the car have minus the driver seat");
 			scheduleExcep.addError("You don't have more available seats");
@@ -184,7 +193,7 @@ public class RideServiceImpl implements RideService {
 	}
 
 	@Override
-	public List<Ride> showAvailableRides() {
+	public List<Ride> showAvailableRides() throws ParseException {
 
 		// check list for content
 		List<Ride> showAvailable = rideDao.getAllActiveRides();

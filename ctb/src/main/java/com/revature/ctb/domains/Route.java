@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "route")
 public class Route {
@@ -43,16 +45,19 @@ public class Route {
 	private boolean destinationLocation;
 
 	// Many routes are in one ride
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "ride_id")
 	private Ride ride;
 
 	// one route can be a pickup location in many bookings
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "pickupLocation")
 	private List<Booking> pickupLocations = new ArrayList<>();
 
 	// one route can be a destination location in many bookings
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "destinationLocation")
 	private List<Booking> destinationLocations = new ArrayList<>();
 
