@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.revature.ctb.domains.InfoReq;
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.dtos.CarDto;
 import com.revature.ctb.dtos.EmployeeDto;
+import com.revature.ctb.dtos.InfoReqDto;
 import com.revature.ctb.dtos.RideDto;
 
 @CrossOrigin(origins = "*")
@@ -28,5 +30,12 @@ public class BasedRestController {
 		rideDto.setEmployee(employeeDto);
 		rideDto.setCar(carDto);
 		return rideDto;
+	}
+
+	protected InfoReqDto mapInfoReqToInforReqDto(InfoReq infoReq) {
+		EmployeeDto employeeDto = mapper.map(infoReq.getEmployee(), EmployeeDto.class);
+		InfoReqDto infoReqDto = mapper.map(infoReq, InfoReqDto.class);
+		infoReqDto.setEmployee(employeeDto);
+		return infoReqDto;
 	}
 }
