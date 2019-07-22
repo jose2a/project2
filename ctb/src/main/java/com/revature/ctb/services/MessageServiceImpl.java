@@ -17,7 +17,7 @@ public class MessageServiceImpl implements MessageService {
 	public void sendMessage(String phoneNumber, String messageContent) {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     	
-    	Message message = Message.creator(
+    	Message.creator(
                 new PhoneNumber(phoneNumber),
                 new PhoneNumber(TWILIO_NUMBER),
                 messageContent)
