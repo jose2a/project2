@@ -1,5 +1,6 @@
 package com.revature.ctb.restcontrollers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,15 +17,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.Employee;
-import com.revature.ctb.dtos.LoginDTO;
+import com.revature.ctb.dtos.EmployeeDto;
+import com.revature.ctb.dtos.LoginDto;
 import com.revature.ctb.services.EmployeeService;
 
 @RestController
 public class EmployeeRestController extends BasedRestController {
 
 	private EmployeeService employeeServ;
-
-	private final String PASSWORD_MASK = "**************";
 
 	@Autowired
 	public void setEmployeeServ(EmployeeService employeeServ) {
@@ -40,27 +40,13 @@ public class EmployeeRestController extends BasedRestController {
 	 * @return the employee with id following rest API practices
 	 */
 	@PostMapping(value = "/employee", consumes = "application/json") // access this using: localhost:8080/api/employee
-																		// <-
-																		// GET method
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Employee postEmployee(@Valid @RequestBody Employee employee) {
+	public EmployeeDto postEmployee(@Valid @RequestBody Employee employee) {
 
 		// saving employee using the service
 		employeeServ.registerEmployee(employee);
 
-		// hiding employee password
-		hidePassword(employee);
-
-		return employee;
-	}
-
-	/**
-	 * Mask password that way is not visible for anybody.
-	 * 
-	 * @param employee The employee
-	 */
-	private void hidePassword(Employee employee) {
-		employee.setPassword(PASSWORD_MASK);
+		return mapper.map(employee, EmployeeDto.class);
 	}
 
 	/**
@@ -72,13 +58,11 @@ public class EmployeeRestController extends BasedRestController {
 	 */
 	@PutMapping(value = "employee/{employeeId}", consumes = "application/json")
 	@ResponseStatus(code = HttpStatus.OK)
-	public Employee putEmployee(@PathVariable Integer employeeId, @Valid @RequestBody Employee employee) {
+	public EmployeeDto putEmployee(@PathVariable Integer employeeId, @Valid @RequestBody Employee employee) {
 		// update employee
 		employeeServ.updateEmployee(employee);
 
-		hidePassword(employee);
-
-		return employee;
+		return mapper.map(employee, EmployeeDto.class);
 	}
 
 	/**
@@ -89,13 +73,11 @@ public class EmployeeRestController extends BasedRestController {
 	 */
 	@GetMapping(value = "employee/{employeeId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public Employee getEmployeeById(@PathVariable Integer employeeId) {
+	public EmployeeDto getEmployeeById(@PathVariable Integer employeeId) {
 
 		Employee employee = employeeServ.getEmployeeById(employeeId);
 
-		hidePassword(employee);
-
-		return employee;
+		return mapper.map(employee, EmployeeDto.class);
 	}
 
 	/**
@@ -106,8 +88,10 @@ public class EmployeeRestController extends BasedRestController {
 	 */
 	@GetMapping(value = "employee/username/{username}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public Employee getEmployeeByUsername(@PathVariable String username) {
-		return employeeServ.getEmployeeByUsername(username);
+	public EmployeeDto getEmployeeByUsername(@PathVariable String username) {
+		Employee employee = employeeServ.getEmployeeByUsername(username);
+
+		return mapper.map(employee, EmployeeDto.class);
 	}
 
 	/**
@@ -118,12 +102,10 @@ public class EmployeeRestController extends BasedRestController {
 	 */
 	@PostMapping(value = "employee/login")
 	@ResponseStatus(code = HttpStatus.OK)
-	public Employee login(@RequestBody LoginDTO dto) {
+	public EmployeeDto login(@RequestBody LoginDto dto) {
 		Employee employee = employeeServ.getEmployeeByUsernameAndPassword(dto.getUsername(), dto.getPassword());
 
-		hidePassword(employee);
-
-		return employee;
+		return mapper.map(employee, EmployeeDto.class);
 	}
 
 	/**
@@ -133,10 +115,10 @@ public class EmployeeRestController extends BasedRestController {
 	 */
 	@GetMapping(value = "employee")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<Employee> getAllEmployees() {
-		List<Employee> employees = employeeServ.getAllEmployees();
+	public List<EmployeeDto> getAllEmployees() {
+		List<EmployeeDto> employees = new ArrayList<EmployeeDto>();
 
-		employees.forEach(emp -> hidePassword(emp));
+		employeeServ.getAllEmployees().forEach(emp -> employees.add(mapper.map(emp, EmployeeDto.class)));
 
 		return employees;
 	}
@@ -148,16 +130,17 @@ public class EmployeeRestController extends BasedRestController {
 	 */
 	@GetMapping(value = "employee/blocked")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<Employee> getBlockedEmployees() {
-		List<Employee> employees = employeeServ.getBlockedEmployees();
+	public List<EmployeeDto> getBlockedEmployees() {
+		List<EmployeeDto> employees = new ArrayList<EmployeeDto>();
 
-		employees.forEach(emp -> hidePassword(emp));
+		employeeServ.getBlockedEmployees().forEach(emp -> employees.add(mapper.map(emp, EmployeeDto.class)));
 
 		return employees;
 	}
 
 	/**
-	 * We can unblock employee after the system blocked it 
+	 * We can unblock employee after the system blocked it
+	 * 
 	 * @param employeeId employee id
 	 */
 	@PutMapping(value = "employee/{employeeId}/unblock")
@@ -169,6 +152,7 @@ public class EmployeeRestController extends BasedRestController {
 
 	/**
 	 * Soft delete the employee
+	 * 
 	 * @param employeeId employee id
 	 */
 	@DeleteMapping(value = "employee/{employeeId}")

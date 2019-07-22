@@ -1,7 +1,6 @@
 package com.revature.ctb.daos;
 
-import java.sql.Time;
-import java.time.LocalTime;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +60,7 @@ public class RideDAOImpl implements RideDAO {
 		Session session = sessionFactory.getCurrentSession();
 
 		Employee employee = session.get(Employee.class, employeeId);
+		employee.getRides().toString(); // loading the rides
 
 		return employee.getRides();
 	}
@@ -70,14 +70,16 @@ public class RideDAOImpl implements RideDAO {
 		Session session = sessionFactory.getCurrentSession();
 
 		Query<Ride> query = session.createQuery("from Ride where rideId = :rideId", Ride.class);
+		query.setParameter("rideId", rideId);
 
 		Ride ride = (Ride) query.getSingleResult();
-		
+		ride.getRoutes().toString();
+
 		return ride;
 	}
 
 	@Override
-	public List<Ride> getEmployeeActiveRides(Integer employeeId) {
+	public List<Ride> getEmployeeActiveRides(Integer employeeId) throws ParseException {
 		Session session = sessionFactory.getCurrentSession();
 
 		Employee employee = session.get(Employee.class, employeeId);
@@ -86,26 +88,34 @@ public class RideDAOImpl implements RideDAO {
 				"from Ride where departureDate >= :now and departureTime >= :currenttime and employee = :employee",
 				Ride.class);
 
-		String currentTimePlusTwoHrs = LocalTime.now().plusHours(2).toString();
+//		String currentTimePlusTwoHrs = LocalTime.now().plusHours(2).toString();
+
+//		SimpleDateFormat sdf = new SimpleDateFormat("hh:MM:ss");
+
+//		LogUtil.debug(">>>>>> Current time: " + currentTimePlusTwoHrs);
 
 		query.setParameter("now", new Date());
-		query.setParameter("currenttime", Time.valueOf(currentTimePlusTwoHrs));
+//		query.setParameter("currenttime", sdf.parse(currentTimePlusTwoHrs));
 		query.setParameter("employee", employee);
 
 		return query.getResultList();
 	}
 
 	@Override
-	public List<Ride> getAllActiveRides() {
+	public List<Ride> getAllActiveRides() throws ParseException {
 		Session session = sessionFactory.getCurrentSession();
 
 		Query<Ride> query = session
-				.createQuery("from Ride where departureDate >= :now and departureTime >= :currenttime", Ride.class);
+				.createQuery("from Ride where departureDate >= :now", Ride.class);
 
-		String currentTimePlusTwoHrs = LocalTime.now().plusHours(2).toString();
+//		String currentTimePlusTwoHrs = LocalTime.now().plusHours(2).toString();
+
+//		SimpleDateFormat sdf = new SimpleDateFormat("hh:MM:ss");
+
+//		LogUtil.debug(">>>>>> Current time: " + currentTimePlusTwoHrs);
 
 		query.setParameter("now", new Date());
-		query.setParameter("currenttime", Time.valueOf(currentTimePlusTwoHrs));
+//		query.setParameter("currenttime", sdf.parse(currentTimePlusTwoHrs));
 
 		return query.getResultList();
 	}

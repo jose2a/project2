@@ -1,6 +1,8 @@
 package com.revature.ctb.services;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.ctb.daos.RouteDAO;
@@ -11,6 +13,7 @@ public class RouteServiceImpl implements RouteService {
 
 	private RouteDAO routeDao;
 
+	@Autowired
 	public void setRouteDao(RouteDAO routeDao) {
 		this.routeDao = routeDao;
 	}

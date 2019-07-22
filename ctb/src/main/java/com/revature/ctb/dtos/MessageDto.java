@@ -1,6 +1,6 @@
 package com.revature.ctb.dtos;
 
-public class MessageDTO {
+public class MessageDto {
 	private Integer rideId;
 	private String message;
 	
