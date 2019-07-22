@@ -50,7 +50,7 @@ public class InfoReqRestController extends BasedRestController {
 
 		InfoReq infoReq = infoReqServ.getInfoRequestedById(infoReqId);
 
-		return mapInfoReqToInforReqDto(infoReq);
+		return mapper.map(infoReq, InfoReqDto.class);
 	}
 
 	@PutMapping(value = "information/{infoReqId}/confirmed", consumes = "application/json")
@@ -65,7 +65,7 @@ public class InfoReqRestController extends BasedRestController {
 		List<InfoReqDto> infoReqDtoList = new ArrayList<>();
 
 		infoReqServ.getInfoRequestedByEmployeeId(employeeId)
-				.forEach(ir -> infoReqDtoList.add(mapInfoReqToInforReqDto(ir)));
+				.forEach(ir -> infoReqDtoList.add(mapper.map(ir, InfoReqDto.class)));
 
 		return infoReqDtoList;
 	}
@@ -75,7 +75,7 @@ public class InfoReqRestController extends BasedRestController {
 	public List<InfoReqDto> getAllInfoRequested() {
 		List<InfoReqDto> infoReqDtoList = new ArrayList<>();
 
-		infoReqServ.getAllInfoRequested().forEach(ir -> infoReqDtoList.add(mapInfoReqToInforReqDto(ir)));
+		infoReqServ.getAllInfoRequested().forEach(ir -> infoReqDtoList.add(mapper.map(ir, InfoReqDto.class)));
 
 		return infoReqDtoList;
 	}

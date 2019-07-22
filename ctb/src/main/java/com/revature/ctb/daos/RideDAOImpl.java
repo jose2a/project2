@@ -1,8 +1,6 @@
 package com.revature.ctb.daos;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
-import com.revature.ctb.utils.LogUtil;
 
 @Repository
 public class RideDAOImpl implements RideDAO {
@@ -91,14 +88,14 @@ public class RideDAOImpl implements RideDAO {
 				"from Ride where departureDate >= :now and departureTime >= :currenttime and employee = :employee",
 				Ride.class);
 
-		String currentTimePlusTwoHrs = LocalTime.now().plusHours(2).toString();
+//		String currentTimePlusTwoHrs = LocalTime.now().plusHours(2).toString();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:MM:ss");
+//		SimpleDateFormat sdf = new SimpleDateFormat("hh:MM:ss");
 
-		LogUtil.debug(">>>>>> Current time: " + currentTimePlusTwoHrs);
+//		LogUtil.debug(">>>>>> Current time: " + currentTimePlusTwoHrs);
 
 		query.setParameter("now", new Date());
-		query.setParameter("currenttime", sdf.parse(currentTimePlusTwoHrs));
+//		query.setParameter("currenttime", sdf.parse(currentTimePlusTwoHrs));
 		query.setParameter("employee", employee);
 
 		return query.getResultList();
@@ -109,16 +106,16 @@ public class RideDAOImpl implements RideDAO {
 		Session session = sessionFactory.getCurrentSession();
 
 		Query<Ride> query = session
-				.createQuery("from Ride where departureDate >= :now and departureTime >= :currenttime", Ride.class);
+				.createQuery("from Ride where departureDate >= :now", Ride.class);
 
-		String currentTimePlusTwoHrs = LocalTime.now().plusHours(2).toString();
+//		String currentTimePlusTwoHrs = LocalTime.now().plusHours(2).toString();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:MM:ss");
+//		SimpleDateFormat sdf = new SimpleDateFormat("hh:MM:ss");
 
-		LogUtil.debug(">>>>>> Current time: " + currentTimePlusTwoHrs);
+//		LogUtil.debug(">>>>>> Current time: " + currentTimePlusTwoHrs);
 
 		query.setParameter("now", new Date());
-		query.setParameter("currenttime", sdf.parse(currentTimePlusTwoHrs));
+//		query.setParameter("currenttime", sdf.parse(currentTimePlusTwoHrs));
 
 		return query.getResultList();
 	}

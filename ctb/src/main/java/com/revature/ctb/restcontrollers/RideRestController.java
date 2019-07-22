@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.dtos.MessageDto;
+import com.revature.ctb.dtos.RideAndRoutesDto;
 import com.revature.ctb.dtos.RideDto;
 import com.revature.ctb.services.RideService;
 import com.revature.ctb.utils.LogUtil;
@@ -42,7 +43,7 @@ public class RideRestController extends BasedRestController {
 		// save ride
 		rideServ.scheduleRide(ride);
 
-		return mapRideToRideDto(ride);
+		return mapper.map(ride, RideDto.class);
 	}
 
 	@PutMapping(value = "ride/{rideId}", consumes = "application/json")
@@ -51,7 +52,7 @@ public class RideRestController extends BasedRestController {
 		// updating ride
 		rideServ.updateRide(ride);
 
-		return mapRideToRideDto(ride);
+		return mapper.map(ride, RideDto.class);
 	}
 
 	@PutMapping(value = "ride/{rideId}/cancel", consumes = "application/json")
@@ -67,7 +68,7 @@ public class RideRestController extends BasedRestController {
 
 		List<RideDto> rideList = new ArrayList<>();
 
-		rideServ.showAvailableRides().stream().forEach(r -> rideList.add(mapRideToRideDto(r)));
+		rideServ.showAvailableRides().forEach(r -> rideList.add(mapper.map(r, RideDto.class)));
 
 		return rideList;
 	}
@@ -77,17 +78,19 @@ public class RideRestController extends BasedRestController {
 	public List<RideDto> showEmployeeRides(@PathVariable Integer employeeId) {
 		List<RideDto> rideList = new ArrayList<>();
 
-		rideServ.showEmployeeRides(employeeId).stream().forEach(r -> rideList.add(mapRideToRideDto(r)));
+		rideServ.showEmployeeRides(employeeId).forEach(r -> rideList.add(mapper.map(r, RideDto.class)));
 
 		return rideList;
 	}
 
 	@GetMapping(value = "ride/{rideId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public RideDto showRide(@PathVariable Integer rideId) {
+	public RideAndRoutesDto showRide(@PathVariable Integer rideId) {
 		Ride ride = rideServ.showRide(rideId);
 
-		return mapRideToRideDto(ride);
+		RideAndRoutesDto rideAndRoutesDto = mapper.map(ride, RideAndRoutesDto.class);
+
+		return rideAndRoutesDto;
 	}
 
 	@GetMapping(value = "ride")
@@ -95,7 +98,7 @@ public class RideRestController extends BasedRestController {
 	public List<RideDto> getAllRides() {
 		List<RideDto> rideList = new ArrayList<>();
 
-		rideServ.getAllRides().stream().forEach(r -> rideList.add(mapRideToRideDto(r)));
+		rideServ.getAllRides().forEach(r -> rideList.add(mapper.map(r, RideDto.class)));
 
 		return rideList;
 	}

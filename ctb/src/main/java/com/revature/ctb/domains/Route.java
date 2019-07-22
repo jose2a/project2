@@ -52,12 +52,10 @@ public class Route {
 	private Ride ride;
 
 	// one route can be a pickup location in many bookings
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "pickupLocation")
 	private List<Booking> pickupLocations = new ArrayList<>();
 
 	// one route can be a destination location in many bookings
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "destinationLocation")
 	private List<Booking> destinationLocations = new ArrayList<>();
 

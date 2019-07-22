@@ -21,7 +21,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "ride")
@@ -72,11 +71,9 @@ public class Ride {
 	@JoinColumn(name = "ridestatus_id")
 	private RideStatus rideStatus;
 
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ride")
 	private List<Route> routes = new ArrayList<>();
 
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ride")
 	private List<Booking> bookings = new ArrayList<>();
 

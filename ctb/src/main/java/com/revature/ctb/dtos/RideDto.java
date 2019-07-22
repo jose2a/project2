@@ -6,23 +6,25 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class RideDto {
 
-	private Integer rideId;
+	protected Integer rideId;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private Date departureDate;
+	protected Date departureDate;
 
 	@JsonFormat(pattern = "HH:mm:ss")
-	private Date departureTime;
+	protected Date departureTime;
 
-	private int numberOfSeatsAvailable;
+	protected int numberOfSeatsAvailable;
 
-	private double amountCharge;
+	protected double amountCharge;
 
-	private int numberOfBookings;
+	protected int numberOfBookings;
 
-	private EmployeeDto employee;
+	protected EmployeeDto employee;
 
-	private CarDto car;
+	protected CarDto car;
+
+	protected RideStatusDto rideStatus;
 
 	public Integer getRideId() {
 		return rideId;
@@ -86,6 +88,14 @@ public class RideDto {
 
 	public void setCar(CarDto car) {
 		this.car = car;
+	}
+
+	public RideStatusDto getRideStatus() {
+		return rideStatus;
+	}
+
+	public void setRideStatus(RideStatusDto rideStatus) {
+		this.rideStatus = rideStatus;
 	}
 
 }
