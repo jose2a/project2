@@ -1,5 +1,6 @@
 package com.revature.ctb.daos;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.revature.ctb.domains.Ride;
@@ -14,9 +15,9 @@ public interface RideDAO {
 	
 	public List<Ride> getRidesByEmpId(Integer employeeId);
 	
-	public List<Ride> getEmployeeActiveRides(Integer employeeId);
+	public List<Ride> getEmployeeActiveRides(Integer employeeId) throws ParseException;
 	
-	public List<Ride> getAllActiveRides();
+	public List<Ride> getAllActiveRides() throws ParseException;
 	
 	public List<Ride> getAllRides();
 	

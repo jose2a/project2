@@ -17,4 +17,10 @@ public interface EmployeeService {
 	public Employee getEmployeeByUsernameAndPassword(String username, String password);
 	
 	public List<Employee> getAllEmployees();
+	
+	public List<Employee> getBlockedEmployees();
+	
+	public boolean unBlockedEmployee(Integer employeeId);
+	
+	public boolean deleteEmployee(Integer employeeId);
 }

@@ -33,6 +33,14 @@ public class FeedbackType {
 		this.name = name;
 	}
 
+	public Integer getFeedbackTypeId() {
+		return feedbackTypeId;
+	}
+
+	public void setFeedbackTypeId(Integer feedbackTypeId) {
+		this.feedbackTypeId = feedbackTypeId;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -76,11 +84,13 @@ public class FeedbackType {
 	public String toString() {
 		return "FeedbackType [feedbackTypeId=" + feedbackTypeId + ", name=" + name + "]";
 	}
-	
+
 	public static class FeedbackTypeId {
-		public static final Integer GOOD = 1;
-		public static final Integer AVERAGE = 2;
-		public static final Integer BAD = 3;
+		public static final Integer ONE_STAR = 1;
+		public static final Integer TWO_STAR = 2;
+		public static final Integer THREE_STAR = 3;
+		public static final Integer FOUR_STAR = 4;
+		public static final Integer FIVE_STAR = 5;
 	}
 
 }

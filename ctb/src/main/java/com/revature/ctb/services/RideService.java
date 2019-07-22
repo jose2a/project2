@@ -1,5 +1,6 @@
 package com.revature.ctb.services;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.revature.ctb.domains.Booking;
@@ -13,7 +14,7 @@ public interface RideService {
 
 	public void cancelRide(Integer rideId);
 
-	public List<Ride> showAvailableRides();
+	public List<Ride> showAvailableRides() throws ParseException;
 
 	public List<Ride> showEmployeeRides(Integer employeeId);
 

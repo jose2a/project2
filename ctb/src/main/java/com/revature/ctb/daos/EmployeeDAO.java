@@ -15,5 +15,7 @@ public interface EmployeeDAO {
 	public Employee getEmployeeByUsername(String username);
 	
 	public List<Employee> getAllEmployees();
+	
+	public List<Employee> getBlockedEmployees();
 
 }

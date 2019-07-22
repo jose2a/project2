@@ -2,7 +2,7 @@ package com.revature.ctb.dtos;
 
 import javax.validation.constraints.NotEmpty;
 
-public class LoginDTO {
+public class LoginDto {
 
 	@NotEmpty(message = "Username is required") // Validating null values
 	private String username;
