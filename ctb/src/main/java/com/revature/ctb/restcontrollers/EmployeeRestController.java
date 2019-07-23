@@ -106,7 +106,7 @@ public class EmployeeRestController extends BasedRestController {
 		Employee employee = employeeServ.getEmployeeByUsernameAndPassword(dto.getUsername(), dto.getPassword());
 
 		if (employee != null) {
-			session.setAttribute("employee", employee);
+			session.setAttribute(EMPLOYEE_SESSION_KEY, employee);
 		}
 
 		return mapper.map(employee, EmployeeDto.class);
@@ -164,5 +164,13 @@ public class EmployeeRestController extends BasedRestController {
 	public void deleteEmployee(@PathVariable Integer employeeId) {
 
 		employeeServ.deleteEmployee(employeeId);
+	}
+
+	@GetMapping(value = "employee/logout")
+	@ResponseStatus(code = HttpStatus.OK)
+	public void logoutEmployee() {
+		if(session != null && session.getAttribute(EMPLOYEE_SESSION_KEY) != null) {
+			session.invalidate();
+		}
 	}
 }
