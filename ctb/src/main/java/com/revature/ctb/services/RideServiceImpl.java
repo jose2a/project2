@@ -186,15 +186,6 @@ public class RideServiceImpl implements RideService {
 		// check for all exceptions that could occur when initially scheduling ride
 		List<Route> routes = ride.getRoutes();
 		ride.setRoutes(null);
-
-//		Ride oldRide = showRide(ride.getRideId());
-		
-//		RideStatus rideStatus = oldRide.getRideStatus();
-		
-		
-//		oldRide.setRoutes(null);
-//		oldRide.setCar(car);
-//		oldRide.setRideStatus(rideStatus);
 		
 		boolean updated = rideDao.updateRide(ride);
 
