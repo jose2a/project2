@@ -1,14 +1,15 @@
 package com.revature.ctb.services;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.revature.ctb.daos.BookingDAO;
-import com.revature.ctb.daos.CarDAO;
 import com.revature.ctb.daos.RideDAO;
 import com.revature.ctb.domains.Booking;
+import com.revature.ctb.domains.Car;
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
 import com.revature.ctb.domains.RideStatus;
@@ -16,29 +17,21 @@ import com.revature.ctb.domains.Route;
 import com.revature.ctb.exceptions.InputValidationException;
 import com.revature.ctb.exceptions.NotFoundRecordException;
 import com.revature.ctb.utils.LogUtil;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
 
+@Service
 public class RideServiceImpl implements RideService {
 
 	// injecting
 	private CarService carService;
-
-	private EmployeeService employeeService;
 	private RideDAO rideDao;
-	private RouteService routeService;
 	private BookingService bookingService;
 	private MessageService messageService;
 	private RideStatusService rideStatusService;
+	private RouteService routeService;
 
 	@Autowired
 	public void setCarService(CarService carService) {
 		this.carService = carService;
-	}
-
-	@Autowired
-	public void setEmployeeService(EmployeeService employeeService) {
-		this.employeeService = employeeService;
 	}
 
 	@Autowired
@@ -61,6 +54,11 @@ public class RideServiceImpl implements RideService {
 		this.rideStatusService = rideStatusService;
 	}
 
+	@Autowired
+	public void setRouteService(RouteService routeService) {
+		this.routeService = routeService;
+	}
+
 	@Override
 	public void scheduleRide(Ride ride) {
 		validateRide(ride);
@@ -68,8 +66,17 @@ public class RideServiceImpl implements RideService {
 		// if no exception thrown, methods will run to increase booking number & add
 		// ride
 		ride.setNumberOfBookings(0);
-		boolean rideAdded = rideDao.addRide(ride);
+		ride.setRideStatus(rideStatusService.getRideStatus(RideStatus.RideStatusIds.ACTIVE));
 
+		List<Route> routes = ride.getRoutes();
+		ride.setRoutes(null);
+
+		boolean added = rideDao.addRide(ride);
+
+		if (added) {
+			routes.stream().forEach(r -> r.setRide(ride));
+			routeService.addRoutes(routes);
+		}
 	}
 
 	private void validateRide(Ride ride) {
@@ -86,29 +93,29 @@ public class RideServiceImpl implements RideService {
 		}
 
 		// check that 2+ routes for ride exist
-		if (ride.getRoutes().size() >= 2) {
-			LogUtil.trace("Two+ routes attached to ride");
-
-		} else { // if not, add error
+		if (ride.getRoutes().size() < 2) {
+			// if not, add error
 			LogUtil.trace("Can't schedule ride. Less than two routes attached to ride");
 			scheduleExcep.addError("Ride must contain two or more routes");
 		}
 
 		// check cost for ride has been input
-		if (ride.getAmountCharge() > 0) {
-			LogUtil.trace("Driver has set cost for ride");
-		} else {
+		if (ride.getAmountCharge() < 0) {
 			LogUtil.trace("Cost for ride needs to be updated");
 			scheduleExcep.addError("Price for ride must be updated to greater than zero");
-
 		}
 
 		// check # of seats >1
-		if (ride.getNumberOfSeatsAvailable() > 0) {
-			LogUtil.trace("Adequate number of seats available");
-		} else {
+		if (ride.getNumberOfSeatsAvailable() < 0) {
 			LogUtil.trace("Insufficient number of seats available for ride");
 			scheduleExcep.addError("Ride must have at least one available seat");
+		}
+
+		Car car = carService.getCarById(ride.getCar().getCarId());
+
+		if (ride.getNumberOfSeatsAvailable() > (car.getNumberOfSeats() - 1)) {
+			LogUtil.trace("Assigning more seats available for ride thant the ones the car have minus the driver seat");
+			scheduleExcep.addError("You don't have more available seats");
 		}
 
 		// check pickup location against destination location to ensure they are
@@ -145,15 +152,16 @@ public class RideServiceImpl implements RideService {
 
 		sendMessageToPassengers(ride.getBookings(), message);
 
-		bookingService.deleteAllBooking(rideId);
+		bookingService.deleteAllBookingByRideId(rideId);
 
 		// cancelled ride
 		ride.setRideStatus(rideStatusService.getRideStatus(RideStatus.RideStatusIds.CANCELED));
 		rideDao.updateRide(ride);
 	}
-	
-	//sending message to passengers from system
-	private void sendMessageToPassengers(List<Booking> bookings, String message) {
+
+	// sending message to passengers from system
+	@Override
+	public void sendMessageToPassengers(List<Booking> bookings, String message) {
 		for (Booking booking : bookings) {
 			// access employee. get phone number. send message
 			Employee emp = booking.getEmployee();
@@ -161,32 +169,14 @@ public class RideServiceImpl implements RideService {
 			messageService.sendMessage(emp.getPhoneNumber(), message);
 		}
 	}
-	
-	
-	//driver sends message to passengers
+
+	// driver sends message to passengers
+	@Override
 	public void driverMessageToPassengers(Integer rideId, String message) {
-		
+
 		Ride thisRide = rideDao.getRidebyId(rideId);
-		
+
 		sendMessageToPassengers(thisRide.getBookings(), message);
-		
-	}
-	
-	
-	//system sends method to driver if passenger makes changes to booking
-	private void sendMessageToDriver (Ride ride, String message) {
-	
-			Employee driver = ride.getEmployee();
-			
-			messageService.sendMessage(driver.getPhoneNumber(), message);
-	}
-	
-	//passenger sends message to driver
-	public void passengerMessageToDriver(Integer rideId, String message) {
-		
-		Ride thisRide = rideDao.getRidebyId(rideId);
-		
-		sendMessageToDriver(thisRide, message);
 
 	}
 
@@ -194,16 +184,24 @@ public class RideServiceImpl implements RideService {
 	public void updateRide(Ride ride) {
 		validateRide(ride);
 		// check for all exceptions that could occur when initially scheduling ride
+		List<Route> routes = ride.getRoutes();
+		ride.setRoutes(null);
+		
+		boolean updated = rideDao.updateRide(ride);
 
-		String message = "Your ride scheduled was updated. ";
+		if (updated) {
+			routes.forEach(r -> r.setRide(ride));
+			routeService.addRoutes(routes);
 
-		sendMessageToPassengers(ride.getBookings(), message);
+			String message = "Your ride scheduled was updated. ";
 
-		rideDao.updateRide(ride);
+			sendMessageToPassengers(ride.getBookings(), message);
+
+		}
 	}
 
 	@Override
-	public List<Ride> showAvailableRides() {
+	public List<Ride> showAvailableRides() throws ParseException {
 
 		// check list for content
 		List<Ride> showAvailable = rideDao.getAllActiveRides();

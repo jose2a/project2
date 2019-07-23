@@ -18,7 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "ride")
@@ -29,18 +31,19 @@ public class Ride {
 	@Column(name = "ride_id")
 	private Integer rideId;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	@Column(name = "departure_date")
 	@Temporal(TemporalType.DATE)
-	@NotEmpty(message = "Departure date is required") // Validating
+	@NotNull(message = "Departure date is required") // Validating
 	private Date departureDate;
 
+	@JsonFormat(pattern = "HH:mm:ss")
 	@Column(name = "departure_time")
 	@Temporal(TemporalType.TIME)
-	@NotEmpty(message = "Departure time is required") // Validating
+	@NotNull(message = "Departure time is required") // Validating
 	private Date departureTime;
 
 	@Column(name = "num_seats_available")
-	@NotEmpty(message = "Number of seats are required") // Validating
 	@Min(value = 1, message = "Number of seats must be greater than zero")
 	private int numberOfSeatsAvailable;
 
@@ -71,7 +74,7 @@ public class Ride {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ride")
 	private List<Route> routes = new ArrayList<>();
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ride")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "ride")
 	private List<Booking> bookings = new ArrayList<>();
 
 	public Ride() {
