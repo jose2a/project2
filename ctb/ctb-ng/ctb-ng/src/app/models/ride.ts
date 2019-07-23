@@ -1,16 +1,17 @@
+import { Employee } from './employee';
 
 
 export class Ride {
     rideId: number;
 
     departureDate: Date;
-    departureTime: number;
+    departureTime: Date;
     numSeatsAvailable: number;
     amountCharge: number;
     numBookings: number;
 
-    employeeId: number;
-    carId: number;
-    rideStatusId: number;
+    employee: Employee;
+    car: Car;
+    rideStatus: RideStatus;
 
 }
