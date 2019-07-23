@@ -20,5 +20,5 @@ public interface BookingService {
 	public List<Booking> getAllBooking();
 	
 	public void sendMessageToDriver (Ride ride, String message);
-	
+	 
 }
