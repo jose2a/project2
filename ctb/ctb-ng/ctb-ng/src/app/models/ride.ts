@@ -1,5 +1,7 @@
 import { Employee } from './employee';
-
+import { Route } from './route';
+import { Car } from './car';
+import { RideStatus } from './rideStatus';
 
 export class Ride {
     rideId: number;
@@ -14,4 +16,5 @@ export class Ride {
     car: Car;
     rideStatus: RideStatus;
 
+    routes: Route[];
 }
