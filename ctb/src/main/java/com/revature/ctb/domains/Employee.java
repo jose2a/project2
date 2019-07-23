@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -61,7 +62,7 @@ public class Employee {
 	private boolean active;
 
 	@Column(name = "block")
-	private boolean block;
+	private boolean blocked;
 
 	@Column(name = "driver")
 	private boolean driver;
@@ -70,7 +71,7 @@ public class Employee {
 	// here
 	// and use a ManyToOne in EmployeeRole class that way I keep the link between
 	// Employee and Role
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "employee_role", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles = new ArrayList<>();
 
@@ -78,13 +79,27 @@ public class Employee {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "employee")
 	private List<Car> cars = new ArrayList<>();
 
+	// One to many relationship (One employee can have many requests for
+	// information)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id")
+	private List<InfoReq> infoRequests = new ArrayList<>();
+
+	// One to many relationship (One employee can schedule many rides)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+	private List<Ride> rides = new ArrayList<>();
+
+	// One to many relationship (One employee can book many rides)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+	private List<Booking> bookings = new ArrayList<>();
+
 	public Employee() {
 		super();
 	}
 
 	public Employee(Integer employeeId, String username, String password, String firstName, String lastName,
 			String email, String phoneNumber, String driverLicense, Integer numberOfFlags, boolean active,
-			boolean block, boolean driver) {
+			boolean blocked, boolean driver) {
 		super();
 		this.employeeId = employeeId;
 		this.username = username;
@@ -96,12 +111,12 @@ public class Employee {
 		this.driverLicense = driverLicense;
 		this.numberOfFlags = numberOfFlags;
 		this.active = active;
-		this.block = block;
+		this.blocked = blocked;
 		this.driver = driver;
 	}
 
 	public Employee(String username, String password, String firstName, String lastName, String email,
-			String phoneNumber, String driverLicense, Integer numberOfFlags, boolean active, boolean block,
+			String phoneNumber, String driverLicense, Integer numberOfFlags, boolean active, boolean blocked,
 			boolean driver) {
 		super();
 		this.username = username;
@@ -113,7 +128,7 @@ public class Employee {
 		this.driverLicense = driverLicense;
 		this.numberOfFlags = numberOfFlags;
 		this.active = active;
-		this.block = block;
+		this.blocked = blocked;
 		this.driver = driver;
 	}
 
@@ -197,12 +212,12 @@ public class Employee {
 		this.active = active;
 	}
 
-	public boolean isBlock() {
-		return block;
+	public boolean isBlocked() {
+		return blocked;
 	}
 
-	public void setBlock(boolean block) {
-		this.block = block;
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
 	}
 
 	public boolean isDriver() {
@@ -219,6 +234,30 @@ public class Employee {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public List<Car> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<Car> cars) {
+		this.cars = cars;
+	}
+
+	public List<InfoReq> getInfoRequests() {
+		return infoRequests;
+	}
+
+	public void setInfoRequests(List<InfoReq> infoRequests) {
+		this.infoRequests = infoRequests;
+	}
+
+	public List<Ride> getRides() {
+		return rides;
+	}
+
+	public void setRides(List<Ride> rides) {
+		this.rides = rides;
 	}
 
 	@Override
@@ -292,7 +331,7 @@ public class Employee {
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", username=" + username + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", driverLicense="
-				+ driverLicense + ", numberOfFlags=" + numberOfFlags + ", active=" + active + ", block=" + block
+				+ driverLicense + ", numberOfFlags=" + numberOfFlags + ", active=" + active + ", blocked=" + blocked
 				+ ", driver=" + driver + "]";
 	}
 

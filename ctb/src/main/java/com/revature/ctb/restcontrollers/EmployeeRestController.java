@@ -19,26 +19,30 @@ import com.revature.ctb.services.EmployeeService;
 @RequestMapping("/api")
 public class EmployeeRestController {
 
+	private EmployeeService employeeServ;
+
 	@Autowired
-	private EmployeeService employeeServ; // injecting employeeService
+	public void setEmployeeServ(EmployeeService employeeServ) {
+		this.employeeServ = employeeServ;
+	}
 
 	/**
 	 * This method will register the employee in the system. This is going to be
 	 * used by Angular UI.
 	 * 
-	 * @param emp              Employee to register, JSON format object, coming from
-	 *                         Angular
-	 *                         
+	 * @param emp Employee to register, JSON format object, coming from Angular
+	 * 
 	 * @return the employee with id following rest API practices
 	 */
-	@PostMapping("employee") // access this using: localhost:8080/api/employee <- GET method
+	@PostMapping(path = "employee", consumes = "application/json") // access this using: localhost:8080/api/employee <-
+																	// GET method
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Employee postEmployee(@Valid @RequestBody Employee emp) {
 
 		// saving employee using the service
 		employeeServ.registerEmployee(emp);
 
-		// hidding employee password
+		// hiding employee password
 		emp.setPassword("************");
 
 		return emp;

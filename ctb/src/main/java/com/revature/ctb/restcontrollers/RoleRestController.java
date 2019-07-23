@@ -14,16 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.ctb.domains.Role;
 import com.revature.ctb.services.RoleService;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class RoleRestController {
-	
+
+	private RoleService roleServ;
+
 	@Autowired
-	private RoleService roleServ; // injecting roleService
+	public void setRoleServ(RoleService roleServ) {
+		this.roleServ = roleServ;
+	}
 
 	/**
 	 * Getting roles from the rest controller.
+	 * 
 	 * @return All roles
 	 */
 	@GetMapping("/roles")
@@ -31,9 +36,10 @@ public class RoleRestController {
 	public List<Role> getAllRoles() {
 		return roleServ.getAllRoles();
 	}
-	
+
 	/**
 	 * Getting roles for this employee
+	 * 
 	 * @param employeeId The employee id
 	 * @return List of roles
 	 */

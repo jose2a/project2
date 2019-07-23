@@ -1,5 +1,8 @@
 package com.revature.ctb.domains;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "car")
@@ -21,15 +26,19 @@ public class Car {
 	private Integer carId;
 
 	@Column(name = "vin_number")
+	@NotEmpty(message = "Vin Number is required") // Validating null values
 	private String vinNumber;
 
 	@Column(name = "make")
+	@NotEmpty(message = "Make is required") // Validating null values
 	private String make;
 
 	@Column(name = "model")
+	@NotEmpty(message = "Model is required") // Validating null values
 	private String model;
 
 	@Column(name = "number_seats")
+	@NotEmpty(message = "Number of seats is required") // Validating null values
 	private int numberOfSeats;
 
 	@Column(name = "ac")
@@ -43,6 +52,10 @@ public class Car {
 			CascadeType.REFRESH })
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
+
+	// One to many relationship (One employee can schedule many rides)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "car")
+	private List<Ride> rides = new ArrayList<>();
 
 	public Car() {
 	}

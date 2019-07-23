@@ -8,7 +8,7 @@ import java.util.List;
  * User input validations.
  *
  */
-public class BadRequestException extends RuntimeException {
+public class InputValidationException extends RuntimeException {
 
 	/**
 	 * 
@@ -18,26 +18,26 @@ public class BadRequestException extends RuntimeException {
 	// Stores the validation errors in a list that way we can loop them in Angular
 	private List<String> errors = new ArrayList<>();
 
-	public BadRequestException() {
+	public InputValidationException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BadRequestException(String message) {
+	public InputValidationException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BadRequestException(Throwable cause) {
+	public InputValidationException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BadRequestException(String message, Throwable cause) {
+	public InputValidationException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BadRequestException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public InputValidationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
 	}
