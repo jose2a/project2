@@ -105,6 +105,10 @@ public class EmployeeRestController extends BasedRestController {
 	public EmployeeDto login(@RequestBody LoginDto dto) {
 		Employee employee = employeeServ.getEmployeeByUsernameAndPassword(dto.getUsername(), dto.getPassword());
 
+		if (employee != null) {
+			session.setAttribute("employee", employee);
+		}
+
 		return mapper.map(employee, EmployeeDto.class);
 	}
 
