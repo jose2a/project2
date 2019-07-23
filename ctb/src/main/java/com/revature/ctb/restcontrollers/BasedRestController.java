@@ -1,41 +1,29 @@
 package com.revature.ctb.restcontrollers;
 
+import javax.servlet.http.HttpSession;
+
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.revature.ctb.domains.InfoReq;
-import com.revature.ctb.domains.Ride;
-import com.revature.ctb.dtos.CarDto;
-import com.revature.ctb.dtos.EmployeeDto;
-import com.revature.ctb.dtos.InfoReqDto;
-import com.revature.ctb.dtos.RideDto;
-
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class BasedRestController {
 
-	protected DozerBeanMapper mapper;
+	protected HttpSession session; // Handling the session
+	protected DozerBeanMapper mapper; // Handling mapping between two objects
+	
+	protected final String EMPLOYEE_SESSION_KEY = "EMPLOYEE";
+
+	@Autowired
+	public void setSession(HttpSession session) {
+		this.session = session;
+	}
 
 	@Autowired
 	public void setMapper(DozerBeanMapper mapper) {
 		this.mapper = mapper;
 	}
 
-	protected RideDto mapRideToRideDto(Ride ride) {
-		EmployeeDto employeeDto = mapper.map(ride.getEmployee(), EmployeeDto.class);
-		CarDto carDto = mapper.map(ride.getCar(), CarDto.class);
-		RideDto rideDto = mapper.map(ride, RideDto.class);
-		rideDto.setEmployee(employeeDto);
-		rideDto.setCar(carDto);
-		return rideDto;
-	}
-
-	protected InfoReqDto mapInfoReqToInforReqDto(InfoReq infoReq) {
-		EmployeeDto employeeDto = mapper.map(infoReq.getEmployee(), EmployeeDto.class);
-		InfoReqDto infoReqDto = mapper.map(infoReq, InfoReqDto.class);
-		infoReqDto.setEmployee(employeeDto);
-		return infoReqDto;
-	}
 }

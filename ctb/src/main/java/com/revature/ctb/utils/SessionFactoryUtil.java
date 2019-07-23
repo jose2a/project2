@@ -16,33 +16,30 @@ import com.revature.ctb.domains.Route;
 
 public class SessionFactoryUtil {
 
-	private static SessionFactory sf;
+	private SessionFactory sessionFactory;
 
-	static {
+	public SessionFactoryUtil() {
 		Configuration configuration = new Configuration().configure();
 		configuration.setProperty("hibernate.connection.username", System.getenv("CTB_USERNAME"));
 		configuration.setProperty("hibernate.connection.password", System.getenv("CTB_PASSWORD"));
 		configuration.setProperty("hibernate.connection.url",
 				"jdbc:postgresql://" + System.getenv("CTB_URL") + ":5412/tan_1905java");
 
-		sf = configuration.configure("hibernate.cfg.xml")
-				.addAnnotatedClass(Booking.class)
-				.addAnnotatedClass(Car.class)
-				.addAnnotatedClass(Employee.class)
-				.addAnnotatedClass(EmployeeRole.class)
-				.addAnnotatedClass(FeedbackType.class)
-				.addAnnotatedClass(InfoReq.class)
-				.addAnnotatedClass(Ride.class)
-				.addAnnotatedClass(RideStatus.class)
-				.addAnnotatedClass(Role.class)
-				.addAnnotatedClass(Route.class)
+		sessionFactory = configuration.configure("hibernate.cfg.xml").addAnnotatedClass(Booking.class)
+				.addAnnotatedClass(Car.class).addAnnotatedClass(Employee.class).addAnnotatedClass(EmployeeRole.class)
+				.addAnnotatedClass(FeedbackType.class).addAnnotatedClass(InfoReq.class).addAnnotatedClass(Ride.class)
+				.addAnnotatedClass(RideStatus.class).addAnnotatedClass(Role.class).addAnnotatedClass(Route.class)
 				.buildSessionFactory();
 
 		LogUtil.debug("Created session factory");
 	}
 
-	public static synchronized SessionFactory getSessionFactory() {
-		return sf;
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 }
