@@ -32,6 +32,7 @@ public class CarRestController extends BasedRestController {
 
 	@PostMapping(value = "/car", consumes = "application/json")
 	@ResponseStatus(code = HttpStatus.CREATED)
+
 	public Car newCar(@Valid @RequestBody Car car) {
 
 		carService.addCar(car);
