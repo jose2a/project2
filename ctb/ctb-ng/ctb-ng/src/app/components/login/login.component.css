@@ -1,12 +1,10 @@
-
  body, html {   
-
     width: auto;   
    height: 100vh; 
    font-family: "Helvetica Neue", Helvetica, sans-serif;   
    }
 
-   #container {
+#container {
     margin:20px;
     margin-top:35px;
     position: absolute;
@@ -14,23 +12,24 @@
     width: 360px;
     height: 400px;
     background: rgb(255, 255, 255);
+    border: black;
    
     }
    
-    label {
+label {
         color: maroon;
         margin-left: 18px;
         padding-top: 10px;
         font-size: 14px;
     }
 
-    input {
+input {
         font-family: "Helvetica Neue", Helvetica, sans-serif;
         font-size: 12px;
         outline: none;
     }
-    input[type=text],
-    input[type=password] {
+input[type=text],
+input[type=password] {
         color: darkgrey;
         padding-left: 10px;
         margin: auto;
@@ -42,14 +41,14 @@
         border-radius: 2px;
         box-shadow: inset 0 1.5px 3px darkgray, 0 0 0 5px #f5f7f8;
     }
-    label{
+label{
         margin-left: 30px;
 
     }
-    #submit{
+#submit{
         margin-right: 50px;
     }
-    #lower {
+#lower {
         background: #ecf2f5;
         width: 100%;
         height: 200px;
@@ -57,7 +56,7 @@
         margin-bottom: 0;
        
     }
-    #upper{
+#upper{
         background: #ecf2f5;
         width:100%;
         height: 140px;
@@ -66,11 +65,11 @@
         padding-top: 25%;
      
     }
-    input[type=checkbox] {
+input[type=checkbox] {
         margin-left: 20px;
         margin-top: 30px;
     }
-    input[type=submit] {
+input[type=submit] {
         float: right;
         margin-right: 20px;
         margin-top: 20px;

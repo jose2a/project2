@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+<div id="container">
+        <div id="upper">
+            <h3>Member Login</h3>
+          </div>   
+    <div>
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username">
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password">
 
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-})
-export class LoginComponent implements OnInit {
+  <div id="lower">
+  <input [(ngModel)]="logged" type="checkbox"><label for="checkbox">Keep me logged in</label>
+  <input type="submit" value="Login" id="submit">
+  <br>
+  <a id="register" href="">No Account? Register Here</a>
 
-  constructor() { }
+    </div>
 
-  ngOnInit() {
-  }
-  loginUser(event) {
-    console.log(event);
-  }
-}
+<p>login</p>
 
+</div>
+  </div>

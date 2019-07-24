@@ -11,6 +11,7 @@ import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Role;
 import com.revature.ctb.exceptions.DuplicateRecordException;
 import com.revature.ctb.exceptions.InputValidationException;
+import com.revature.ctb.exceptions.NotFoundRecordException;
 import com.revature.ctb.utils.LogUtil;
 
 @Service
@@ -68,13 +69,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 			brExc.addError("You need to provide a driver license as a driver.");
 			throw brExc;
 		}
-		
+
 		boolean added = employeeDao.addEmployee(employee);
 
 		Role passenger = roleServ.getRoleById(Role.RoleIds.PASSENGER);
 		roles.add(passenger);
 		employee.getRoles().add(passenger);
-
 
 		// if the employee was successfully inserted in the database we can insert its
 		// roles
@@ -87,13 +87,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public boolean updateEmployee(Employee employee) {
+		Employee oldEmployee = getEmployeeById(employee.getEmployeeId());
+
+		employee.setPassword(oldEmployee.getPassword());
+		employee.setRoles(oldEmployee.getRoles());
+
 		return employeeDao.updateEmployee(employee);
 	}
 
 	@Override
 	public Employee getEmployeeById(Integer employeeId) {
 		Employee employee = employeeDao.getEmployeeById(employeeId);
-		employee.getRoles(); // Loading the roles for the employee
+
+		if (employee == null) {
+			throw new NotFoundRecordException("Employee not found");
+		}
 
 		return employee;
 	}
@@ -101,7 +109,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee getEmployeeByUsername(String username) {
 		Employee employee = employeeDao.getEmployeeByUsername(username);
-		employee.getRoles(); // Loading the roles for the employee
+
+		if (employee == null) {
+			throw new NotFoundRecordException("Employee not found");
+		}
 
 		return employee;
 	}
@@ -110,6 +121,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee getEmployeeByUsernameAndPassword(String username, String password) {
 		Employee employee = employeeDao.getEmployeeByUsername(username);
 
+		if (employee == null) {
+			throw new NotFoundRecordException("Employee not found");
+		}
+
 		if (employee.getPassword().equals(password)) {
 			employee.getRoles(); // Loading the roles for the employee
 
@@ -117,6 +132,43 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 
 		return null;
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		return employeeDao.getAllEmployees();
+	}
+
+	@Override
+	public List<Employee> getBlockedEmployees() {
+		return employeeDao.getBlockedEmployees();
+	}
+
+	@Override
+	public boolean unBlockedEmployee(Integer employeeId) {
+		Employee employee = employeeDao.getEmployeeById(employeeId);
+
+		if (employee == null) {
+			throw new NotFoundRecordException("Employee not found");
+		}
+		
+		employee.setBlocked(false);
+		employee.setNumberOfFlags(0);
+
+		return employeeDao.updateEmployee(employee);
+	}
+
+	@Override
+	public boolean deleteEmployee(Integer employeeId) {
+		Employee employee = employeeDao.getEmployeeById(employeeId);
+
+		if (employee == null) {
+			throw new NotFoundRecordException("Employee not found");
+		}
+		
+		employee.setActive(false);
+
+		return employeeDao.updateEmployee(employee);
 	}
 
 }

@@ -1,159 +1,211 @@
 package com.revature.ctb.services;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.revature.ctb.daos.BookingDAO;
-import com.revature.ctb.daos.CarDAO;
 import com.revature.ctb.daos.RideDAO;
 import com.revature.ctb.domains.Booking;
+import com.revature.ctb.domains.Car;
+import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.Ride;
+import com.revature.ctb.domains.RideStatus;
 import com.revature.ctb.domains.Route;
 import com.revature.ctb.exceptions.InputValidationException;
 import com.revature.ctb.exceptions.NotFoundRecordException;
 import com.revature.ctb.utils.LogUtil;
 
+@Service
 public class RideServiceImpl implements RideService {
 
-	
-	//injecting
+	// injecting
 	private CarService carService;
-
-	private EmployeeService employeeService;	
-	private RideDAO rideDao;	
+	private RideDAO rideDao;
+	private BookingService bookingService;
+	private MessageService messageService;
+	private RideStatusService rideStatusService;
 	private RouteService routeService;
-	private BookingDAO bookingDao;
-	
+
 	@Autowired
 	public void setCarService(CarService carService) {
 		this.carService = carService;
 	}
-	
-	@Autowired
-	public void setEmployeeService(EmployeeService employeeService) {
-		this.employeeService = employeeService;
-	}
-	
+
 	@Autowired
 	public void setRideDao(RideDAO rideDao) {
 		this.rideDao = rideDao;
 	}
-	
+
+	@Autowired
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
+	}
+
+	@Autowired
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
+
+	@Autowired
+	public void setRideStatusService(RideStatusService rideStatusService) {
+		this.rideStatusService = rideStatusService;
+	}
+
 	@Autowired
 	public void setRouteService(RouteService routeService) {
 		this.routeService = routeService;
 	}
-	
-	@Autowired
-	public void setRideDao(BookingDAO bookingDao) {
-		this.bookingDao = bookingDao;
-	}
-	
-	Date today = new Date();
 
-	
 	@Override
 	public void scheduleRide(Ride ride) {
+		validateRide(ride);
+
+		// if no exception thrown, methods will run to increase booking number & add
+		// ride
+		ride.setNumberOfBookings(0);
+		ride.setRideStatus(rideStatusService.getRideStatus(RideStatus.RideStatusIds.ACTIVE));
+
+		List<Route> routes = ride.getRoutes();
+		ride.setRoutes(null);
+
+		boolean added = rideDao.addRide(ride);
+
+		if (added) {
+			routes.stream().forEach(r -> r.setRide(ride));
+			routeService.addRoutes(routes);
+		}
+	}
+
+	private void validateRide(Ride ride) {
 		Date today = new Date();
 		InputValidationException scheduleExcep = new InputValidationException("Validation exception");
-		
-		//check date for appropriate range
+
+		// check date for appropriate range
 		if (ride.getDepartureDate().compareTo(today) > 0) {
 			LogUtil.trace("Departure date is > today");
-			
-		} else { 
+
+		} else {
 			LogUtil.trace("Can't schedule ride. Departure date outside of accepted time");
 			scheduleExcep.addError("Change departure date to one day passed today");
 		}
-		
-			
-		//check that 2+ routes for ride exist
-		if (ride.getRoutes().size() >= 2) {
-			LogUtil.trace("Two+ routes attached to ride");	
-			
-		} else { //if not, add error
-				LogUtil.trace("Can't schedule ride. Less than two routes attached to ride");
-				scheduleExcep.addError("Ride must contain two or more routes");
+
+		// check that 2+ routes for ride exist
+		if (ride.getRoutes().size() < 2) {
+			// if not, add error
+			LogUtil.trace("Can't schedule ride. Less than two routes attached to ride");
+			scheduleExcep.addError("Ride must contain two or more routes");
 		}
-		
-		
-		//check cost for ride has been input
-		if (ride.getAmountCharge() > 0) {
-			LogUtil.trace("Driver has set cost for ride");
-		} else {
+
+		// check cost for ride has been input
+		if (ride.getAmountCharge() < 0) {
 			LogUtil.trace("Cost for ride needs to be updated");
 			scheduleExcep.addError("Price for ride must be updated to greater than zero");
-
 		}
-		
-		
-		//check # of seats >1 
-		if (ride.getNumberOfSeatsAvailable() >0) {
-			LogUtil.trace("Adequate number of seats available");
-		} else {
+
+		// check # of seats >1
+		if (ride.getNumberOfSeatsAvailable() < 0) {
 			LogUtil.trace("Insufficient number of seats available for ride");
 			scheduleExcep.addError("Ride must have at least one available seat");
 		}
-			
-		
-		
-		//if errors exist, throw exception
+
+		Car car = carService.getCarById(ride.getCar().getCarId());
+
+		if (ride.getNumberOfSeatsAvailable() > (car.getNumberOfSeats() - 1)) {
+			LogUtil.trace("Assigning more seats available for ride thant the ones the car have minus the driver seat");
+			scheduleExcep.addError("You don't have more available seats");
+		}
+
+		// check pickup location against destination location to ensure they are
+		// different
+		Route pickupLocation = null;
+		Route destinationLocation = null;
+
+		for (Route r : ride.getRoutes()) {
+			if (r.isPickupLocation()) {
+				pickupLocation = r;
+			}
+			if (r.isDestinationLocation()) {
+				destinationLocation = r;
+			}
+			if (pickupLocation == destinationLocation) {
+				scheduleExcep.addError("Pickup location and destination location must be different");
+			}
+		}
+
+		// if errors exist, throw exception
 		if (scheduleExcep.getErrors().size() > 0) {
 			throw scheduleExcep;
 		}
-		
-		
-		// check latitude versus longitude in route to ensure they are different INCOMPLETE
-//		List<Route> rideRoute = ride.getRoutes();
-//		for (int i =0; i <rideRoute.size(); i ++) {
-//			if (rideRoute.get(i).getLatitude().equals(rideRoute.get(i).getLongitude())) {
-//				LogUtil.trace("depart");
-//			}
-//		}
-	
-		
-		//if all clear until this point, methods will run to increase booking number, add ride
-		ride.setNumberOfBookings(0);
-		boolean rideAdded = rideDao.addRide(ride);
-		
-
 	}
 
 	@Override
 	public void cancelRide(Integer rideId) {
 
-		//change ride status to cancelled update # of bookings
-		//change to soft delete?
-		Ride ride= rideDao.getRidebyId(rideId);
-		
-		
-		ride.setNumberOfBookings(ride.getNumberOfBookings()-1); //waiting on this method, send msg
-		List<Booking> rideBookings = ride.getBookings();
-		
-		for (Booking booking : rideBookings) {
-			//access employee. get phone number. send message 
-		}
-		//rideDao.deleteRide(rideId);		
-//		ride.setRideStatus(rideStatus); // set status to cancel
-//		BookingService to delete booking for this ride
+		// change ride status to cancelled update # of bookings
+		// change to soft delete?
+		Ride ride = rideDao.getRidebyId(rideId);
+
+		String message = "Your ride scheduled was cancelled";
+
+		sendMessageToPassengers(ride.getBookings(), message);
+
+		bookingService.deleteAllBookingByRideId(rideId);
+
+		// cancelled ride
+		ride.setRideStatus(rideStatusService.getRideStatus(RideStatus.RideStatusIds.CANCELED));
 		rideDao.updateRide(ride);
+	}
+
+	// sending message to passengers from system
+	@Override
+	public void sendMessageToPassengers(List<Booking> bookings, String message) {
+		for (Booking booking : bookings) {
+			// access employee. get phone number. send message
+			Employee emp = booking.getEmployee();
+
+			messageService.sendMessage(emp.getPhoneNumber(), message);
+		}
+	}
+
+	// driver sends message to passengers
+	@Override
+	public void driverMessageToPassengers(Integer rideId, String message) {
+
+		Ride thisRide = rideDao.getRidebyId(rideId);
+
+		sendMessageToPassengers(thisRide.getBookings(), message);
+
 	}
 
 	@Override
 	public void updateRide(Ride ride) {
+		validateRide(ride);
+		// check for all exceptions that could occur when initially scheduling ride
+		List<Route> routes = ride.getRoutes();
+		ride.setRoutes(null);
 		
-			
+		boolean updated = rideDao.updateRide(ride);
+
+		if (updated) {
+			routes.forEach(r -> r.setRide(ride));
+			routeService.addRoutes(routes);
+
+			String message = "Your ride scheduled was updated. ";
+
+//			sendMessageToPassengers(ride.getBookings(), message);
+
+		}
 	}
 
-	
 	@Override
-	public List<Ride> showAvailableRides() {
-		
-		//check list for content
+	public List<Ride> showAvailableRides() throws ParseException {
+
+		// check list for content
 		List<Ride> showAvailable = rideDao.getAllActiveRides();
-		
+
 		return showAvailable;
 
 	}
@@ -161,18 +213,16 @@ public class RideServiceImpl implements RideService {
 	@Override
 	public List<Ride> showEmployeeRides(Integer employeeId) {
 
-	
-		//check list for content
-		List<Ride> employeeRides = rideDao.getRidesByEmpId(employeeId);		
-		
-		return employeeRides; 
-		
+		// check list for content
+		List<Ride> employeeRides = rideDao.getRidesByEmpId(employeeId);
+
+		return employeeRides;
+
 	}
 
-	
 	@Override
 	public Ride showRide(Integer rideId) {
-		
+
 		Ride ride = rideDao.getRidebyId(rideId);
 		if (ride.equals(null)) {
 			throw new NotFoundRecordException();
@@ -181,13 +231,11 @@ public class RideServiceImpl implements RideService {
 		return ride;
 	}
 
-
 	@Override
 	public List<Ride> getAllRides() {
-		
+
 		List<Ride> allRides = rideDao.getAllRides();
-	
-		
+
 		return allRides;
 	}
 }

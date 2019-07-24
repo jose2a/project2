@@ -17,4 +17,6 @@ public interface InfoReqService {
 	public List<InfoReq> getInfoRequestedByEmployeeId(Integer employeeId);
 
 	public List<InfoReq> getAllInfoRequested();
+	
+	public boolean answerQuestion(Integer infoReqId, String answer);
 }

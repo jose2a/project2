@@ -14,7 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "car")
@@ -38,7 +41,7 @@ public class Car {
 	private String model;
 
 	@Column(name = "number_seats")
-	@NotEmpty(message = "Number of seats is required") // Validating null values
+	@Min(value = 0, message = "Number of seats is required") // Validating null values
 	private int numberOfSeats;
 
 	@Column(name = "ac")
@@ -48,11 +51,12 @@ public class Car {
 	private boolean active;
 
 	// Many to one relationship
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 
+	@JsonIgnore
 	// One to many relationship (One employee can schedule many rides)
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "car")
 	private List<Ride> rides = new ArrayList<>();
