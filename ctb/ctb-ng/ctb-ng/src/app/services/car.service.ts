@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { appConfig } from '../configs/app.config';
-import { Observable, of } from 'rxjs';
-import { Car } from '../models/car';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { appConfig } from '../configs/app.config';
+import { Observable } from 'rxjs';
+import { Car } from '../models/car';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,7 +20,7 @@ export class CarService {
 
   /*GET car by employeeId*/
   getCarsByEmployeeId(employeeId: number): Observable <Car[]>{
-    return this.http.get<Ride[]>(`${this.carUrl}/${employeeId}/car`);
+    return this.http.get<Car[]>(`${this.carUrl}/${employeeId}/car`);
   }
 }
 

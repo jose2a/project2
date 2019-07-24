@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,7 +41,7 @@ public class Car {
 	private String model;
 
 	@Column(name = "number_seats")
-	@NotEmpty(message = "Number of seats is required") // Validating null values
+	@Min(value = 0, message = "Number of seats is required") // Validating null values
 	private int numberOfSeats;
 
 	@Column(name = "ac")

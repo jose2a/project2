@@ -19,13 +19,11 @@ public class CTBAppConfig implements WebMvcConfigurer {
 
 	@Bean
 	public SessionFactory sessionFactory() {
-		return SessionFactoryUtil.getSessionFactory();
+		return new SessionFactoryUtil().getSessionFactory();
 	}
 
 	@Bean(name = "org.dozer.Mapper")
 	public DozerBeanMapper dozerBean() {
-		DozerBeanMapper dozerBean = new DozerBeanMapper();
-
-		return dozerBean;
+		return new DozerBeanMapper();
 	}
 }

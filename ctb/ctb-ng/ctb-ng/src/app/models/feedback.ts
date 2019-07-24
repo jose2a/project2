@@ -2,7 +2,7 @@
 
 export class Feedback {
 
-    feedbackTypeId : number;
-    name : string;
+    feedbackTypeId: number;
+    name: string;
 
 }

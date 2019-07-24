@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RideService } from '../services/ride.service';
-import { Ride } from 'src/app/models/ride';
+import { Ride } from '../../models/ride';
+import { RideService } from '../../services/ride.service';
 
 @Component({
   selector: 'app-list-of-rides',
