@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <head>
   <title=""></title>
 </head>
@@ -22,3 +23,30 @@
 </div>
   </div>
 </body>
+=======
+<div id="container">
+        <div id="upper">
+            <h3>Member Login</h3>
+          </div>   
+    <div>
+  <label for="username">Username:</label>
+  <input required [(ngModel)]="employee.username" type="text" id="username" name="username" class="form-control" #name="ngModel">
+     <div *ngIf="username.errors.required">Username is required</div>
+  <label for="password">Password:</label>
+  <input [(ngModel)]="employee.password" type="password" id="password" name="password" class="form-control">
+  <div *ngIf="password.errors.required">Password is required</div>
+
+
+  <div id="lower">
+  <input [(ngModel)]="logged" type="checkbox" class="form-control"><label for="checkbox">Keep me logged in</label>
+  <input [(ngModel)]="submit" type="submit" value="Login" id="submit" class="form-control">
+  <br>
+  <a routerLink="/register" id="register" >No Account? Register Here</a>
+
+    </div>
+
+<p>login</p>
+
+</div>
+  </div>
+>>>>>>> dev
