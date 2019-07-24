@@ -36,18 +36,18 @@ export class InfoReqService {
   }
 
   /*PUT infoReq -- confirm*/
-  confirmRequestReceived(infoReqId: number){
+  confirmRequestReceived(infoReqId: number, infoReq: InfoReq){
     const url = `${this.infoReqUrl}/${infoReqId}/confirmed`;
     return this.http.put<InfoReq>(this.infoReqUrl, infoReq, httpOptions);
   }
 
   /*GET infoReq by employeeID*/
   getReqById(employeeId: number): Observable <InfoReq[]>{
-    return this.http.get<InfoReq[]>(`${this.infoReqUrl}/${employee}/${employeeId}`);
+    return this.http.get<InfoReq[]>(`${this.infoReqUrl}/${employeeId}/${employeeId}`);
   }
 
   /*GET infoReq by ID*/
-  getInfoReqById(infoReqId : number): Observable <Ride> {
+  getInfoReqById(infoReqId : number): Observable <InfoReq> {
     return this.http.get<InfoReq>(`${this.infoReqUrl}/${infoReqId}`);
   }
 
