@@ -4,10 +4,10 @@
           </div>   
     <div>
   <label for="username">Username:</label>
-  <input required [(ngModel)]="username" type="text" id="username" name="username" class="form-control">
+  <input required [(ngModel)]="employee.username" type="text" id="username" name="username" class="form-control" #name="ngModel">
      <div *ngIf="username.errors.required">Username is required</div>
   <label for="password">Password:</label>
-  <input [(ngModel)]="password" type="password" id="password" name="password" class="form-control">
+  <input [(ngModel)]="employee.password" type="password" id="password" name="password" class="form-control">
   <div *ngIf="password.errors.required">Password is required</div>
 
 
@@ -15,7 +15,7 @@
   <input [(ngModel)]="logged" type="checkbox" class="form-control"><label for="checkbox">Keep me logged in</label>
   <input [(ngModel)]="submit" type="submit" value="Login" id="submit" class="form-control">
   <br>
-  <a id="register" href="">No Account? Register Here</a>
+  <a routerLink="/register" id="register" href="">No Account? Register Here</a>
 
     </div>
 
