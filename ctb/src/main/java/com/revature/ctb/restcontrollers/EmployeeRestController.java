@@ -121,6 +121,14 @@ public class EmployeeRestController extends BasedRestController {
 		return mapper.map(employee, EmployeeAndRolesDto.class);
 	}
 
+	@GetMapping(value = "employee/current")
+	@ResponseStatus(code = HttpStatus.OK)
+	public EmployeeAndRolesDto current() {
+		Employee employee = getEmployeeFromSession();
+
+		return mapper.map(employee, EmployeeAndRolesDto.class);
+	}
+
 	/**
 	 * Get all the employees
 	 * 
