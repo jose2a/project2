@@ -14,7 +14,7 @@ public class BasedRestController {
 	protected HttpSession session; // Handling the session
 	protected DozerBeanMapper mapper; // Handling mapping between two objects
 	
-	protected final String EMPLOYEE_SESSION_KEY = "EMPLOYEE";
+	public final static String EMPLOYEE_SESSION_KEY = "EMPLOYEE";
 
 	@Autowired
 	public void setSession(HttpSession session) {
