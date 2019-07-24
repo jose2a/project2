@@ -18,10 +18,10 @@ public class CarDAOImplTest {
 //	@Before
 	public void setUp() throws Exception {
 		carDao = new CarDAOImpl();
-		carDao.setSessionFactory(SessionFactoryUtil.getSessionFactory());
+//		carDao.setSessionFactory(SessionFactoryUtil.getSessionFactory());
 		
 		employeeDao = new EmployeeDAOImpl();
-		employeeDao.setSessionFactory(SessionFactoryUtil.getSessionFactory());
+//		employeeDao.setSessionFactory(SessionFactoryUtil.getSessionFactory());
 	}
 
 //	@Test

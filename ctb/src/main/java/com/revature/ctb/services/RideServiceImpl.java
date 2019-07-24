@@ -184,12 +184,20 @@ public class RideServiceImpl implements RideService {
 	public void updateRide(Ride ride) {
 		validateRide(ride);
 		// check for all exceptions that could occur when initially scheduling ride
+		List<Route> routes = ride.getRoutes();
+		ride.setRoutes(null);
+		
+		boolean updated = rideDao.updateRide(ride);
 
-		String message = "Your ride scheduled was updated. ";
+		if (updated) {
+			routes.forEach(r -> r.setRide(ride));
+			routeService.addRoutes(routes);
 
-		sendMessageToPassengers(ride.getBookings(), message);
+			String message = "Your ride scheduled was updated. ";
 
-		rideDao.updateRide(ride);
+			sendMessageToPassengers(ride.getBookings(), message);
+
+		}
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public class RideStatusDAOImplTest {
 //	@Before
 	public void setUp() throws Exception {
 		rideStatusDao = new RideStatusDAOImpl();
-		rideStatusDao.setSessionFactory(SessionFactoryUtil.getSessionFactory());
+//		rideStatusDao.setSessionFactory(SessionFactoryUtil.getSessionFactory());
 	}
 
 //	@Test
