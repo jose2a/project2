@@ -42,4 +42,23 @@ export class FormEmployeeComponent implements OnInit {
     );
   }
 
+  loginEmployee(): void {
+
+    this.employeeService.loginEmployee(this.employee)
+    .subscribe((newEmployee: Employee) => {
+      console.log(newEmployee);
+
+      this.valErrors = [];
+      this.employee = new Employee();
+
+      this.result = `Employee registered`;
+
+    }, (errorResp: HttpErrorResponse) => {
+        this.result = ``;
+
+        this.valErrors = errorResp.error.errorMessages;
+      }
+    );
+  }
+
 }

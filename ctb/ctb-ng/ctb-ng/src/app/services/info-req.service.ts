@@ -3,6 +3,7 @@ import { appConfig } from '../configs/app.config';
 import { Observable, of } from 'rxjs';
 import { InfoReq } from '../models/infoReq';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Ride } from '../models/ride';
 
 
 const httpOptions = {
@@ -25,8 +26,8 @@ export class InfoReqService {
   }
 
    /*POST infoReq from server*/
-   createInfoReq(infoReq: InfoReq): Observable <InfoReq> {
-    return this.http.post<InfoReq>(this.infoReqUrl, infoReq, httpOptions)
+   createInfoReq(infoReqId: InfoReq): Observable <InfoReq> {
+    return this.http.post<InfoReq>(this.infoReqUrl, infoReqId, httpOptions)
   }
 
   /*PUT infoReq --update*/
@@ -36,18 +37,18 @@ export class InfoReqService {
   }
 
   /*PUT infoReq -- confirm*/
-  confirmRequestReceived(infoReqId: number){
+  confirmRequestReceived(infoReqId: number, infoReq: InfoReq){
     const url = `${this.infoReqUrl}/${infoReqId}/confirmed`;
     return this.http.put<InfoReq>(this.infoReqUrl, infoReq, httpOptions);
   }
 
   /*GET infoReq by employeeID*/
   getReqById(employeeId: number): Observable <InfoReq[]>{
-    return this.http.get<InfoReq[]>(`${this.infoReqUrl}/${employee}/${employeeId}`);
+    return this.http.get<InfoReq[]>(`${this.infoReqUrl}/${employeeId}/${employeeId}`);
   }
 
   /*GET infoReq by ID*/
-  getInfoReqById(infoReqId : number): Observable <Ride> {
+  getInfoReqById(infoReqId : number): Observable <InfoReq> {
     return this.http.get<InfoReq>(`${this.infoReqUrl}/${infoReqId}`);
   }
 

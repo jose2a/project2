@@ -1,27 +1,16 @@
 package com.revature.ctb.aspects;
 
-import javax.servlet.http.HttpSession;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.revature.ctb.domains.Employee;
 import com.revature.ctb.utils.LogUtil;
 
 @Aspect
 @Component
 public class LogMethodAspect {
-
-	private HttpSession session;
-
-	@Autowired
-	public void setSession(HttpSession session) {
-		this.session = session;
-	}
 
 	/**
 	 * Defining Pointcut to be executed every time a dao's method gets called
@@ -56,17 +45,6 @@ public class LogMethodAspect {
 	@Before("logDaoMethodPointcut() || logServiceMethodPointcut() || logRestControllerMethodPointcut()")
 	public void logDebugBefore(JoinPoint theJointPoint) throws Throwable {
 		LogUtil.debug("EXECUTING: " + theJointPoint.getSignature().toShortString());
-
-		if (session != null) {
-			Employee employee = (Employee) session.getAttribute("employee");
-
-			if (employee != null) {
-				LogUtil.debug(">>>>>>>> Employee: " + employee.toString());
-				LogUtil.debug(">>>>>>>> Roles: " + employee.getRoles().toString());
-			} else {
-				LogUtil.debug(">>>>>>>> Not logged in");
-			}
-		}
 	}
 
 }

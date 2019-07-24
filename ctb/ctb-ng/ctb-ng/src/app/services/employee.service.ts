@@ -3,61 +3,52 @@ import { appConfig } from '../configs/app.config';
 import { Observable, of} from 'rxjs';
 import { Employee } from '../models/employee';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class EmployeeService {
-
   private employeesUrl = `${appConfig.urlApi}/employee`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   /** GET employees from the server */
   getEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.employeesUrl);
-      // .pipe(
-      //   tap(_ => console.log(`Feched employees`)),
-      //   catchError(this.handleError<Employee[]>('getEmployees', []))
-      // );
   }
 
   /** POST: add a new employee to the server */
   registerEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(this.employeesUrl, employee, httpOptions)
-      .pipe(
-        tap((newEmployee: Employee) => {
-          console.log(`Added employee w/ id= ${newEmployee.employeeId}`);
-      }));
-      // .pipe(
-        // tap(
-        //   data => console.log(data),
-        //   error => console.error(error)
-        // )
-        // tap((newEmployee: Employee) => console.log(`added employee w/ id= ${newEmployee.employeeId}`)),
-        // catchError(this.handleError<Employee>('addEmployee'))
-    // );
+    return this.http.post<Employee>(this.employeesUrl, employee, httpOptions);
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+  loginEmployee(employee: Employee): Observable<Employee> {
+    return this.http
+      .post<Employee>(`${this.employeesUrl}/login`, employee, httpOptions)
+      .pipe(
+        tap((emp: Employee) => {
+          console.log(emp);
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+          this.auth.setLoggedEmployee(emp);
+        })
+      );
+  }
 
-      // Let the app keep running by returning an empty result.
-      return of(error as T);
-    };
+  logoutEmployee(): Observable<Employee> {
+    return this.http
+      .get<Employee>(`${this.employeesUrl}/logout`, httpOptions)
+      .pipe(
+        tap(() => {
+          console.log('Logout');
+
+          this.auth.clearLoggedEmployee();
+        })
+      );
   }
 }

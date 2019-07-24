@@ -17,18 +17,26 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.Employee;
+import com.revature.ctb.dtos.EmployeeAndRolesDto;
 import com.revature.ctb.dtos.EmployeeDto;
 import com.revature.ctb.dtos.LoginDto;
 import com.revature.ctb.services.EmployeeService;
+import com.revature.ctb.services.RoleService;
 
 @RestController
 public class EmployeeRestController extends BasedRestController {
 
 	private EmployeeService employeeServ;
+	private RoleService roleServ;
 
 	@Autowired
 	public void setEmployeeServ(EmployeeService employeeServ) {
 		this.employeeServ = employeeServ;
+	}
+
+	@Autowired
+	public void setRoleServ(RoleService roleServ) {
+		this.roleServ = roleServ;
 	}
 
 	/**
@@ -102,14 +110,23 @@ public class EmployeeRestController extends BasedRestController {
 	 */
 	@PostMapping(value = "employee/login")
 	@ResponseStatus(code = HttpStatus.OK)
-	public EmployeeDto login(@RequestBody LoginDto dto) {
+	public EmployeeAndRolesDto login(@RequestBody LoginDto dto) {
 		Employee employee = employeeServ.getEmployeeByUsernameAndPassword(dto.getUsername(), dto.getPassword());
+		employee.setRoles(roleServ.getRolesForEmployee(employee.getEmployeeId()));
 
 		if (employee != null) {
 			session.setAttribute(EMPLOYEE_SESSION_KEY, employee);
 		}
 
-		return mapper.map(employee, EmployeeDto.class);
+		return mapper.map(employee, EmployeeAndRolesDto.class);
+	}
+
+	@GetMapping(value = "employee/current")
+	@ResponseStatus(code = HttpStatus.OK)
+	public EmployeeAndRolesDto current() {
+		Employee employee = getEmployeeFromSession();
+
+		return mapper.map(employee, EmployeeAndRolesDto.class);
 	}
 
 	/**
@@ -169,7 +186,7 @@ public class EmployeeRestController extends BasedRestController {
 	@GetMapping(value = "employee/logout")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void logoutEmployee() {
-		if(session != null && session.getAttribute(EMPLOYEE_SESSION_KEY) != null) {
+		if (session != null && session.getAttribute(EMPLOYEE_SESSION_KEY) != null) {
 			session.invalidate();
 		}
 	}

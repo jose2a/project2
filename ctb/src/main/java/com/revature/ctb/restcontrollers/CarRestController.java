@@ -1,5 +1,6 @@
 package com.revature.ctb.restcontrollers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,64 +17,62 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ctb.domains.Car;
+import com.revature.ctb.dtos.CarDto;
 import com.revature.ctb.services.CarService;
 
 @RestController
 public class CarRestController extends BasedRestController {
-	
-	private CarService carService; 
-	
+
+	private CarService carService;
+
 	@Autowired
-	public void setCarService (CarService carService) {
+	public void setCarService(CarService carService) {
 		this.carService = carService;
 	}
-	
-	
-	@PostMapping (value="/car", consumes="applicat  ion/json")
-	@ResponseStatus(code=HttpStatus.CREATED)
+
+	@PostMapping(value = "/car", consumes = "application/json")
+	@ResponseStatus(code = HttpStatus.CREATED)
+
 	public Car newCar(@Valid @RequestBody Car car) {
-		
+
 		carService.addCar(car);
-		
+
 		return car;
 	}
 
-	@PutMapping (value = "/car")
-	@ResponseStatus(code=HttpStatus.OK)
+	@PutMapping(value = "/car")
+	@ResponseStatus(code = HttpStatus.OK)
 	public Car changeCar(Car car) {
 		carService.updateCar(car);
-		
+
 		return car;
 	}
 
-	
-	//Double check
-	@DeleteMapping (value = "/car/{carId}")
-	@ResponseStatus(code=HttpStatus.OK)
+	// Double check
+	@DeleteMapping(value = "/car/{carId}")
+	@ResponseStatus(code = HttpStatus.OK)
 	public String dropCar(Integer carId, @Valid @RequestBody Car car) {
-		
-		carService.deleteCar(carId); 
-		
-		return "Car Removal Succesful"; 
+
+		carService.deleteCar(carId);
+
+		return "Car Removal Succesful";
 	}
 
-	@GetMapping (value = "/car/{carId}")
-	@ResponseStatus(code=HttpStatus.OK)
+	@GetMapping(value = "/car/{carId}")
+	@ResponseStatus(code = HttpStatus.OK)
 	public Car getCarById(@PathVariable Integer carId) {
-		
+
 		return carService.getCarById(carId);
 	}
 
-	@GetMapping (value = "/car/employee/{employeeId}")
-	@ResponseStatus(code=HttpStatus.OK)
-	public List<Car> getCarsByEmployeeId(@PathVariable Integer employeeId){
-		
-		List<Car> carList = carService.getCarsByEmployeeId(employeeId);
-		
+	@GetMapping(value = "employee/{employeeId}/car")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<CarDto> getCarsByEmployeeId(@PathVariable Integer employeeId) {
+		List<CarDto> carList = new ArrayList<CarDto>();
+
+		carService.getCarsByEmployeeId(employeeId).forEach(c -> carList.add(mapper.map(c, CarDto.class)));
+
 		return carList;
 	}
-	
-	
-	
 
 }
