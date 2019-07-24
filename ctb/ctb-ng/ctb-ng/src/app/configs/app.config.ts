@@ -1,3 +1,4 @@
+import { environment } from '../../environments/environment';
 export const appConfig = {
-     urlApi: `http://localhost:8080/ctb/api`
+     urlApi: environment.urlApi
 };
