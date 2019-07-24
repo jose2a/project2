@@ -56,6 +56,7 @@ public class BookingDAOImpl implements BookingDAO {
 		Session session = sessionFactory.getCurrentSession();
 
 		Ride ride = session.get(Ride.class, rideId);
+		ride.getBookings().toString();
 
 		return ride.getBookings();
 	}
@@ -74,6 +75,7 @@ public class BookingDAOImpl implements BookingDAO {
 		Session session = sessionFactory.getCurrentSession();
 
 		Employee emp = session.get(Employee.class, employeeId);
+		emp.getBookings().toString();
 
 		return emp.getBookings();
 	}
@@ -86,6 +88,7 @@ public class BookingDAOImpl implements BookingDAO {
 
 		Query<Booking> query = session.createQuery(hql, Booking.class);
 		query.setParameter("now", new Date());
+		query.setParameter("employee", employeeId);
 
 		return query.getResultList();
 	}
