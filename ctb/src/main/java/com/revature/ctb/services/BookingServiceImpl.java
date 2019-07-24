@@ -99,7 +99,7 @@ public class BookingServiceImpl implements BookingService {
 		// We need to find out if this ride is not crossing with another ride the
 		// employee scheduled before
 		for (Booking bookedRide : bookingsForEmployee) {
-			if (bookedRide.getRide().getDepartureDate().before(ride.getDepartureDate())) {
+			if (bookedRide.getRide().getDepartureDate().equals(ride.getDepartureDate())) {
 				inputValException.addError("You have scheduled another ride, which is leaving on or before this ride.");
 
 				LogUtil.debug("This booking is crossing with another ride the user already booked");

@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+ body, html {   
+    width: auto;   
+   height: 100vh; 
+   font-family: "Helvetica Neue", Helvetica, sans-serif;   
+   }
+
+>>>>>>> 94d08833bb88c27d942641366f182e5dc905678b
 #container {
     background: black;
 }

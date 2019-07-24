@@ -2,13 +2,13 @@ package com.revature.ctb.dtos;
 
 public class EmployeeDto {
 
-	private Integer employeeId;
+	protected Integer employeeId;
 
-	private String username;
+	protected String username;
 
-	private String firstName;
+	protected String firstName;
 
-	private String lastName;
+	protected String lastName;
 
 	public Integer getEmployeeId() {
 		return employeeId;

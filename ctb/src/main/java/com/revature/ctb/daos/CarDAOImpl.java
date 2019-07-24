@@ -63,7 +63,7 @@ public class CarDAOImpl implements CarDAO {
 		Employee employee = session.get(Employee.class, employeeId);
 
 		// Getting cars by employeeId and are active
-		Query<Car> query = session.createQuery("from Car c where c.Employee = :employee and active = true", Car.class);
+		Query<Car> query = session.createQuery("from Car c where c.employee = :employee and active = true", Car.class);
 
 		query.setParameter("employee", employee);
 
