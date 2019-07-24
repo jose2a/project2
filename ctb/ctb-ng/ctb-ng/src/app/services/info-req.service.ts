@@ -3,6 +3,7 @@ import { appConfig } from '../configs/app.config';
 import { Observable, of } from 'rxjs';
 import { InfoReq } from '../models/infoReq';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Ride } from '../models/ride';
 
 
 const httpOptions = {
@@ -25,8 +26,8 @@ export class InfoReqService {
   }
 
    /*POST infoReq from server*/
-   createInfoReq(infoReq: InfoReq): Observable <InfoReq> {
-    return this.http.post<InfoReq>(this.infoReqUrl, infoReq, httpOptions)
+   createInfoReq(infoReqId: InfoReq): Observable <InfoReq> {
+    return this.http.post<InfoReq>(this.infoReqUrl, infoReqId, httpOptions)
   }
 
   /*PUT infoReq --update*/
