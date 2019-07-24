@@ -11,6 +11,18 @@ import com.revature.ctb.utils.LogUtil;
 
 @ControllerAdvice
 public class RestExceptionHandler {
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorResponse> handlerException(NotAuthenticatedException exc) {
+		LogUtil.trace("RestExceptionHandler - handlerException(NotAuthenticatedException exc)");
+
+		ErrorResponse error = new ErrorResponse();
+		error.setStatus(HttpStatus.UNAUTHORIZED.value());
+		error.setTitle(exc.getMessage());
+		error.setTimeStamp(System.currentTimeMillis());
+
+		return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+	}
 
 	/**
 	 * Catching NoFoundRecordException (custom exception) to indicate that the
