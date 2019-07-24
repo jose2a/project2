@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.revature.ctb.domains.Employee;
+import com.revature.ctb.restcontrollers.BasedRestController;
 import com.revature.ctb.utils.LogUtil;
 
 @Aspect
@@ -58,7 +59,7 @@ public class LogMethodAspect {
 		LogUtil.debug("EXECUTING: " + theJointPoint.getSignature().toShortString());
 
 		if (session != null) {
-			Employee employee = (Employee) session.getAttribute("employee");
+			Employee employee = (Employee) session.getAttribute(BasedRestController.EMPLOYEE_SESSION_KEY);
 
 			if (employee != null) {
 				LogUtil.debug(">>>>>>>> Employee: " + employee.toString());
