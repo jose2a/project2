@@ -7,12 +7,16 @@ import { AppComponent } from './components/app/app.component';
 import { EmployeeService } from './services/employee.service';
 import { FormEmployeeComponent } from './components/form-employee/form-employee.component';
 import { LoginComponent } from './components/login/login.component';
+import { CarComponent } from './components/car/car.component';
+import { ListOfRidesComponent } from './components/list-of-rides/list-of-rides.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormEmployeeComponent,
-    LoginComponent
+    LoginComponent,
+    CarComponent,
+    ListOfRidesComponent
   ],
   imports: [
     BrowserModule,
