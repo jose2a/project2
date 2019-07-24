@@ -30,7 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
     LoginComponent,
 
     PassengerComponent,
-    PassengerNavComponent
+    PassengerNavComponent,
 
     CarComponent,
     ListOfRidesComponent
@@ -46,7 +46,7 @@ import { AppRoutingModule } from './app-routing.module';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
 
     AppRoutingModule
   ],
