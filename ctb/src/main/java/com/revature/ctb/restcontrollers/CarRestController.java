@@ -29,7 +29,7 @@ public class CarRestController extends BasedRestController {
 	}
 	
 	
-	@PostMapping (value="/car", consumes="application/json")
+	@PostMapping (value="/car", consumes="applicat  ion/json")
 	@ResponseStatus(code=HttpStatus.CREATED)
 	public Car newCar(@Valid @RequestBody Car car) {
 		

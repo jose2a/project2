@@ -7,17 +7,35 @@ import { AppComponent } from './components/app/app.component';
 import { EmployeeService } from './services/employee.service';
 import { FormEmployeeComponent } from './components/form-employee/form-employee.component';
 import { LoginComponent } from './components/login/login.component';
+import { PassengerComponent } from './components/passenger/passenger.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PassengerNavComponent } from './passenger-nav/passenger-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormEmployeeComponent,
-    LoginComponent
+    LoginComponent,
+    PassengerComponent,
+    PassengerNavComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]
