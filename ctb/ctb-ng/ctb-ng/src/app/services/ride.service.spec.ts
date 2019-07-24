@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RideService } from './ride.service';
+import { RideService } from './rideService';
 
 describe('RideService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
