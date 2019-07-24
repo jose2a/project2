@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CarComponent } from './components/car/car.component';
 import { ListOfRidesComponent } from './components/list-of-rides/list-of-rides.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
