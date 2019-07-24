@@ -195,7 +195,7 @@ public class RideServiceImpl implements RideService {
 
 			String message = "Your ride scheduled was updated. ";
 
-			sendMessageToPassengers(ride.getBookings(), message);
+//			sendMessageToPassengers(ride.getBookings(), message);
 
 		}
 	}
