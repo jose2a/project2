@@ -4,17 +4,23 @@ import { Car } from './car';
 import { RideStatus } from './rideStatus';
 
 export class Ride {
-    rideId: number;
+         rideId: number;
 
-    departureDate: Date;
-    departureTime: Date;
-    numSeatsAvailable: number;
-    amountCharge: number;
-    numBookings: number;
+         departureDate: Date;
+         departureTime: Date;
+         numberOfSeatsAvailable: number;
+         amountCharge: number;
+         numberOfBookings: number;
 
-    employee: Employee;
-    car: Car;
-    rideStatus: RideStatus;
+         employee: Employee;
+         car: Car;
+         rideStatus: RideStatus;
 
-    routes: Route[];
-}
+         routes: Route[];
+
+         constructor() {
+             this.employee = new Employee();
+             this.car = new Car();
+             this.routes = [];
+         }
+       }
