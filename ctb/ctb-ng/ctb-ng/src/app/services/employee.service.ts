@@ -38,8 +38,6 @@ export class EmployeeService {
       .post<Employee>(`${this.employeesUrl}/login`, login, httpOptions)
       .pipe(
         tap((emp: Employee) => {
-          console.log(emp);
-
           this.auth.setLoggedEmployee(emp);
         })
       );

@@ -1,4 +1,4 @@
-<h2>Register</h2>
+<h2 *ngIf="(employee$ | async) == null">Register</h2>
 
 <div>
   <p>{{result}}</p>
@@ -9,34 +9,34 @@
   
   <input type="hidden" [(ngModel)]="employee.employeeId" />
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.username">Username</label>
-    <input type="text" class="form-control" [(ngModel)]="employee.username" placeholder="Enter username"/>
+    <input type="text" class="" [(ngModel)]="employee.username" placeholder="Enter username"/>
   </div>
   
-  <div class="form-group">
+  <div class="">
     <label for="employee.email">Email</label>
-    <input type="email" class="form-control" [(ngModel)]="employee.email" placeholder="Enter email"/>
+    <input type="email" class="" [(ngModel)]="employee.email" placeholder="Enter email"/>
   </div>
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.password">Password</label>
-    <input type="password" class="form-control" [(ngModel)]="employee.password" placeholder="Password">
+    <input type="password" class="" [(ngModel)]="employee.password" placeholder="Password">
   </div>
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.firstName">First Name</label>
-    <input type="text" class="form-control" [(ngModel)]="employee.firstName" placeholder="Enter first name">
+    <input type="text" class="" [(ngModel)]="employee.firstName" placeholder="Enter first name">
   </div>
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.lastName">Last Name</label>
-    <input type="text" class="form-control" [(ngModel)]="employee.lastName" placeholder="Enter last name">
+    <input type="text" class="" [(ngModel)]="employee.lastName" placeholder="Enter last name">
   </div>
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.phoneNumber">Phone number</label>
-    <input type="text" class="form-control" [(ngModel)]="employee.phoneNumber" placeholder="Enter phone number">
+    <input type="text" class="" [(ngModel)]="employee.phoneNumber" placeholder="Enter phone number">
   </div>
 
   <div class="form-check">

@@ -21,6 +21,12 @@ import { ListOfRidesComponent } from './components/list-of-rides/list-of-rides.c
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminListRideComponent } from './components/admin-list-ride/admin-list-ride.component';
+import { DriverListRideComponent } from './components/driver-list-ride/driver-list-ride.component';
+import { DriverRideComponent } from './components/driver-ride/driver-ride.component';
+import { PassengerListRideComponent } from './components/passenger-list-ride/passenger-list-ride.component';
+import { PassengerRideComponent } from './components/passenger-ride/passenger-ride.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +37,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 
     CarComponent,
     ListOfRidesComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AdminComponent,
+    AdminListRideComponent,
+    DriverListRideComponent,
+    DriverRideComponent,
+    PassengerListRideComponent,
+    PassengerRideComponent
   ],
   imports: [
     BrowserModule,
