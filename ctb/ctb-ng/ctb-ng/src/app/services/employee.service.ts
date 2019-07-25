@@ -39,6 +39,8 @@ export class EmployeeService {
       .post<Employee>(`${this.employeesUrl}/login`, login, httpOptions)
       .pipe(
         tap((emp: Employee) => {
+          localStorage.setItem("employee", JSON.stringify(emp));
+
           this.auth.setLoggedEmployee(emp);
         })
       );
@@ -53,6 +55,7 @@ export class EmployeeService {
         tap(() => {
           console.log('Logout observable');
 
+          localStorage.removeItem("employee");
           this.auth.clearLoggedEmployee();
         })
       );
