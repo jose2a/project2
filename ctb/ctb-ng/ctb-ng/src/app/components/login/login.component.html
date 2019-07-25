@@ -1,9 +1,25 @@
-<<<<<<< HEAD
-<head>
-  <title></title>
-</head>
-<body>
-<div id="container">
+<mat-toolbar>
+  <span>LOGIN</span>
+</mat-toolbar>
+<mat-card class="my-card">
+   <mat-card-content>
+      <form class="my-form">
+         <mat-form-field class="full-width">
+            <mat-label>Username</mat-label>
+            <input  matInput  placeholder="Username" type="text" name="username">
+         </mat-form-field>
+         <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input  matInput  placeholder="Password" name="password">
+         </mat-form-field>
+      </form>
+   </mat-card-content>
+   <mat-card-actions>
+      <button mat-raised-button (click)="login()" color="primary">LOGIN</button>
+   </mat-card-actions>
+</mat-card>
+
+<!-- <div id="container">
         <div id="upper">
             <h3>Member Login</h3>
           </div>   
@@ -12,37 +28,12 @@
   <input type="text" id="username" name="username">
   <label for="password">Password:</label>
   <input type="password" id="password" name="password">
-
   <div id="lower">
   <input [(ngModel)]="logged" type="checkbox"><label for="checkbox">Keep me logged in</label>
   <input type="submit" value="Login" id="submit">
   <br>
   <a id="register" href="">No Account? Register Here</a>
-
     </div>
+<p>login</p>
 </div>
-  </div>
-</body>
-=======
-<div id="container">
-        <div id="upper">
-            <h3>Member Login</h3>
-          </div>   
-    <div>
-  <label for="username">Username:</label>
-  <input required [(ngModel)]="employee.username" type="text" id="username" name="username" class="form-control" #name="ngModel">
-     <div *ngIf="username.errors.required">Username is required</div>
-  <label for="password">Password:</label>
-  <input [(ngModel)]="employee.password" type="password" id="password" name="password" class="form-control">
-  <div *ngIf="password.errors.required">Password is required</div>
-
-
-  <div id="lower">
-  <input [(ngModel)]="submit" type="submit" value="Login" id="submit" class="form-control">
-  <br>
-  <a routerLink="/register" id="register" >No Account? Register Here</a>
-
-    </div>
-</div>
-  </div>
->>>>>>> dev
+  </div> -->

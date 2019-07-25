@@ -33,6 +33,7 @@ export class FormEmployeeComponent implements OnInit {
       this.employee = new Employee();
 
       this.result = `Employee registered`;
+  
 
     }, (errorResp: HttpErrorResponse) => {
         this.result = ``;

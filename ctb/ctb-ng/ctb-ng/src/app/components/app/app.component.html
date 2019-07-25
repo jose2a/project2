@@ -1,6 +1,7 @@
+
 <!--The content below is only a placeholder and can be replaced.-->
 
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" layout-wrap="">
   <mat-toolbar-row>
     <button mat-icon-button>
       <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
@@ -15,21 +16,15 @@
     </div>
     <router-outlet></router-outlet>
   </mat-toolbar-row>
-
-  <mat-toolbar-row>
-      <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
-    </mat-toolbar-row>
 </mat-toolbar>
+
+
 
 <!-- <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
  </div>
-
- <app-form-employee></app-form-employee>
- <app-list-of-rides></app-list-of-rides>
- <app-login></app-login>
  <nav>
   <a routerLink="/dashboard">Dashboard</a>
   <a routerLink="/car">Cars</a>

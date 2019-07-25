@@ -1,5 +1,89 @@
-<h2>Register</h2>
 
+
+    <div layout="row" layout-wrap="99">
+
+<mat-card  class="my-card">
+
+<mat-card-header id="upper" layout-align="start start">
+<mat-card-title>Registration</mat-card-title>
+</mat-card-header>   
+  <mat-card-content>
+    <form class="my-form">
+      <div>
+       <mat-form-field class="full-width">
+              <mat-label>Username</mat-label>
+              <input  matInput name="username" [(ngModel)]="employee.username" placeholder="Enter username">
+           </mat-form-field>
+       </div>
+       <div>
+           <mat-form-field class="full-width">
+              <mat-label>Email</mat-label>
+              <input  matInput name="email" [(ngModel)]="employee.email" placeholder="Enter email">
+           </mat-form-field>
+          </div>
+          <div>
+           <mat-form-field class="full-width">
+              <mat-label>Password</mat-label>
+              <input  matInput name="password" [(ngModel)]="employee.password" placeholder="Password">
+           </mat-form-field>
+           </div>
+           <div>
+           <mat-form-field class="full-width">
+              <mat-label>First Name</mat-label>
+              <input  matInput name="first-name" [(ngModel)]="employee.firstName" placeholder="Enter first name">
+           </mat-form-field>
+          </div>
+          <div>
+           <mat-form-field class="full-width">
+              <mat-label>Last Name</mat-label>
+              <input  matInput name="last-name" [(ngModel)]="employee.lastName" placeholder="Enter last name">
+           </mat-form-field>
+          </div>
+          <div>
+           <mat-form-field class="full-width">
+              <mat-label>Phone Number</mat-label>
+              <input  matInput  [(ngModel)]="employee.phoneNumber" placeholder="Enter phone number"
+              name="phone-number">
+           </mat-form-field>
+          </div>
+          <div>
+           <mat-checkbox class="full-width" label-position="after" 
+           class="form-check-input" [(ngModel)]="employee.driver" name="check">
+             <label>Are you a driver?</label>
+            </mat-checkbox>   
+          </div>   
+    
+  
+   <mat-card-actions>
+      <button mat-raised-button (click)="registerEmployee()" color="primary">Submit</button>
+   </mat-card-actions>
+  </form>
+  </mat-card-content>
+</mat-card>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<mat-toolbar>
+<span>Register</span>
+</mat-toolbar>
 <div>
   <p>{{result}}</p>
 
@@ -50,4 +134,4 @@
   </div>
 
   <button type="button" (click)="registerEmployee()" class="btn btn-primary">Register</button>
-</div>
+</div> -->
