@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(public employeeService: EmployeeService) { }
 
   ngOnInit() {
+    this.employee = new Employee();
   }
 
   loginEmployee(): void {
