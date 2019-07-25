@@ -29,8 +29,13 @@ export class EmployeeService {
   }
 
   loginEmployee(employee: Employee): Observable<Employee> {
+    const login = {
+      username: employee.username,
+      password: employee.password
+    };
+
     return this.http
-      .post<Employee>(`${this.employeesUrl}/login`, employee, httpOptions)
+      .post<Employee>(`${this.employeesUrl}/login`, login, httpOptions)
       .pipe(
         tap((emp: Employee) => {
           console.log(emp);
