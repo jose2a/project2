@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.revature.ctb.domains.Employee;
 import com.revature.ctb.exceptions.NotAuthenticatedException;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowCredentials = "true")
 @RequestMapping("/api")
 public class BasedRestController {
 
