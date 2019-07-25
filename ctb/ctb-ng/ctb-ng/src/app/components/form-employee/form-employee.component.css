@@ -1,3 +1,37 @@
-.form-group{
-    background: black;
+/* .my-form{
+    min-width: auto;
+    max-width: auto;
+    width: 100%;
+    margin-right: 200px;
+  } */
+.main {
+    
+    margin-top: 75px;
+    margin-right: 200px;
+} 
+.mat-card{
+    margin-top: 13%;
+    width: 700px;
+    height: 450px;
+    display: inline-block; 
+    align-self: stretch;
+
 }
+
+.full-width{
+ width: 100%;
+}
+:host {
+    display: block;
+    height: 100%;
+  }
+
+/* .my-card-register {
+    padding-right: 700px;
+    padding-top: 200px;
+    align-items: center;
+} */
+/*    
+  .full-width {
+    width: 100%;
+  } */
