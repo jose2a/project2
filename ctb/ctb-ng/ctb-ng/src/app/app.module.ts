@@ -22,6 +22,7 @@ import { CarComponent } from './components/car/car.component';
 import { ListOfRidesComponent } from './components/list-of-rides/list-of-rides.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AppRoutingModule } from './app-routing.module';
     PassengerNavComponent,
 
     CarComponent,
-    ListOfRidesComponent
+    ListOfRidesComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
