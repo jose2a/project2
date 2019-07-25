@@ -15,11 +15,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+
 
 import { CarComponent } from './components/car/car.component';
 import { ListOfRidesComponent } from './components/list-of-rides/list-of-rides.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
+
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminListRideComponent } from './components/admin-list-ride/admin-list-ride.component';
@@ -57,6 +63,10 @@ import { PassengerRideComponent } from './components/passenger-ride/passenger-ri
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatCheckboxModule,
 
     AppRoutingModule
   ],

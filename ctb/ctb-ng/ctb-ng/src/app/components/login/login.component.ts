@@ -29,9 +29,11 @@ export class LoginComponent implements OnInit {
       this.employee = new Employee();
 
       this.results = `Employee logged in`;
+      console.log('user successfully logged in');
 
     }, (errorResp: HttpErrorResponse) => {
         this.results = ``;
+        console.log('unsuccessful login');
 
         this.valErrors = errorResp.error.errorMessages;
       }
