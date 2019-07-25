@@ -8,9 +8,7 @@ import { EmployeeService } from './services/employee.service';
 import { FormEmployeeComponent } from './components/form-employee/form-employee.component';
 import { LoginComponent } from './components/login/login.component';
 
-import { PassengerComponent } from './components/passenger/passenger.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PassengerNavComponent } from './passenger-nav/passenger-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +20,7 @@ import { CarComponent } from './components/car/car.component';
 import { ListOfRidesComponent } from './components/list-of-rides/list-of-rides.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -29,11 +28,10 @@ import { AppRoutingModule } from './app-routing.module';
     FormEmployeeComponent,
     LoginComponent,
 
-    PassengerComponent,
-    PassengerNavComponent,
 
     CarComponent,
-    ListOfRidesComponent
+    ListOfRidesComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
