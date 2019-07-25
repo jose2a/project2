@@ -1,5 +1,27 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <h1>Welcome to {{ title }}!</h1>
+    <span class="menu-spacer"></span>
+    <div>
+      <a mat-button [routerLink]="'/dashboard'"> Dashboard </a>
+      <a mat-button [routerLink]="'/car'"> Cars </a>
+      <a mat-button [routerLink]="'/register'"> Register </a>
+
+    </div>
+    <router-outlet></router-outlet>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+      <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
@@ -11,4 +33,4 @@
   <a routerLink="/ride">Rides</a>
   <a (click)="logout()" >Logout</a>
 </nav>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
