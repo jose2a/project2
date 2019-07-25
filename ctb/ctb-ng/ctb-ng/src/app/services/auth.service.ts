@@ -16,6 +16,7 @@ export class AuthService {
   }
 
   setLoggedEmployee(employee: Employee): void {
+    console.log(employee);
     this.loggedEmployee$.next(employee);
   }
 

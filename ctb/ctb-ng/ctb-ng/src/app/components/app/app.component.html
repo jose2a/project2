@@ -11,9 +11,9 @@
       <a mat-button [routerLink]="'/dashboard'"> Dashboard </a>
       <a mat-button [routerLink]="'/car'"> Cars </a>
       <a mat-button [routerLink]="'/register'"> Register </a>
+      <a (click)="logout()" >Logout</a>
 
     </div>
-    <router-outlet></router-outlet>
   </mat-toolbar-row>
 
   <mat-toolbar-row>
@@ -21,20 +21,4 @@
     </mat-toolbar-row>
 </mat-toolbar>
 
-<!-- <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
- </div>
-
- <app-form-employee></app-form-employee>
- <app-list-of-rides></app-list-of-rides>
- <app-login></app-login>
- <nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/car">Cars</a>
-  <a routerLink="/register">Register</a>
-  <a routerLink="/ride">Rides</a>
-  <a (click)="logout()" >Logout</a>
-</nav>
-<router-outlet></router-outlet> -->
+<router-outlet></router-outlet>
