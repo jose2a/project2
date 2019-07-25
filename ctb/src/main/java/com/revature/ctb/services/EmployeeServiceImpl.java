@@ -122,7 +122,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = employeeDao.getEmployeeByUsername(username);
 
 		if (employee == null) {
-			throw new NotFoundRecordException("Employee not found");
+			InputValidationException inpuVal = new InputValidationException("Input validation");
+			inpuVal.addError("User name or password not valid.");
+			
+			throw inpuVal;
 		}
 
 		if (employee.getPassword().equals(password)) {
