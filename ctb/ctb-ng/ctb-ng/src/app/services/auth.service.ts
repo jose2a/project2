@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee';
-import { Subject, Observable, empty } from 'rxjs';
+import { Subject, Observable, empty, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,9 @@ import { Subject, Observable, empty } from 'rxjs';
 export class AuthService {
 
   private loggedEmployee$ = new Subject<Employee>();
+
+  //user related properties
+  private UserRole = new BehaviorSubject<string>(localStorage.getItem('userRole'));
 
   constructor() { }
 
@@ -28,6 +31,10 @@ export class AuthService {
     const emp = JSON.parse(localStorage.getItem('employee'));
 
     return emp;
+  }
+
+  get currentUserRole() {
+    return this.UserRole.asObservable();
   }
 
 }

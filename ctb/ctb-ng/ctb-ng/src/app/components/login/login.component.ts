@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { Employee } from 'src/app/models/employee';
 import { HttpErrorResponse } from '@angular/common/http';
+// import { AuthService } from './auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,6 +14,7 @@ export class LoginComponent implements OnInit {
   employee: Employee;
   results: string;
   valErrors: string[];
+  // AuthService authServ;
 
   constructor(public employeeService: EmployeeService) { }
 
@@ -30,6 +33,13 @@ export class LoginComponent implements OnInit {
 
       this.results = `Employee logged in`;
       console.log('user successfully logged in');
+      // for (let role of this.employee.roles.){
+      //   if(role == 1){
+      //     localStorage.setItem('userRole', AuthService.getEmployeeFromSession().employee.userRole);
+      //   }
+      //   )
+      // }
+
 
     }, (errorResp: HttpErrorResponse) => {
         this.results = ``;

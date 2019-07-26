@@ -37,6 +37,7 @@ import { PassengerRideComponent } from './components/passenger-ride/passenger-ri
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { DriverShowRideComponent } from './components/driver-show-ride/driver-show-ride.component';
 import { NewRideComponent } from './components/new-ride/new-ride.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { NewRideComponent } from './components/new-ride/new-ride.component';
     DriverShowRideComponent,
     NewRideComponent,
     ServerErrorComponent,
-    DriverShowRideComponent
+    DriverShowRideComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
