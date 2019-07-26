@@ -4,16 +4,21 @@ import { Route } from './route';
 import { Feedback } from './feedback';
 
 export class Booking {
-     bookingId: number;
+         bookingId: number;
 
-     employee: Employee;
+         employee: Employee;
 
-     ride: Ride;
+         ride: Ride;
 
-     pickupLocation: Route;
+         pickupLocation: Route;
 
-     destinationLocation: Route;
+         destinationLocation: Route;
 
-     passengerFeedback: Feedback;
-     driverFeedback: Feedback;
-}
+         passengerFeedback: Feedback;
+         driverFeedback: Feedback;
+
+         constructor() {
+           this.employee = new Employee();
+           this.ride = new Ride();
+         }
+       }

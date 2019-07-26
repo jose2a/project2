@@ -2,6 +2,7 @@
 
 <mat-toolbar color="accent" layout-wrap="">
   <mat-toolbar-row>
+
     <button mat-icon-button>
       <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
     </button>
@@ -31,6 +32,7 @@
         <a mat-list-item [routerLink]="'/admin/ride'"> Admin Rides </a>
         <a mat-list-item [routerLink]="'/driver/ride'"> Driver Rides </a>
         <a mat-list-item [routerLink]="'/passenger/ride'"> Passenger Rides </a>
+        <a mat-button [routerLink]="'/passenger/booking'"> Passenger Bookings </a>
         <a mat-list-item [routerLink]="'/car'"> Cars </a>
         <a mat-list-item [routerLink]="'/register'"> Register </a>
       <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
