@@ -68,6 +68,9 @@ public class TransactionAspect {
 		if (transaction == null || !transaction.isActive()) {
 			LogUtil.debug(">>>>>>>>> TransactionAspect - starting the transaction");
 			LogUtil.debug(">>>>>>>>> Session - " + session.isOpen());
+			if (!session.isOpen()) {
+				session = sf.getCurrentSession();
+			}
 
 			transaction = session.beginTransaction();
 		}
@@ -86,6 +89,8 @@ public class TransactionAspect {
 			LogUtil.debug(">>>>>>>>> TransactionAspect - commiting transaction");
 
 			transaction.commit();
+			session.close();
+			
 			transaction = null;
 			session = null;
 
@@ -103,6 +108,7 @@ public class TransactionAspect {
 
 			transaction.rollback();
 			transaction = null;
+			session .close();
 			session = null;
 			
 			methodSignature = null;
