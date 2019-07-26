@@ -11,6 +11,8 @@ export class AdminListRideComponent implements OnInit {
 
   rides: Ride[];
 
+  headElements = ['ID', 'Departure Date', 'Departure Time', 'Number of Seats', 'Amount Changes', 'Booking', 'Employee'];
+
   constructor(private rideServ: RideService) { }
 
   ngOnInit() {

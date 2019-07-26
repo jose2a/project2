@@ -1,26 +1,22 @@
+
 <a routerLink="/driver/scheduleride">Schedule a new ride</a>
 
-<table>
+<table mdbTable striped="true">
      <thead>
-          <td>Id</td>
-          <td>Departure Date</td>
-          <td>Departure Time</td>
-          <td>Number Of Seats</td>
-          <td>Amount change</td>
-          <td>Bookings</td>
-          <td>Employee</td>
-          <td></td>
+       <tr>
+         <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+       </tr>
      </thead>
      <tbody>
-          <tr *ngFor="let ride of rides">
-               <td>{{ride.rideId}}</td>
-               <td>{{ride.departureDate}}</td>
-               <td>{{ride.departureTime}}</td>
-               <td>{{ride.numberOfSeatsAvailable}}</td>
-               <td>{{ride.amountCharge}}</td>
-               <td>{{ride.numberOfBookings}}</td>
-               <td>{{ride.employee.firstName}}</td>
-               <td><a routerLink="/driver/ride/{{ ride.rideId }}">View</a></td>
-          </tr>
+       <tr mdbTableCol *ngFor="let el of elements">
+         <th scope="row">{{ride.rideId}}</th>
+         <td>{{ride.departureDate}}</td>
+         <td>{{ride.departureTime}}</td>
+         <td>{{ride.numberOfSeatsAvailable}}</td>
+         <td>{{ride.amountCharge}}</td>
+         <td>{{ride.numberOfBookings}}</td>
+         <td>{{ride.employee.firstName}}</td>
+         <td><a routerLink="/driver/ride/{{ ride.rideId }}">View</a></td>
+       </tr>
      </tbody>
-</table>
+   </table>

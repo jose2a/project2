@@ -1,6 +1,13 @@
 <mat-toolbar>
   <span>LOGIN</span>
 </mat-toolbar>
+
+<ul>
+ <li *ngFor="let error of valErrors">
+     {{ error }}
+ </li>
+ </ul>
+
 <mat-card class="my-card">
    <mat-card-content>
       <div class="my-form">
