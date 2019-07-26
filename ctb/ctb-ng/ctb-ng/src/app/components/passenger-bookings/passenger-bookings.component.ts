@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class PassengerBookingsComponent implements OnInit {
   headElements = [
+    "Ride Id",
     "Departure",
     "Driver",
     "Car",
