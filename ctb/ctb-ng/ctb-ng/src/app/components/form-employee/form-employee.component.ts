@@ -4,7 +4,6 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable, Subscription } from 'rxjs';
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-form-employee",
@@ -22,7 +21,6 @@ export class FormEmployeeComponent implements OnInit, OnDestroy {
   constructor(
     private employeeService: EmployeeService,
     private authServ: AuthService,
-    private router: Router
   ) {}
 
   ngOnInit() {

@@ -1,3 +1,5 @@
+<h1>Admin Rides</h1>
+
 <table mdbTable striped="true">
      <thead>
        <tr>
@@ -5,7 +7,7 @@
        </tr>
      </thead>
      <tbody>
-       <tr mdbTableCol *ngFor="let el of elements">
+       <tr mdbTableCol *ngFor="let ride of rides">
          <th scope="row">{{ride.rideId}}</th>
          <td>{{ride.departureDate}}</td>
          <td>{{ride.departureTime}}</td>

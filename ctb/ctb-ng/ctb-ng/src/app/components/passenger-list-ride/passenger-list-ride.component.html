@@ -1,3 +1,5 @@
+<h1>Available Rides</h1>
+
 <table mdbTable striped="true">
      <thead>
        <tr>
@@ -5,40 +7,15 @@
        </tr>
      </thead>
      <tbody>
-       <tr mdbTableCol *ngFor="let el of elements">
+       <tr mdbTableCol *ngFor="let ride of rides">
          <th scope="row">{{ride.rideId}}</th>
          <td>{{ride.departureDate}}</td>
          <td>{{ride.departureTime}}</td>
          <td>{{ride.numberOfSeatsAvailable}}</td>
          <td>{{ride.amountCharge}}</td>
          <td>{{ride.numberOfBookings}}</td>
-         <td>{{ride.employee.firstName}}</td>
-         <td><a routerLink="/passenger/ride/{{ ride.rideId }}">View</a></td>
+         <td>{{ride.employee.firstName}} {{ride.employee.lastName}}</td>
+         <td><a routerLink="/passenger/ride/{{ ride.rideId }}">View Ride</a></td>
        </tr>
      </tbody>
    </table>
-
-<!-- <table>
-     <thead>
-          <td>Id</td>
-          <td>Departure Date</td>
-          <td>Departure Time</td>
-          <td>Number Of Seats</td>
-          <td>Amount change</td>
-          <td>Bookings</td>
-          <td>Employee</td>
-          <td></td>
-     </thead>
-     <tbody>
-          <tr *ngFor="let ride of rides">
-               <td>{{ride.rideId}}</td>
-               <td>{{ride.departureDate}}</td>
-               <td>{{ride.departureTime}}</td>
-               <td>{{ride.numberOfSeatsAvailable}}</td>
-               <td>{{ride.amountCharge}}</td>
-               <td>{{ride.numberOfBookings}}</td>
-               <td>{{ride.employee.firstName}}</td>
-               <td><a routerLink="/passenger/ride/{{ ride.rideId }}">View</a></td>
-          </tr>
-     </tbody>
-</table> -->

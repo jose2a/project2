@@ -13,8 +13,70 @@
       <a *ngIf=""mat-button [routerLink]="'/register'"> Register </a>
       <a (click)="logout()" >Logout</a>
 
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <span><h1>{{ title }}</h1></span>
+    
+ 
+      <span class="toolbar-space"></span>
+      <span>
+      <mat-icon color="warn"><a mat-icon [routerLink]="'/car'">settings</a></mat-icon>
+      <span class="toolbar-space2"></span>
+      <a class="logout" (click)="logout()" >Logout</a>
+    </span>
+
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
+<router-outlet></router-outlet>
+
+
+
+
+<!-- 
+<mat-toolbar color="primary" layout-wrap="">
+    <mat-toolbar-row>
+      <h1>Welcome to {{ title }}!</h1>
+      <span class="menu-spacer"></span>
+      <div>
+        <a mat-button [routerLink]="'/dashboard'"> Dashboard </a>
+        <a mat-button [routerLink]="'/admin'"> Admin Dashboard </a>
+        <a mat-button [routerLink]="'/admin/ride'"> Admin Rides </a>
+        <a mat-button [routerLink]="'/driver/ride'"> Driver Rides </a>
+        <a mat-button [routerLink]="'/passenger/ride'"> Passenger Rides </a>
+        <a mat-button [routerLink]="'/register'"> Register </a>
+        <a (click)="logout()" >Logout</a>
+  
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <router-outlet></router-outlet> -->
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" opened>
+    <mat-nav-list>
+
+        <a mat-list-item [routerLink]="'/admin'"> Dashboard </a>
+        <a mat-list-item [routerLink]="'/driver'"> Dashboard </a>
+        <a mat-list-item [routerLink]="'/passenger'"> Dashboard </a>
+        
+        <a mat-list-item [routerLink]="'/admin/ride'"> Admin Rides </a>
+        <a mat-list-item [routerLink]="'/driver/ride'"> Driver Rides </a>
+        <a mat-list-item [routerLink]="'/passenger/ride'"> Passenger Rides </a>
+        <a mat-list-item [routerLink]="'/passenger/booking'"> Passenger Bookings </a>
+        <a mat-list-item [routerLink]="'/register'"> Register </a>
+      <a mat-list-item (click)="sidenav.toggle()" href="">Close</a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container> 
+

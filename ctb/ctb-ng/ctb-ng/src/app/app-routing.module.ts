@@ -10,12 +10,14 @@ import { DriverListRideComponent } from './components/driver-list-ride/driver-li
 import { DriverRideComponent } from './components/driver-ride/driver-ride.component';
 import { PassengerListRideComponent } from './components/passenger-list-ride/passenger-list-ride.component';
 import { PassengerRideComponent } from './components/passenger-ride/passenger-ride.component';
+import { DriverDashboardComponent } from './components/driver-dashboard/driver-dashboard.component';
+import { PassengerDashboardComponent } from './components/passenger-dashboard/passenger-dashboard.component';
 
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { DriverShowRideComponent } from './components/driver-show-ride/driver-show-ride.component';
 import { NewRideComponent } from './components/new-ride/new-ride.component';
-
+import { PassengerBookingsComponent } from './components/passenger-bookings/passenger-bookings.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/dashboard", pathMatch: "full" },
@@ -27,12 +29,19 @@ const routes: Routes = [
   { path: "admin", component: AdminComponent },
   { path: "admin/ride", component: AdminListRideComponent },
 
+  { path: "driver", component: DriverDashboardComponent},
   { path: "driver/ride", component: DriverListRideComponent },
   { path: "driver/ride/:rideId", component: DriverShowRideComponent },
 
+  { path: "passenger", component: PassengerDashboardComponent},
   { path: "passenger/ride", component: PassengerListRideComponent },
   { path: "passenger/ride/:rideId", component: PassengerRideComponent },
   { path: "servererror", component: ServerErrorComponent },
+
+  { path: "passenger/booking", component: PassengerBookingsComponent },
+
+  { path: "404", component: NotFoundComponent },
+  { path: "500", component: ServerErrorComponent },
 
   { path: "driver/scheduleride", component: NewRideComponent },
   { path: "404", component: NotFoundComponent},
