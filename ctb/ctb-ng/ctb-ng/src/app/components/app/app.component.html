@@ -56,7 +56,7 @@
         
         <a *ngIf="isAdmin" mat-list-item [routerLink]="'/admin/ride'"> Admin Rides </a>
         <a *ngIf="isDriver" mat-list-item [routerLink]="'/driver/ride'"> Driver Rides </a>
-        <a *ngIf="isPassenger" mat-list-item [routerLink]="'/passenger/ride'"> Passenger Rides </a>
+        <a *ngIf="isPassenger" mat-list-item [routerLink]="'/passenger/ride'"> Available Rides </a>
         <a *ngIf="isPassenger" mat-list-item [routerLink]="'/passenger/booking'"> Passenger Bookings </a>
         <a *ngIf="!show" mat-list-item [routerLink]="'/login'"> Login </a>
         <a *ngIf="!show" mat-list-item [routerLink]="'/register'"> Register </a>
@@ -65,7 +65,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="height: 88vh;">
+    <div style="height: 88vh; width: 100%">
       
       <router-outlet></router-outlet>
 

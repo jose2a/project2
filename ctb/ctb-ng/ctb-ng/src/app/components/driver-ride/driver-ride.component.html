@@ -23,38 +23,33 @@
 </div>
 
 
-     <mat-form-field>
+     <!-- <mat-form-field> -->
      <label for="">Amount Charge</label>
      <input type="text" [disabled]="!editMode" [(ngModel)]="ride.amountCharge">
-     <mat-form-field>
+     <!-- <mat-form-field> -->
      
 <div>
      <label for="">Num Bookings</label>
      <input type="text" [disabled]="!editMode" [(ngModel)]="ride.numberOfBookings">
 </div>
 
-
-
-
-<h2 *ngIf="show">Ride</h2>
-
 <div class="map" id="map">
   
 </div>
-<ul *ngIf="!newMap">
+<ul class="routes" *ngIf="!newMap">
      <li *ngFor="let route of routes">
           {{route.name}} - {{route.latitude}}, {{route.longitude}} 
           <button *ngIf="editMode" (click)="removeRoute(route)">Remove</button>
      </li>
 </ul>
 <div *ngIf="editMode">
-     <button>Save</button>
-     <button (click)="goBack()">Cancel</button>
+     <button class="btn-lg">Save</button>
+     <button class="btn-lg" (click)="goBack()">Cancel</button>
 
 </div>
 
 <div *ngIf="isPassenger">
-     <button (click)="bookRide()">Book this ride</button>
-     <button (click)="goBack()">Cancel</button>
+     <button class="btn-lg" (click)="bookRide()">Book this ride</button>
+     <button class="btn-lg" (click)="goBack()">Cancel</button>
 
 </div>

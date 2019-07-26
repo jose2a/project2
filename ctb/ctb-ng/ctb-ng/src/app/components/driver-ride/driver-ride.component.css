@@ -1,9 +1,31 @@
 div.map{
 	height: 500px;
-	width: 60%;
+	width: 60% !important;
 	display: inline-block;
 }
 
 ul.routes {
 	display: inline-block;
+}
+
+.btn-lg {
+	height: 60px;
+	width: 200px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	font-size: 24px;
+}
+
+label {
+	font-size: 20px;
+	margin-right: 7px;
+}
+
+input {
+	font-size: 15px;
+	margin-bottom: 6px;
+}
+
+.routes {
+	font-size: 20px;
 }
