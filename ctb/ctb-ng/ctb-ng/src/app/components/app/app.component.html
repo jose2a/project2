@@ -5,12 +5,12 @@
     <h1>Welcome to {{ title }}!</h1>
     <span class="menu-spacer"></span>
     <div>
-      <a mat-button [routerLink]="'/dashboard'"> Dashboard </a>
-      <a mat-button [routerLink]="'/admin'"> Admin Dashboard </a>
-      <a mat-button [routerLink]="'/admin/ride'"> Admin Rides </a>
-      <a mat-button [routerLink]="'/driver/ride'"> Driver Rides </a>
-      <a mat-button [routerLink]="'/passenger/ride'"> Passenger Rides </a>
-      <a mat-button [routerLink]="'/register'"> Register </a>
+      <a *ngIf="" mat-button [routerLink]="'/dashboard'"> Dashboard </a>
+      <a *ngIf="" mat-button [routerLink]="'/admin'"> Admin Dashboard </a>
+      <a *ngIf="" mat-button [routerLink]="'/admin/ride'"> Admin Rides </a>
+      <a *ngIf=""mat-button [routerLink]="'/driver/ride'"> Driver Rides </a>
+      <a *ngIf=""mat-button [routerLink]="'/passenger/ride'"> Passenger Rides </a>
+      <a *ngIf=""mat-button [routerLink]="'/register'"> Register </a>
       <a (click)="logout()" >Logout</a>
 
     </div>

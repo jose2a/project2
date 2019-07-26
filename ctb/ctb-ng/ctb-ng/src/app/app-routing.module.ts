@@ -32,10 +32,13 @@ const routes: Routes = [
 
   { path: "passenger/ride", component: PassengerListRideComponent },
   { path: "passenger/ride/:rideId", component: PassengerRideComponent },
-  { path: "notfound", component: NotFoundComponent },
   { path: "servererror", component: ServerErrorComponent },
 
-  { path: "driver/scheduleride", component: NewRideComponent }
+  { path: "driver/scheduleride", component: NewRideComponent },
+  { path: "404", component: NotFoundComponent},
+  { path: '**', redirectTo: '/404'},
+  { path: "500", component: ServerErrorComponent},
+  { path: "**", redirectTo: '/500'}
 ];
 
 @NgModule({
