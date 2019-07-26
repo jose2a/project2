@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(private empServ: EmployeeService) {}
 
   logout(): void {
-    console.log("Logout");
-    this.empServ.logoutEmployee();
+    // console.log("Logout");
+    this.empServ.logoutEmployee().subscribe();
   }
 }

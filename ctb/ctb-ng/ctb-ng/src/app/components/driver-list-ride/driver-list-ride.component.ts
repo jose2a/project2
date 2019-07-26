@@ -12,6 +12,8 @@ export class DriverListRideComponent implements OnInit {
 
   headElements = ['ID', 'Departure Date', 'Departure Time', 'Number Of Seats', 'Amount change', 'Bookings', 'Employee'];
 
+  dataSource = this.rides;
+
   constructor(private rideServ: RideService) {}
 
   ngOnInit() {

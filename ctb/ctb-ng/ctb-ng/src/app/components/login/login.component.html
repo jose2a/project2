@@ -3,18 +3,18 @@
 </mat-toolbar>
 <mat-card class="my-card">
    <mat-card-content>
-      <form class="my-form">
+      <div class="my-form">
          <mat-form-field class="full-width">
             <mat-label>Username</mat-label>
-            <input  matInput  placeholder="Username" type="text" name="username">
+            <input  matInput  placeholder="Username" type="text" [(ngModel)]="employee.username">
          </mat-form-field>
          <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
-            <input  matInput  placeholder="Password" name="password">
+            <input  matInput  placeholder="Password" [(ngModel)]="employee.password">
          </mat-form-field>
-      </form>
+      </div>
    </mat-card-content>
    <mat-card-actions>
-      <button mat-raised-button (click)="login()" color="primary">LOGIN</button>
+      <button mat-raised-button (click)="loginEmployee()" color="primary">LOGIN</button>
    </mat-card-actions>
 </mat-card>
