@@ -57,11 +57,11 @@ export class LoginComponent implements OnInit {
     });
     
     if (isDriver) {
-      this.router.navigate(["driver/ride"]);
+      this.router.navigate(["driver"]);
     } else if (isAdmin) {
-      
+      this.router.navigate(["admin"]);
     } else {
-      this.router.navigate(["passenger/ride"]);
+      this.router.navigate(["passenger"]);
     }
   }
 }
