@@ -1,56 +1,35 @@
-<mat-card class="register-card">
-     <mat-card-content>
-          <form class="register-form">
 
 <input type="hidden" [(ngModel)]="ride.rideId">
-
 <div>
-     <form>
-          <mat-label>Make</mat-label>
-          <input class="mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-pristine ng-valid ng-touched" type="text" [(ngModel)]="ride.car.make" disabled="disabled">
-     </form>
+     <label for="">Make</label>
+     <input type="text" [(ngModel)]="ride.car.make" disabled="disabled">
+</div>
+<div>
+     <label for="">Model</label>
+     <input type="text" [(ngModel)]="ride.car.model" disabled="disabled">
+</div>
+<div>
+     <label for="">Departure Date</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.departureDate">
+</div>
+<div>
+     <label for="">Departure Time</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.departureTime">
 </div>
 
 <div>
-     <form>
-          <mat-label>Model</mat-label>
-          <input type="text" [(ngModel)]="ride.car.model" disabled="disabled">
-     </form>
+     <label for="">Num Seats available</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.numberOfSeatsAvailable">
 </div>
 
 <div>
-     <form>
-          <mat-label>Departure Date</mat-label>
-          <input type="text" [disabled]="!editMode" [(ngModel)]="ride.departureDate">
-     </form>
+     <label for="">Amount Charge</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.amountCharge">
 </div>
 
 <div>
-     <form>
-          <mat-label>Departure Time</mat-label>
-          <input type="text" [disabled]="!editMode" [(ngModel)]="ride.departureTime">
-     </form>
-</div>
-
-<div>
-     <mat-form-field class="full-width">
-          <mat-label>Num Seats available</mat-label>
-          <input class="mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-pristine ng-valid ng-touched" placeholder="Enter Num Seats Available" [disabled]="!editMode" [(ngModel)]="ride.numberOfSeatsAvailable">
-     </mat-form-field>
-</div>
-
-<div>
-     <mat-form-field class="full-width">
-          <mat-label>Amount Charge</mat-label>
-          <input type="text" [disabled]="!editMode" [(ngModel)]="ride.amountCharge">
-     </mat-form-field>
-</div>
-
-<div>
-     <mat-form-field class="full-width">
-          <label for="">Num Bookings</label>
-          <input type="text" [disabled]="!editMode" [(ngModel)]="ride.numberOfBookings">
-     </mat-form-field>
+     <label for="">Num Bookings</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.numberOfBookings">
 </div>
 
 <h2 *ngIf="show">Ride</h2>
@@ -58,19 +37,20 @@
 <div class="map" id="map">
   
 </div>
-
 <ul *ngIf="!newMap">
      <li *ngFor="let route of routes">
           {{route.name}} - {{route.latitude}}, {{route.longitude}} 
           <button *ngIf="editMode" (click)="removeRoute(route)">Remove</button>
      </li>
 </ul>
-
 <div *ngIf="editMode">
      <button>Save</button>
      <button (click)="goBack()">Cancel</button>
+
 </div>
 
-          </form>
-     </mat-card-content>
-</mat-card>
+<div *ngIf="isPassenger">
+     <button (click)="bookRide()">Book this ride</button>
+     <button (click)="goBack()">Cancel</button>
+
+</div>
