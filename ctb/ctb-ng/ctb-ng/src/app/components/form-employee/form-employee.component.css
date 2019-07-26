@@ -1,0 +1,28 @@
+/* .my-form{
+    min-width: auto;
+    max-width: auto;
+    width: 100%;
+    margin-right: 200px;
+  } */
+
+
+  .my-form{
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+   
+  .full-width {
+    width: 100%;
+  }
+
+
+/* .my-card-register {
+    padding-right: 700px;
+    padding-top: 200px;
+    align-items: center;
+} */
+/*    
+  .full-width {
+    width: 100%;
+  } */

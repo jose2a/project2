@@ -1,5 +1,93 @@
-<h2>Register</h2>
+<h2 *ngIf="show">Register</h2>
 
+<ul>
+  <li *ngFor="let error of valErrors">
+    {{ error }}
+  </li>
+</ul>
+
+<div class="reg-form">
+<mat-toolbar>
+    <span>Registration</span>
+  </mat-toolbar>
+  <mat-card class="my-card">  
+  <mat-card-content>
+    <form class="my-form">
+      <div>
+       <mat-form-field class="full-width" flex layout-fill>
+              <mat-label>Username</mat-label>
+              <input  matInput name="username" [(ngModel)]="employee.username" placeholder="Enter username">
+           </mat-form-field>
+       </div>
+       <div>
+           <mat-form-field class="full-width">
+              <mat-label>Email</mat-label>
+              <input  matInput name="email" [(ngModel)]="employee.email" placeholder="Enter email">
+           </mat-form-field>
+          </div>
+          <div>
+           <mat-form-field class="full-width">
+              <mat-label>Password</mat-label>
+              <input  matInput name="password" [(ngModel)]="employee.password" placeholder="Password">
+           </mat-form-field>
+           </div>
+           <div>
+           <mat-form-field class="full-width">
+              <mat-label>First Name</mat-label>
+              <input  matInput name="first-name" [(ngModel)]="employee.firstName" placeholder="Enter first name">
+           </mat-form-field>
+          </div>
+          <div>
+           <mat-form-field class="full-width">
+              <mat-label>Last Name</mat-label>
+              <input  matInput name="last-name" [(ngModel)]="employee.lastName" placeholder="Enter last name">
+           </mat-form-field>
+          </div>
+          <div>
+           <mat-form-field class="full-width">
+              <mat-label>Phone Number</mat-label>
+              <input  matInput  [(ngModel)]="employee.phoneNumber" placeholder="Enter phone number"
+              name="phone-number">
+           </mat-form-field>
+          </div>
+          <div>
+           <mat-checkbox class="full-width" label-position="after" 
+           class="form-check-input" [(ngModel)]="employee.driver" name="check">
+             <label>Are you a driver?</label>
+            </mat-checkbox>   
+          </div>   
+    
+  
+   <mat-card-actions>
+      <button mat-raised-button (click)="registerEmployee()" color="accent">Submit</button>
+   </mat-card-actions>
+  </form>
+  </mat-card-content>
+</mat-card>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<mat-toolbar>
+<span>Register</span>
+</mat-toolbar>
 <div>
   <p>{{result}}</p>
 
@@ -9,34 +97,34 @@
   
   <input type="hidden" [(ngModel)]="employee.employeeId" />
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.username">Username</label>
-    <input type="text" class="form-control" [(ngModel)]="employee.username" placeholder="Enter username"/>
+    <input type="text" class="" [(ngModel)]="employee.username" placeholder="Enter username"/>
   </div>
   
-  <div class="form-group">
+  <div class="">
     <label for="employee.email">Email</label>
-    <input type="email" class="form-control" [(ngModel)]="employee.email" placeholder="Enter email"/>
+    <input type="email" class="" [(ngModel)]="employee.email" placeholder="Enter email"/>
   </div>
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.password">Password</label>
-    <input type="password" class="form-control" [(ngModel)]="employee.password" placeholder="Password">
+    <input type="password" class="" [(ngModel)]="employee.password" placeholder="Password">
   </div>
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.firstName">First Name</label>
-    <input type="text" class="form-control" [(ngModel)]="employee.firstName" placeholder="Enter first name">
+    <input type="text" class="" [(ngModel)]="employee.firstName" placeholder="Enter first name">
   </div>
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.lastName">Last Name</label>
-    <input type="text" class="form-control" [(ngModel)]="employee.lastName" placeholder="Enter last name">
+    <input type="text" class="" [(ngModel)]="employee.lastName" placeholder="Enter last name">
   </div>
 
-  <div class="form-group">
+  <div class="">
     <label for="employee.phoneNumber">Phone number</label>
-    <input type="text" class="form-control" [(ngModel)]="employee.phoneNumber" placeholder="Enter phone number">
+    <input type="text" class="" [(ngModel)]="employee.phoneNumber" placeholder="Enter phone number">
   </div>
 
   <div class="form-check">
@@ -50,4 +138,4 @@
   </div>
 
   <button type="button" (click)="registerEmployee()" class="btn btn-primary">Register</button>
-</div>
+</div> -->

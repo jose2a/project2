@@ -1,5 +1,7 @@
 package com.revature.ctb.daos;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.hibernate.Session;
@@ -14,7 +16,7 @@ import com.revature.ctb.utils.LogUtil;
 public class EmployeeDAOImpl implements EmployeeDAO {
 
 	private SessionFactory sessionFactory;
-	
+
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -68,6 +70,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 		// get employee
 		return session.get(Employee.class, employeeId);
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		Session session = sessionFactory.getCurrentSession();
+
+		return session.createQuery("from Employee where active = true", Employee.class).getResultList();
+	}
+
+	@Override
+	public List<Employee> getBlockedEmployees() {
+		Session session = sessionFactory.getCurrentSession();
+
+		return session.createQuery("from Employee where blocked = true", Employee.class).getResultList();
 	}
 
 }

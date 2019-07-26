@@ -5,14 +5,22 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import com.revature.ctb.domains.Employee;
 import com.revature.ctb.domains.InfoReq;
 
+@Repository
 public class InfoRequestDAOImpl implements InfoRequestDAO {
 
 	private SessionFactory sessionFactory;
 
+	
+	@Autowired
+	public void SessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	public boolean addRequest(InfoReq infoReq) {
 		Session session = sessionFactory.getCurrentSession();
@@ -35,9 +43,10 @@ public class InfoRequestDAOImpl implements InfoRequestDAO {
 	public List<InfoReq> getReqByEmpId(Integer employeeId) {
 		Session session = sessionFactory.getCurrentSession();
 
-		Employee employee = session.get(Employee.class, employeeId);
+		Query<InfoReq> query = session.createQuery("from InfoReq where employee.id = :employeeId and provided = false", InfoReq.class);
+		query.setParameter("employeeId", employeeId);
 
-		return employee.getInfoRequests();
+		return query.getResultList();
 	}
 
 	@Override

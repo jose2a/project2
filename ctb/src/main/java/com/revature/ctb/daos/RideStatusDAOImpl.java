@@ -3,9 +3,11 @@ package com.revature.ctb.daos;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.revature.ctb.domains.RideStatus;
 
+@Repository
 public class RideStatusDAOImpl implements RideStatusDAO {
 	
 	private SessionFactory sessionFactory;

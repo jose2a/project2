@@ -10,8 +10,15 @@ public interface BookingDAO {
 
 	public boolean updateBooking(Booking booking);
 
-	public boolean deleteBooking(Booking booking);
+	public boolean deleteBooking(Integer bookingId);
 
 	public List<Booking> getBookingsByRideId(Integer rideId);
 
+	public List<Booking> getAllBooking();
+	
+	public List<Booking> getBookingsByEmployeeId(Integer employeeId);
+	
+	public List<Booking> getFutureBookingsByEmployeeId(Integer employeeId);
+
+	public Booking getBookingById(Integer bookingId);
 }

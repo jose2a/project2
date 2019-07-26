@@ -1,0 +1,9 @@
+div.map{
+	height: 500px;
+	width: 60%;
+	display: inline-block;
+}
+
+ul.routes {
+	display: inline-block;
+}

@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
+         production: false,
+         urlApi: `http://localhost:8080/ctb/api`,
+         mapboxKey: `pk.eyJ1Ijoiam9zZTJhIiwiYSI6ImNqeWE4NzYybzA5N2MzZ3BmamZwMTZodjUifQ.qCYLl-SgOXGCfCAbPOKkew`
+       };
 
 /*
  * For easier debugging in development mode, you can import the following file

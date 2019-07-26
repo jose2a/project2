@@ -1,0 +1,25 @@
+<h1>Driver Rides</h1>
+
+<mat-card>
+  <a mat-button [routerLink]="'/driver/scheduleride'">Schedule a new ride</a>
+</mat-card>
+
+<table mdbTable striped="true">
+     <thead>
+       <tr>
+         <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr mdbTableCol *ngFor="let ride of rides">
+         <th scope="row">{{ride.rideId}}</th>
+         <td>{{ride.departureDate}}</td>
+         <td>{{ride.departureTime}}</td>
+         <td>{{ride.numberOfSeatsAvailable}}</td>
+         <td>{{ride.amountCharge}}</td>
+         <td>{{ride.numberOfBookings}}</td>
+         <td>{{ride.employee.firstName}}</td>
+         <td><a routerLink="/driver/ride/{{ ride.rideId }}">View</a></td>
+       </tr>
+     </tbody>
+   </table>

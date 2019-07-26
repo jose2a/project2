@@ -1,0 +1,55 @@
+<input type="hidden" [(ngModel)]="ride.rideId">
+<div>
+     <label for="">Make</label>
+     <input type="text" [(ngModel)]="ride.car.make" disabled="disabled">
+</div>
+<div>
+     <label for="">Model</label>
+     <input type="text" [(ngModel)]="ride.car.model" disabled="disabled">
+</div>
+<div>
+     <label for="">Departure Date</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.departureDate">
+</div>
+<div>
+     <label for="">Departure Time</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.departureTime">
+</div>
+
+<div>
+     <label for="">Num Seats available</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.numberOfSeatsAvailable">
+</div>
+
+<div>
+     <label for="">Amount Charge</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.amountCharge">
+</div>
+
+<div>
+     <label for="">Num Bookings</label>
+     <input type="text" [disabled]="!editMode" [(ngModel)]="ride.numberOfBookings">
+</div>
+
+<h2 *ngIf="show">Ride</h2>
+
+<div class="map" id="map">
+  
+</div>
+<ul *ngIf="!newMap">
+     <li *ngFor="let route of routes">
+          {{route.name}} - {{route.latitude}}, {{route.longitude}} 
+          <button *ngIf="editMode" (click)="removeRoute(route)">Remove</button>
+     </li>
+</ul>
+<div *ngIf="editMode">
+     <button>Save</button>
+     <button (click)="goBack()">Cancel</button>
+
+</div>
+
+<div *ngIf="isPassenger">
+     <button (click)="bookRide()">Book this ride</button>
+     <button (click)="goBack()">Cancel</button>
+
+</div>
