@@ -11,9 +11,9 @@
  
       <span class="toolbar-space"></span>
       <span>
-      <mat-icon color="warn"><a mat-icon [routerLink]="'/car'">settings</a></mat-icon>
+      <mat-icon *ngIf="show" color="warn"><a mat-icon [routerLink]="'/car'">settings</a></mat-icon>
       <span class="toolbar-space2"></span>
-      <a  class="logout" (click)="logout()" >Logout</a>
+      <a *ngIf="show" class="logout" (click)="logout()" >Logout</a>
     </span>
 
   </mat-toolbar-row>
@@ -58,7 +58,8 @@
         <a *ngIf="isDriver" mat-list-item [routerLink]="'/driver/ride'"> Driver Rides </a>
         <a *ngIf="isPassenger" mat-list-item [routerLink]="'/passenger/ride'"> Passenger Rides </a>
         <a *ngIf="isPassenger" mat-list-item [routerLink]="'/passenger/booking'"> Passenger Bookings </a>
-        <a *ngIf="!isAdmin || isPassenger || isDriver" mat-list-item [routerLink]="'/register'"> Register </a>
+        <a *ngIf="!show" mat-list-item [routerLink]="'/login'"> Login </a>
+        <a *ngIf="!show" mat-list-item [routerLink]="'/register'"> Register </a>
       <a mat-list-item (click)="sidenav.toggle()" href="">Close</a>
 
     </mat-nav-list>

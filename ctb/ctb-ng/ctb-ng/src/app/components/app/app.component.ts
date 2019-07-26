@@ -52,6 +52,11 @@ export class AppComponent implements OnInit{
      });
     }
 
+    } else {
+      this.isAdmin = false;
+      this.isDriver = false;
+      this.isPassenger = false;
+      this.show = false;
     }
     });
   }
