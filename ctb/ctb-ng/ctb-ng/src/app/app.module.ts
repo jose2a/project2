@@ -36,6 +36,7 @@ import { PassengerRideComponent } from './components/passenger-ride/passenger-ri
 
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { DriverShowRideComponent } from './components/driver-show-ride/driver-show-ride.component';
+import { NewRideComponent } from './components/new-ride/new-ride.component';
 
 
 @NgModule({
@@ -54,9 +55,9 @@ import { DriverShowRideComponent } from './components/driver-show-ride/driver-sh
     DriverRideComponent,
     PassengerListRideComponent,
     PassengerRideComponent,
-
+    DriverShowRideComponent,
+    NewRideComponent,
     ServerErrorComponent,
-
     DriverShowRideComponent
   ],
   imports: [

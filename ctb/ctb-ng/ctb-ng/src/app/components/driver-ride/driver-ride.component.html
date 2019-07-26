@@ -42,3 +42,8 @@
           <button *ngIf="editMode" (click)="removeRoute(route)">Remove</button>
      </li>
 </ul>
+<div *ngIf="editMode">
+     <button>Save</button>
+     <button (click)="goBack()">Cancel</button>
+
+</div>

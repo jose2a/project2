@@ -6,8 +6,9 @@ import { Observable } from 'rxjs';
 import { Car } from '../models/car';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-}; 
+  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+  withCredentials: true
+};
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class CarService {
 
   /*GET car by employeeId*/
   getCarsByEmployeeId(employeeId: number): Observable <Car[]>{
-    return this.http.get<Car[]>(`${this.carUrl}/${employeeId}/car`);
+    return this.http.get<Car[]>(`${this.carUrl}/${employeeId}/car`, httpOptions);
   }
 }
 

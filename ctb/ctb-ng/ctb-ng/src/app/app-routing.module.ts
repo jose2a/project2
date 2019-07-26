@@ -14,6 +14,7 @@ import { PassengerRideComponent } from './components/passenger-ride/passenger-ri
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { DriverShowRideComponent } from './components/driver-show-ride/driver-show-ride.component';
+import { NewRideComponent } from './components/new-ride/new-ride.component';
 
 
 const routes: Routes = [
@@ -31,9 +32,11 @@ const routes: Routes = [
 
   { path: "passenger/ride", component: PassengerListRideComponent },
   { path: "passenger/ride/:rideId", component: PassengerRideComponent },
+  
   { path: "notfound", component: NotFoundComponent },
-  { path: "servererror", component: ServerErrorComponent }
-  // { path: 'detail/:id', component: LoginComponent }
+  { path: "servererror", component: ServerErrorComponent },
+
+  { path: "driver/scheduleride", component: NewRideComponent }
 ];
 
 @NgModule({
