@@ -1,0 +1,11 @@
+.toolbar-space {
+    flex: 1 1 auto;
+}
+
+/* .toolbar-space2 {
+    flex: 10px;
+} */
+
+mat-sidenav {
+    width: 250px;
+}

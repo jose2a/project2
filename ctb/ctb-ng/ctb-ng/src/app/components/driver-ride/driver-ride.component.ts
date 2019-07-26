@@ -7,7 +7,7 @@ import "../../../../node_modules/leaflet-routing-machine/dist/leaflet-routing-ma
 import "../../../../node_modules/leaflet-control-geocoder/dist/Control.Geocoder.js";
 import { Route } from "../../models/route.js";
 import { environment } from "../../../environments/environment";
-import { Car } from "src/app/models/car.js";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-driver-ride",
@@ -31,21 +31,25 @@ export class DriverRideComponent implements OnInit {
 
   @Input() id: number;
 
-  constructor(private route: ActivatedRoute, private rideServ: RideService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private rideServ: RideService,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.ride = new Ride();
-    const rideId = this.id; 
+    const rideId = this.id;
     //+this.route.snapshot.paramMap.get("rideId");
 
     if (this.editMode && rideId <= 0) {
       this.initMap();
       this.renderMap();
-    } else if (this.editMode) {
+    } else if (this.editMode || this.id !== 0) {
       this.rideServ.getRideById(rideId).subscribe(ride => {
         this.ride = ride;
         this.routes = ride.routes;
-        
+
         this.initCoordinates();
         this.initMap();
         this.renderMap();
@@ -93,7 +97,8 @@ export class DriverRideComponent implements OnInit {
         defaultMarkGeocode: false,
         geocoder: L.Control.Geocoder.mapbox(environment.mapboxKey),
         position: "topright"
-      }).on("markgeocode", function(e) {
+      })
+        .on("markgeocode", function(e) {
           console.log("markgeocode");
 
           console.log(e.geocode);
@@ -152,19 +157,19 @@ export class DriverRideComponent implements OnInit {
   }
 
   initCoordinates() {
-//     if (this.routes.length === 0) {
-//       const r = new Route();
-//       r.latitude = "0";
-//       r.longitude = "0";
-//       r.pickupLocation = true;
-//       r.destinationLocation = true;
-//       r.routeId = 5;
+    //     if (this.routes.length === 0) {
+    //       const r = new Route();
+    //       r.latitude = "0";
+    //       r.longitude = "0";
+    //       r.pickupLocation = true;
+    //       r.destinationLocation = true;
+    //       r.routeId = 5;
 
-//       this.routes.push(r);
-//       this.routes.push(r);
-//       this.from = null;
-//       this.to = null;
-  /*} else */if (this.routes.length === 2) {
+    //       this.routes.push(r);
+    //       this.routes.push(r);
+    //       this.from = null;
+    //       this.to = null;
+    /*} else */ if (this.routes.length === 2) {
       this.from = this.routes.find(route => {
         return route.pickupLocation === true;
       });
@@ -201,5 +206,9 @@ export class DriverRideComponent implements OnInit {
     console.log(index);
     this.routes.splice(index, 1);
     this.renderMap();
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
