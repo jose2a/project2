@@ -9,3 +9,10 @@
 mat-sidenav {
     width: 250px;
 }
+
+.logout {
+    cursor: pointer;
+}
+.logout:hover {
+    color: #00f;
+}

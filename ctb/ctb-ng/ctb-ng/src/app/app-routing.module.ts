@@ -39,8 +39,8 @@ const routes: Routes = [
   { path: "passenger/ride/:rideId", component: PassengerRideComponent },
   { path: "passenger/booking", component: PassengerBookingsComponent },
 
-  { path: "notfound", component: NotFoundComponent },
-  { path: "servererror", component: ServerErrorComponent },
+  { path: "404", component: NotFoundComponent },
+  { path: "500", component: ServerErrorComponent },
 
   { path: "driver/scheduleride", component: NewRideComponent }
 ];

@@ -10,7 +10,7 @@ import { RideService } from 'src/app/services/ride.service';
 export class PassengerListRideComponent implements OnInit {
   rides: Ride[];
 
-  headElements = ['ID', 'Departure Date', 'Departure Time', 'Number Of Seats', 'Amount change', 'Bookings', 'Employee'];
+  headElements = ['ID', 'Departure Date', 'Departure Time', 'Number Of Seats', 'Amount change', 'Bookings', 'Driver'];
 
   constructor(private rideServ: RideService) {}
 

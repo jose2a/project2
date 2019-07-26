@@ -5,6 +5,7 @@ import { Employee } from '../models/employee';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -17,7 +18,11 @@ const httpOptions = {
 export class EmployeeService {
   private employeesUrl = `${appConfig.urlApi}/employee`;
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   /** GET employees from the server */
   getEmployees(): Observable<Employee[]> {
@@ -49,15 +54,15 @@ export class EmployeeService {
   logoutEmployee() {
     console.log("Logout");
 
-    return this.http
-      .get(`${this.employeesUrl}/logout`, httpOptions)
-      .pipe(
-        tap(() => {
-          console.log('Logout observable');
+    return this.http.get(`${this.employeesUrl}/logout`, httpOptions).pipe(
+      tap(() => {
+        console.log("Logout observable");
 
-          localStorage.removeItem("employee");
-          this.auth.clearLoggedEmployee();
-        })
-      );
+        localStorage.removeItem("employee");
+        this.auth.clearLoggedEmployee();
+
+        this.router.navigate(["/"]);
+      })
+    );
   }
 }
