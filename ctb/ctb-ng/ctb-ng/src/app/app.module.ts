@@ -38,6 +38,8 @@ import { ServerErrorComponent } from './components/server-error/server-error.com
 import { DriverShowRideComponent } from './components/driver-show-ride/driver-show-ride.component';
 import { NewRideComponent } from './components/new-ride/new-ride.component';
 import { PassengerBookingsComponent } from './components/passenger-bookings/passenger-bookings.component';
+import { DriverDashboardComponent } from './components/driver-dashboard/driver-dashboard.component';
+import { PassengerDashboardComponent } from './components/passenger-dashboard/passenger-dashboard.component';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { PassengerBookingsComponent } from './components/passenger-bookings/pass
     NewRideComponent,
     ServerErrorComponent,
     DriverShowRideComponent,
-    PassengerBookingsComponent
+    PassengerBookingsComponent,
+    DriverDashboardComponent,
+    PassengerDashboardComponent
   ],
   imports: [
     BrowserModule,
