@@ -19,8 +19,15 @@ export class AuthInterceptor implements HttpInterceptor {
                  console.log("Error");
 
                  if (error.status === 401) {
-               //     console.log("Not authenticated");
-               this.router.navigateByUrl("/");
+                  this.router.navigateByUrl("/");
+                 }
+
+                 if (error.status === 404) {
+                   this.router.navigateByUrl("/404");
+                 }
+
+                 if (error.status === 500) {
+                   this.router.navigateByUrl("/500");
                  }
                }
              )
