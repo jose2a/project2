@@ -20,7 +20,8 @@ export class DriverListRideComponent implements OnInit {
     "Number Of Seats",
     "Amount change",
     "Bookings",
-    "Employee"
+    "Employee",
+    ""
   ];
 
   constructor(

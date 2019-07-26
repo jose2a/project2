@@ -182,7 +182,7 @@ public class RideServiceImpl implements RideService {
 
 	@Override
 	public void updateRide(Ride ride) {
-		validateRide(ride);
+//		validateRide(ride);
 		// check for all exceptions that could occur when initially scheduling ride
 		List<Route> routes = ride.getRoutes();
 		ride.setRoutes(null);

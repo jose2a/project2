@@ -8,7 +8,7 @@
      </thead>
      <tbody>
        <tr mdbTableCol *ngFor="let booking of bookings">
-         <th scope="row">{{booking.ride.departureDate}} {{booking.ride.departureTime}}</th>
+         <td>{{booking.ride.departureDate}} {{booking.ride.departureTime}}</td>
          <td>{{booking.ride.employee.firstName}} {{booking.ride.employee.lastName}}</td>
          <td>{{booking.ride.car.make}} {{booking.ride.car.model}}</td>
          <td>{{booking.ride.rideStatus.name}}</td>
