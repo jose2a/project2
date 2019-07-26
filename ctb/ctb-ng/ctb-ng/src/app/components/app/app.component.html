@@ -13,7 +13,7 @@
       <span>
       <mat-icon color="warn"><a mat-icon [routerLink]="'/car'">settings</a></mat-icon>
       <span class="toolbar-space2"></span>
-      <a (click)="logout()" >Logout</a>
+      <a class="logout" (click)="logout()" >Logout</a>
     </span>
 
   </mat-toolbar-row>
@@ -34,7 +34,7 @@
         <a mat-button [routerLink]="'/passenger/booking'"> Passenger Bookings </a>
         <a mat-list-item [routerLink]="'/car'"> Cars </a>
         <a mat-list-item [routerLink]="'/register'"> Register </a>
-      <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+      <a mat-list-item (click)="sidenav.toggle()" href="">Close</a>
 
     </mat-nav-list>
   </mat-sidenav>
