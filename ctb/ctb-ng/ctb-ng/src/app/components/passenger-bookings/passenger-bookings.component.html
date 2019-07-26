@@ -1,0 +1,18 @@
+<table mdbTable striped="true">
+     <thead>
+       <tr>
+         <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr mdbTableCol *ngFor="let booking of bookings">
+         <th scope="row">{{booking.ride.departureDate}} {{booking.ride.departureTime}}</th>
+         <td>{{booking.ride.employee.firstName}} {{booking.ride.employee.lastName}}</td>
+         <td>{{booking.ride.car.make}} {{booking.ride.car.model}}</td>
+         <td>{{booking.ride.rideStatus.name}}</td>
+         <td>{{booking.pickupLocation.name}}</td>
+         <td>{{booking.destinationLocation.name}}</td>
+         <td><a routerLink="/passenger/booking/{{ booking.bookingId }}">View Details</a></td>
+       </tr>
+     </tbody>
+   </table>
