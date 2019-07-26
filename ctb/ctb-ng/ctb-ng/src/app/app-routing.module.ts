@@ -11,6 +11,7 @@ import { DriverRideComponent } from './components/driver-ride/driver-ride.compon
 import { PassengerListRideComponent } from './components/passenger-list-ride/passenger-list-ride.component';
 import { PassengerRideComponent } from './components/passenger-ride/passenger-ride.component';
 import { DriverShowRideComponent } from './components/driver-show-ride/driver-show-ride.component';
+import { NewRideComponent } from './components/new-ride/new-ride.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/dashboard", pathMatch: "full" },
@@ -26,8 +27,10 @@ const routes: Routes = [
   { path: "driver/ride/:rideId", component: DriverShowRideComponent },
 
   { path: "passenger/ride", component: PassengerListRideComponent },
-  { path: "passenger/ride/:rideId", component: PassengerRideComponent }
+  { path: "passenger/ride/:rideId", component: PassengerRideComponent },
   // { path: 'detail/:id', component: LoginComponent }
+
+  { path: "driver/scheduleride", component: NewRideComponent }
 ];
 
 @NgModule({

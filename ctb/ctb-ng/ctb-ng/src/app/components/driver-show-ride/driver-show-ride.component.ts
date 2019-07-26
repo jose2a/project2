@@ -15,6 +15,10 @@ export class DriverShowRideComponent implements OnInit {
   ngOnInit() {
     this.rideId = +this.route.snapshot.paramMap.get("rideId");
     console.log(`DRIVER SHOW: ${this.rideId}`);
+    this.editMode = false;
+  }
+
+  editRide() {
     this.editMode = true;
   }
 }
