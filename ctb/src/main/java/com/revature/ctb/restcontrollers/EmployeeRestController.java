@@ -3,16 +3,20 @@ package com.revature.ctb.restcontrollers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +26,9 @@ import com.revature.ctb.dtos.EmployeeDto;
 import com.revature.ctb.dtos.LoginDto;
 import com.revature.ctb.services.EmployeeService;
 import com.revature.ctb.services.RoleService;
+import com.revature.ctb.utils.LogUtil;
 
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class EmployeeRestController extends BasedRestController {
 
@@ -55,6 +61,11 @@ public class EmployeeRestController extends BasedRestController {
 		employeeServ.registerEmployee(employee);
 
 		return mapper.map(employee, EmployeeDto.class);
+	}
+	
+	@RequestMapping(method = RequestMethod.OPTIONS, value = "employee/login")
+	public void putOptions() {
+		
 	}
 
 	/**
@@ -110,12 +121,13 @@ public class EmployeeRestController extends BasedRestController {
 	 */
 	@PostMapping(value = "employee/login")
 	@ResponseStatus(code = HttpStatus.OK)
-	public EmployeeAndRolesDto login(@RequestBody LoginDto dto) {
+	public EmployeeAndRolesDto login(@RequestBody LoginDto dto, HttpSession sess) {
 		Employee employee = employeeServ.getEmployeeByUsernameAndPassword(dto.getUsername(), dto.getPassword());
 		employee.setRoles(roleServ.getRolesForEmployee(employee.getEmployeeId()));
 
 		if (employee != null) {
-			session.setAttribute(EMPLOYEE_SESSION_KEY, employee);
+			LogUtil.debug(">>>>>>>>> Logging user");
+			sess.setAttribute(EMPLOYEE_SESSION_KEY, employee);
 		}
 
 		return mapper.map(employee, EmployeeAndRolesDto.class);
@@ -186,6 +198,7 @@ public class EmployeeRestController extends BasedRestController {
 	@GetMapping(value = "employee/logout")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void logoutEmployee() {
+		LogUtil.debug(">>>>>>>>>>>> LOGOUT");
 		if (session != null && session.getAttribute(EMPLOYEE_SESSION_KEY) != null) {
 			session.invalidate();
 		}

@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from "@angular/router";
 
 @Component({
@@ -11,11 +11,13 @@ import { Router } from "@angular/router";
   templateUrl: "./form-employee.component.html",
   styleUrls: ["./form-employee.component.css"]
 })
-export class FormEmployeeComponent implements OnInit {
+export class FormEmployeeComponent implements OnInit, OnDestroy {
   employee: Employee;
   result: string;
   valErrors: string[];
-  employee$: Observable<Employee>;
+  employee$: Subscription;
+
+  show = false;
 
   constructor(
     private employeeService: EmployeeService,
@@ -24,7 +26,12 @@ export class FormEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employee$ = this.authServ.getLoggedEmployee();
+    this.employee$ = this.authServ.getLoggedEmployee().subscribe(emp => {
+      console.log("Logged: " + emp);
+      this.show = emp != null;
+      console.log(this.show);
+    });
+    
     this.employee = new Employee();
   }
 
@@ -44,5 +51,10 @@ export class FormEmployeeComponent implements OnInit {
         this.valErrors = errorResp.error.errorMessages;
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.employee$.unsubscribe();
+    this.show = false;
   }
 }

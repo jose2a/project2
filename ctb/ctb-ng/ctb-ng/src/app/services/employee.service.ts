@@ -7,7 +7,8 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+  withCredentials: true
 };
 
 @Injectable({
@@ -38,18 +39,23 @@ export class EmployeeService {
       .post<Employee>(`${this.employeesUrl}/login`, login, httpOptions)
       .pipe(
         tap((emp: Employee) => {
+          localStorage.setItem("employee", JSON.stringify(emp));
+
           this.auth.setLoggedEmployee(emp);
         })
       );
   }
 
-  logoutEmployee(): Observable<Employee> {
+  logoutEmployee() {
+    console.log("Logout");
+
     return this.http
-      .get<Employee>(`${this.employeesUrl}/logout`, httpOptions)
+      .get(`${this.employeesUrl}/logout`, httpOptions)
       .pipe(
         tap(() => {
-          console.log('Logout');
+          console.log('Logout observable');
 
+          localStorage.removeItem("employee");
           this.auth.clearLoggedEmployee();
         })
       );

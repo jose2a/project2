@@ -10,6 +10,8 @@ import { RideService } from 'src/app/services/ride.service';
 export class DriverListRideComponent implements OnInit {
   rides: Ride[];
 
+  dataSource = this.rides;
+
   constructor(private rideServ: RideService) {}
 
   ngOnInit() {

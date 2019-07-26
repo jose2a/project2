@@ -7,7 +7,8 @@ import { catchError, tap } from 'rxjs/operators';
 
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+  withCredentials: true
 };
 
 @Injectable({
@@ -20,7 +21,7 @@ export class RideService {
 
   /*GET rides from server*/
   getRides(): Observable<Ride[]> {
-    return this.http.get<Ride[]>(this.rideUrl);
+    return this.http.get<Ride[]>(this.rideUrl, httpOptions);
   }
 
   getRidesByEmployee(employeeId: number): Observable<Ride[]> {
@@ -46,12 +47,12 @@ export class RideService {
 
   /*GET employee rides*/
   getAvailableRides(): Observable<Ride[]> {
-    return this.http.get<Ride[]>(`${this.rideUrl}/available`);
+    return this.http.get<Ride[]>(`${this.rideUrl}/available`, httpOptions);
   }
 
   /*GET ride with ID*/
   getRideById(rideId: number): Observable<Ride> {
-    return this.http.get<Ride>(`${this.rideUrl}/${rideId}`);
+    return this.http.get<Ride>(`${this.rideUrl}/${rideId}`, httpOptions);
   }
 
   /*POST message to passengers*/
