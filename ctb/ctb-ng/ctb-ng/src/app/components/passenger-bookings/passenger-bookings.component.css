@@ -1,3 +1,40 @@
 table {
     width: 90%;
 }
+
+table {
+    width: 90%;
+}
+
+.btn-lg {
+	height: 40px;
+	width: 170px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+    font-size: 24px;
+    color: #222;
+    display: block;
+}
+
+#passenger-rides {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  table tr:nth-child(even){background-color: #f2f2f2;}
+  
+  table tr:hover {background-color: #ddd;}
+  
+  table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(76, 175, 81);
+    color: white;
+  }
