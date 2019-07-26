@@ -33,7 +33,10 @@ import { DriverListRideComponent } from './components/driver-list-ride/driver-li
 import { DriverRideComponent } from './components/driver-ride/driver-ride.component';
 import { PassengerListRideComponent } from './components/passenger-list-ride/passenger-list-ride.component';
 import { PassengerRideComponent } from './components/passenger-ride/passenger-ride.component';
+
 import { ServerErrorComponent } from './components/server-error/server-error.component';
+import { DriverShowRideComponent } from './components/driver-show-ride/driver-show-ride.component';
+
 
 @NgModule({
   declarations: [
@@ -51,8 +54,10 @@ import { ServerErrorComponent } from './components/server-error/server-error.com
     DriverRideComponent,
     PassengerListRideComponent,
     PassengerRideComponent,
+
     ServerErrorComponent,
 
+    DriverShowRideComponent
   ],
   imports: [
     BrowserModule,
