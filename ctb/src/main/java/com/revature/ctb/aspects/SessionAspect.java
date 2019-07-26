@@ -46,7 +46,7 @@ public class SessionAspect {
 	 * @throws Throwable
 	 */
 	// TODO: Remove ! form sessionREs
-//	@Before("sessionRestControllerMethodPointcut() && !(login() || register())")
+	@Before("sessionRestControllerMethodPointcut() && !(login() || register())")
 	public void sessionBefore(JoinPoint theJointPoint) throws Throwable {
 		LogUtil.debug("VERIFYING IF USER LOGGED IN: " + theJointPoint.getSignature().toShortString());
 

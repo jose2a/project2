@@ -67,6 +67,7 @@ public class TransactionAspect {
 		// Check if a transaction is not running or not active, start a new one
 		if (transaction == null || !transaction.isActive()) {
 			LogUtil.debug(">>>>>>>>> TransactionAspect - starting the transaction");
+			LogUtil.debug(">>>>>>>>> Session - " + session.isOpen());
 
 			transaction = session.beginTransaction();
 		}

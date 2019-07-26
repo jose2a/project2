@@ -10,8 +10,7 @@ export class CarComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.router.navigateByUrl("/");
+    this.router.navigateByUrl('/');
   }
 
-  
 }

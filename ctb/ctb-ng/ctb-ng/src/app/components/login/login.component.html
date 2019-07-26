@@ -1,22 +1,27 @@
-<div id="container">
-        <div id="upper">
-            <h3>Member Login</h3>
-          </div>   
-    <div>
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username">
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password">
+<mat-toolbar>
+  <span>LOGIN</span>
+</mat-toolbar>
 
-  <div id="lower">
-  <input [(ngModel)]="logged" type="checkbox"><label for="checkbox">Keep me logged in</label>
-  <input type="submit" value="Login" id="submit">
-  <br>
-  <a id="register" href="">No Account? Register Here</a>
+<ul>
+ <li *ngFor="let error of valErrors">
+     {{ error }}
+ </li>
+ </ul>
 
-    </div>
-
-<p>login</p>
-
-</div>
-  </div>
+<mat-card class="my-card">
+   <mat-card-content>
+      <div class="my-form">
+         <mat-form-field class="full-width">
+            <mat-label>Username</mat-label>
+            <input  matInput  placeholder="Username" type="text" [(ngModel)]="employee.username">
+         </mat-form-field>
+         <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input  matInput  placeholder="Password" [(ngModel)]="employee.password">
+         </mat-form-field>
+      </div>
+   </mat-card-content>
+   <mat-card-actions>
+      <button mat-raised-button (click)="loginEmployee()" color="accent">LOGIN</button>
+   </mat-card-actions>
+</mat-card>

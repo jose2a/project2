@@ -1,13 +1,46 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
- </div>
- <nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/car">Cars</a>
-  <a routerLink="/register">Register</a>
-  <a routerLink="/ride">Rides</a>
-</nav>
-<router-outlet></router-outlet>
+
+<mat-toolbar color="accent" layout-wrap="">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <span><h1>{{ title }}</h1></span>
+    
+ 
+      <span class="toolbar-space"></span>
+      <span>
+      <mat-icon color="warn"><a mat-icon [routerLink]="'/car'">settings</a></mat-icon>
+      <span class="toolbar-space2"></span>
+      <a (click)="logout()" >Logout</a>
+    </span>
+
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+      <span style="font-size: 12px;">Welcome To Your Dashboard</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" opened>
+    <mat-nav-list>
+
+        <a mat-list-item [routerLink]="'/dashboard'"> Dashboard </a>
+        <a mat-list-item [routerLink]="'/admin'"> Admin Dashboard </a>
+        <a mat-list-item [routerLink]="'/admin/ride'"> Admin Rides </a>
+        <a mat-list-item [routerLink]="'/driver/ride'"> Driver Rides </a>
+        <a mat-list-item [routerLink]="'/passenger/ride'"> Passenger Rides </a>
+        <a mat-list-item [routerLink]="'/car'"> Cars </a>
+        <a mat-list-item [routerLink]="'/register'"> Register </a>
+      <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container> 
