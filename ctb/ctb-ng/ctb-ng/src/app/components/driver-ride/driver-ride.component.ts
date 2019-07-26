@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Ride } from "src/app/models/ride";
 import { RideService } from "src/app/services/ride.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 declare let L;
 import "../../../../node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.js";
 import "../../../../node_modules/leaflet-control-geocoder/dist/Control.Geocoder.js";
@@ -43,7 +43,8 @@ export class DriverRideComponent implements OnInit {
     private authSer: AuthService,
     private rideServ: RideService,
     private bookingServ: BookingService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -221,7 +222,7 @@ export class DriverRideComponent implements OnInit {
   }
 
   bookRide() {
-    console.log('booking this ride');
+    console.log("booking this ride");
 
     const emp = this.authSer.getEmployeeFromSession();
 
@@ -233,10 +234,11 @@ export class DriverRideComponent implements OnInit {
     booking.ride.rideId = this.ride.rideId;
     booking.driverFeedback = null;
     booking.passengerFeedback = null;
-    
+
     this.bookingServ.createBooking(booking).subscribe(
       newBooking => {
         console.log(newBooking);
+        this.router.navigate(["/passenger/ride"]);
       },
       (errorResp: HttpErrorResponse) => {
         this.valErrors = errorResp.error.errorMessages;

@@ -205,6 +205,7 @@ export class NewRideComponent implements OnInit {
     this.ride.employee.employeeId = emp.employeeId;
     this.rideServ.createRide(this.ride).subscribe(newRide => {
       console.log(newRide);
+      this.router.navigate(["/driver/ride"]);
     });
   }
 
