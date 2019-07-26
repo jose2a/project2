@@ -1,3 +1,39 @@
+<<<<<<< HEAD
+<h4>Select A Car</h4>
+    <mat-form-field>
+        <mat-label>Select A Car</mat-label>
+        <mat-select [(ngModel)]="ride.car.carId" >
+          <mat-option *ngFor="let car of cars" value= {{car.carId}}>
+              {{car.make}} {{car.model}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+<form>
+
+<mat-form-field>
+    <label for="">Departure Date</label>
+    <input type="text" [(ngModel)]="ride.departureDate" />
+  </mat-form-field>
+
+  <mat-form-field>
+      <label for="">Departure Time</label>
+      <input type="text" [(ngModel)]="ride.departureTime" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <label for="">Num Seats available</label>
+      <input type="text" [(ngModel)]="ride.numberOfSeatsAvailable" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <label for="">Amount Charge</label>
+      <input type="text" [(ngModel)]="ride.amountCharge" />
+    </mat-form-field>
+  </form>
+
+
+=======
 <h1>Sechedule a new Ride</h1>
 
 <div>
@@ -26,6 +62,7 @@
   <label for="">Amount Charge</label>
   <input type="text" [(ngModel)]="ride.amountCharge" />
 </div>
+>>>>>>> dev
 
 <div class="map" id="map"></div>
 <ul>

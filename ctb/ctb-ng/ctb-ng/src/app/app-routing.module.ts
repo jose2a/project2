@@ -21,8 +21,8 @@ import { PassengerBookingsComponent } from './components/passenger-bookings/pass
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "/dashboard", pathMatch: "full" },
-  { path: "dashboard", component: LoginComponent },
+  { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: "login", component: LoginComponent },
   { path: "car", component: CarComponent },
   { path: "register", component: FormEmployeeComponent },
   { path: "ride", component: ListOfRidesComponent },
@@ -37,6 +37,7 @@ const routes: Routes = [
   { path: "passenger", component: PassengerDashboardComponent},
   { path: "passenger/ride", component: PassengerListRideComponent },
   { path: "passenger/ride/:rideId", component: PassengerRideComponent },
+
   { path: "passenger/booking", component: PassengerBookingsComponent },
 
   { path: "404", component: NotFoundComponent },
