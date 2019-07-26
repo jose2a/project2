@@ -1,3 +1,4 @@
+
 <input type="hidden" [(ngModel)]="ride.rideId">
 <div>
      <label for="">Make</label>
@@ -21,15 +22,19 @@
      <input type="text" [disabled]="!editMode" [(ngModel)]="ride.numberOfSeatsAvailable">
 </div>
 
-<div>
+
+     <mat-form-field>
      <label for="">Amount Charge</label>
      <input type="text" [disabled]="!editMode" [(ngModel)]="ride.amountCharge">
-</div>
-
+     <mat-form-field>
+     
 <div>
      <label for="">Num Bookings</label>
      <input type="text" [disabled]="!editMode" [(ngModel)]="ride.numberOfBookings">
 </div>
+
+
+
 
 <h2 *ngIf="show">Ride</h2>
 

@@ -1,29 +1,41 @@
-<div>
-  <label for="">Car</label>
-  <select [(ngModel)]="ride.car.carId">
-  <option *ngFor="let car of cars" value= {{car.carId}}>
-    {{car.make}} {{car.model}}
-  </option>
-</select>
-</div>
-<div>
-  <label for="">Departure Date</label>
-  <input type="text" [(ngModel)]="ride.departureDate" />
-</div>
-<div>
-  <label for="">Departure Time</label>
-  <input type="text" [(ngModel)]="ride.departureTime" />
-</div>
 
 <div>
-  <label for="">Num Seats available</label>
-  <input type="text" [(ngModel)]="ride.numberOfSeatsAvailable" />
+  
+    <mat-form-field>
+        <label for="">Car</label>
+        <select [(ngModel)]="ride.car.carId">
+        <option *ngFor="let car of cars" value= {{car.carId}}>
+          {{car.make}} {{car.model}}
+        </option>
+      </select>
+      </mat-form-field>
+
 </div>
 
-<div>
-  <label for="">Amount Charge</label>
-  <input type="text" [(ngModel)]="ride.amountCharge" />
-</div>
+<form>
+
+<mat-form-field>
+    <label for="">Departure Date</label>
+    <input type="text" [(ngModel)]="ride.departureDate" />
+  </mat-form-field>
+
+  <mat-form-field>
+      <label for="">Departure Time</label>
+      <input type="text" [(ngModel)]="ride.departureTime" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <label for="">Num Seats available</label>
+      <input type="text" [(ngModel)]="ride.numberOfSeatsAvailable" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <label for="">Amount Charge</label>
+      <input type="text" [(ngModel)]="ride.amountCharge" />
+    </mat-form-field>
+  </form>
+
+
 
 <div class="map" id="map"></div>
 <ul>
