@@ -7,7 +7,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  title = "ctb-ng";
+  title = "CTB";
 
   /**
    *
