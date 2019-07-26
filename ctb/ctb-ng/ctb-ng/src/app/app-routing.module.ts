@@ -32,7 +32,6 @@ const routes: Routes = [
 
   { path: "passenger/ride", component: PassengerListRideComponent },
   { path: "passenger/ride/:rideId", component: PassengerRideComponent },
-  
   { path: "notfound", component: NotFoundComponent },
   { path: "servererror", component: ServerErrorComponent },
 
