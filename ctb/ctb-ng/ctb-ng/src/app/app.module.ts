@@ -19,6 +19,7 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
 
 
 import { CarComponent } from './components/car/car.component';
@@ -83,6 +84,7 @@ import { PassengerDashboardComponent } from './components/passenger-dashboard/pa
     MatCardModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatTableModule,
 
     AppRoutingModule
   ],
