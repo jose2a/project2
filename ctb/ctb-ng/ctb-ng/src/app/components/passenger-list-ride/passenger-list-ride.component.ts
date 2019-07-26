@@ -10,6 +10,8 @@ import { RideService } from 'src/app/services/ride.service';
 export class PassengerListRideComponent implements OnInit {
   rides: Ride[];
 
+  headElements = ['ID', 'Departure Date', 'Departure Time', 'Number Of Seats', 'Amount change', 'Bookings', 'Employee'];
+
   constructor(private rideServ: RideService) {}
 
   ngOnInit() {
