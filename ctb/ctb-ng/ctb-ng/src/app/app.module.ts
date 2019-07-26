@@ -37,13 +37,10 @@ import { PassengerRideComponent } from './components/passenger-ride/passenger-ri
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { DriverShowRideComponent } from './components/driver-show-ride/driver-show-ride.component';
 import { NewRideComponent } from './components/new-ride/new-ride.component';
-<<<<<<< HEAD
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-=======
 import { PassengerBookingsComponent } from './components/passenger-bookings/passenger-bookings.component';
 import { DriverDashboardComponent } from './components/driver-dashboard/driver-dashboard.component';
 import { PassengerDashboardComponent } from './components/passenger-dashboard/passenger-dashboard.component';
->>>>>>> dev
 
 
 @NgModule({
@@ -66,13 +63,10 @@ import { PassengerDashboardComponent } from './components/passenger-dashboard/pa
     NewRideComponent,
     ServerErrorComponent,
     DriverShowRideComponent,
-<<<<<<< HEAD
-    NavBarComponent
-=======
+    NavBarComponent,
     PassengerBookingsComponent,
     DriverDashboardComponent,
     PassengerDashboardComponent
->>>>>>> dev
   ],
   imports: [
     BrowserModule,

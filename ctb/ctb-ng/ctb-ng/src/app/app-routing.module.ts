@@ -17,7 +17,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { DriverShowRideComponent } from './components/driver-show-ride/driver-show-ride.component';
 import { NewRideComponent } from './components/new-ride/new-ride.component';
-import { PassengerBookingsComponent } from './components/passenger-bookings/passenger-bookings.component';
+ import { PassengerBookingsComponent } from './components/passenger-bookings/passenger-bookings.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/dashboard", pathMatch: "full" },
@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: "passenger/ride/:rideId", component: PassengerRideComponent },
   { path: "servererror", component: ServerErrorComponent },
 
-  { path: "passenger/booking", component: PassengerBookingsComponent },
+   { path: "passenger/booking", component: PassengerBookingsComponent },
 
   { path: "404", component: NotFoundComponent },
   { path: "500", component: ServerErrorComponent },
