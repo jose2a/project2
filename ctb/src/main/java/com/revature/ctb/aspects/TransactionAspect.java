@@ -68,6 +68,9 @@ public class TransactionAspect {
 		if (transaction == null || !transaction.isActive()) {
 			LogUtil.debug(">>>>>>>>> TransactionAspect - starting the transaction");
 			LogUtil.debug(">>>>>>>>> Session - " + session.isOpen());
+			if (!session.isOpen()) {
+				session = sf.getCurrentSession();
+			}
 
 			transaction = session.beginTransaction();
 		}
