@@ -11,6 +11,7 @@ import { Location } from "@angular/common";
 import { Booking } from 'src/app/models/booking.js';
 import { BookingService } from 'src/app/services/booking.service.js';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service.js';
 
 @Component({
   selector: "app-driver-ride",
@@ -39,7 +40,7 @@ export class DriverRideComponent implements OnInit {
   valErrors: string[];
 
   constructor(
-    private route: ActivatedRoute,
+    private authSer: AuthService,
     private rideServ: RideService,
     private bookingServ: BookingService,
     private location: Location
@@ -48,8 +49,6 @@ export class DriverRideComponent implements OnInit {
   ngOnInit() {
     this.ride = new Ride();
     const rideId = this.id;
-    // this.isPassenger = false;
-    //+this.route.snapshot.paramMap.get("rideId");
 
     if (this.editMode && rideId <= 0) {
       this.initMap();
@@ -223,11 +222,14 @@ export class DriverRideComponent implements OnInit {
 
   bookRide() {
     console.log('booking this ride');
+
+    const emp = this.authSer.getEmployeeFromSession();
+
     const booking = new Booking();
     booking.destinationLocation = this.to;
     booking.pickupLocation = this.from;
 
-    booking.employee.employeeId = 117;
+    booking.employee.employeeId = emp.employeeId;
     booking.ride.rideId = this.ride.rideId;
     booking.driverFeedback = null;
     booking.passengerFeedback = null;

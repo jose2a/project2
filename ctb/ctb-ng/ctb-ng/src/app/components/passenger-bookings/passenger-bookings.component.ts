@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Booking } from 'src/app/models/booking';
 import { BookingService } from 'src/app/services/booking.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: "app-passenger-bookings",
@@ -20,10 +21,12 @@ export class PassengerBookingsComponent implements OnInit {
 
   bookings: Booking[];
 
-  constructor(private bookingServ: BookingService) {}
+  constructor(private bookingServ: BookingService, private authServ: AuthService) {}
 
   ngOnInit() {
-    this.bookingServ.getBookingByEmployee(117).subscribe(bookingList => {
+    const emp = this.authServ.getEmployeeFromSession();
+
+    this.bookingServ.getBookingByEmployee(emp.employeeId).subscribe(bookingList => {
       this.bookings = bookingList;
     });
   }

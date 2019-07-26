@@ -10,6 +10,7 @@ import { Location } from "@angular/common";
 import { CarService } from "src/app/services/car.service";
 import { Car } from 'src/app/models/car.js';
 import { Employee } from 'src/app/models/employee.js';
+import { AuthService } from 'src/app/services/auth.service.js';
 
 @Component({
   selector: "app-new-ride",
@@ -36,6 +37,7 @@ export class NewRideComponent implements OnInit {
   @Input() id: number;
 
   constructor(
+    private authServ: AuthService,
     private carServ: CarService,
     private rideServ: RideService,
     private location: Location
@@ -191,8 +193,10 @@ export class NewRideComponent implements OnInit {
   }
 
   schedule() {
+    const emp = this.authServ.getEmployeeFromSession();
+
 	  this.ride.routes = this.routes;
-	  this.ride.employee.employeeId = 110;
+	  this.ride.employee.employeeId = emp.employeeId;
     this.rideServ.createRide(this.ride).subscribe(newRide => {
       console.log(newRide);
     });

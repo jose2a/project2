@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Ride } from 'src/app/models/ride';
 import { RideService } from 'src/app/services/ride.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Employee } from 'src/app/models/employee';
 
 @Component({
   selector: "app-driver-list-ride",
@@ -12,9 +14,11 @@ export class DriverListRideComponent implements OnInit {
   
   headElements = ['ID', 'Departure Date', 'Departure Time', 'Number Of Seats', 'Amount change', 'Bookings', 'Employee'];
 
-  constructor(private rideServ: RideService) {}
+  constructor(private rideServ: RideService, private authServ: AuthService) {}
 
   ngOnInit() {
-    this.rideServ.getRidesByEmployee(110).subscribe(rides => (this.rides = rides));
+    const emp = this.authServ.getEmployeeFromSession();
+
+    this.rideServ.getRidesByEmployee(emp.employeeId).subscribe(rides => (this.rides = rides));
   }
 }
