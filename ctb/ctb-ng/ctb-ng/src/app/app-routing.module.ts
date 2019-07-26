@@ -21,8 +21,8 @@ import { PassengerBookingsComponent } from './components/passenger-bookings/pass
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "/dashboard", pathMatch: "full" },
-  { path: "dashboard", component: LoginComponent },
+  { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: "login", component: LoginComponent },
   { path: "car", component: CarComponent },
   { path: "register", component: FormEmployeeComponent },
   { path: "ride", component: ListOfRidesComponent },
