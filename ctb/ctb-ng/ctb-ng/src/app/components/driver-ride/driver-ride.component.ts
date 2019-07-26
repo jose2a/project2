@@ -8,6 +8,9 @@ import "../../../../node_modules/leaflet-control-geocoder/dist/Control.Geocoder.
 import { Route } from "../../models/route.js";
 import { environment } from "../../../environments/environment";
 import { Location } from "@angular/common";
+import { Booking } from 'src/app/models/booking.js';
+import { BookingService } from 'src/app/services/booking.service.js';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: "app-driver-ride",
@@ -31,15 +34,21 @@ export class DriverRideComponent implements OnInit {
 
   @Input() id: number;
 
+  @Input() isPassenger: boolean;
+
+  valErrors: string[];
+
   constructor(
     private route: ActivatedRoute,
     private rideServ: RideService,
+    private bookingServ: BookingService,
     private location: Location
   ) {}
 
   ngOnInit() {
     this.ride = new Ride();
     const rideId = this.id;
+    // this.isPassenger = false;
     //+this.route.snapshot.paramMap.get("rideId");
 
     if (this.editMode && rideId <= 0) {
@@ -210,5 +219,26 @@ export class DriverRideComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  bookRide() {
+    console.log('booking this ride');
+    const booking = new Booking();
+    booking.destinationLocation = this.to;
+    booking.pickupLocation = this.from;
+
+    booking.employee.employeeId = 117;
+    booking.ride.rideId = this.ride.rideId;
+    booking.driverFeedback = null;
+    booking.passengerFeedback = null;
+    
+    this.bookingServ.createBooking(booking).subscribe(
+      newBooking => {
+        console.log(newBooking);
+      },
+      (errorResp: HttpErrorResponse) => {
+        this.valErrors = errorResp.error.errorMessages;
+      }
+    );
   }
 }
