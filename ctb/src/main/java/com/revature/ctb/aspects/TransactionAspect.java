@@ -89,6 +89,8 @@ public class TransactionAspect {
 			LogUtil.debug(">>>>>>>>> TransactionAspect - commiting transaction");
 
 			transaction.commit();
+			session.close();
+			
 			transaction = null;
 			session = null;
 
@@ -106,6 +108,7 @@ public class TransactionAspect {
 
 			transaction.rollback();
 			transaction = null;
+			session .close();
 			session = null;
 			
 			methodSignature = null;

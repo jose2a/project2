@@ -8,6 +8,7 @@
      </thead>
      <tbody>
        <tr mdbTableCol *ngFor="let booking of bookings">
+         <td>{{booking.ride.rideId}}</td>
          <td>{{booking.ride.departureDate}} {{booking.ride.departureTime}}</td>
          <td>{{booking.ride.employee.firstName}} {{booking.ride.employee.lastName}}</td>
          <td>{{booking.ride.car.make}} {{booking.ride.car.model}}</td>
