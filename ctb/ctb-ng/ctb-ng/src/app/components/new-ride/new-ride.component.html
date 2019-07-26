@@ -1,16 +1,12 @@
-
-<div>
-  
+<h4>Select A Car</h4>
     <mat-form-field>
-        <label for="">Car</label>
-        <select [(ngModel)]="ride.car.carId">
-        <option *ngFor="let car of cars" value= {{car.carId}}>
-          {{car.make}} {{car.model}}
-        </option>
-      </select>
+        <mat-label>Select A Car</mat-label>
+        <mat-select [(ngModel)]="ride.car.carId" >
+          <mat-option *ngFor="let car of cars" value= {{car.carId}}>
+              {{car.make}} {{car.model}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-
-</div>
 
 <form>
 
