@@ -1,3 +1,27 @@
 table {
     width: 90%;
 }
+
+
+#passenger-rides {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #passenger-rides td, #passenger-rides th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #passenger-rides tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #passenger-rides tr:hover {background-color: #ddd;}
+  
+  #passenger-rides th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(76, 175, 81);
+    color: white;
+  }
